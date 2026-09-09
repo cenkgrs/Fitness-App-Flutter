@@ -24,7 +24,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
 
   # Charts
-  fl_chart: ^0.68.0
+  fl_chart: ^1.2.0
 
   # UX / animation
   flutter_animate: ^4.5.0
