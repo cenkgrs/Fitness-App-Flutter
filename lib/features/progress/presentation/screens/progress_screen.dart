@@ -102,7 +102,7 @@ class _StrengthTab extends ConsumerWidget {
           padding: const EdgeInsets.all(AppSpacing.screenMargin),
           children: [
             DropdownButtonFormField<String>(
-              value: activeId,
+              initialValue: activeId,
               dropdownColor: AppColors.surface2,
               decoration: const InputDecoration(),
               items: ids

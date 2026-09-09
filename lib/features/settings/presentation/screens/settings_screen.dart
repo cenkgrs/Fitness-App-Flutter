@@ -126,7 +126,7 @@ class _SwitchTile extends StatelessWidget {
       title: Text(label, style: AppTypography.bodyLg),
       value: value,
       onChanged: onChanged,
-      activeColor: AppColors.primary,
+      activeThumbColor: AppColors.primary,
     );
   }
 }
