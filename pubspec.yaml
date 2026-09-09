@@ -1,0 +1,49 @@
+name: repwise
+description: Repwise — personalized fitness, workout, nutrition and progress tracking.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Routing
+  go_router: ^14.2.0
+
+  # Local persistence
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.3
+  flutter_secure_storage: ^9.2.2
+
+  # Charts
+  fl_chart: ^0.68.0
+
+  # UX / animation
+  flutter_animate: ^4.5.0
+  wakelock_plus: ^1.2.5
+  flutter_svg: ^2.0.10+1
+
+  # Utilities
+  uuid: ^4.4.0
+  intl: ^0.19.0
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/lottie/
