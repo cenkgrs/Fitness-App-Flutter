@@ -6,7 +6,10 @@
 // so requests are rate-limited rather than charged if the quota is hit).
 // GEMINI_API_KEY is a Supabase secret, never shipped in the Flutter client.
 
-const GEMINI_MODEL = "gemini-3.6-flash";
+// gemini-3.6-flash's free tier is extremely tight (5 requests/day at time of
+// writing); flash-lite has a noticeably higher free quota (15/day) for a
+// small quality tradeoff — worth it while cost must stay at $0.
+const GEMINI_MODEL = "gemini-3.1-flash-lite";
 const GEMINI_URL =
   `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
