@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
@@ -28,6 +29,7 @@ class RestTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final progress = total.inMilliseconds == 0
         ? 0.0
         : 1 - (remaining.inMilliseconds / total.inMilliseconds).clamp(0.0, 1.0);
@@ -42,7 +44,7 @@ class RestTimer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text('REST', style: AppTypography.caption),
+          Text(l10n.restTimerLabel, style: AppTypography.caption),
           const SizedBox(height: AppSpacing.xs),
           Text(
             _format(remaining),
@@ -64,9 +66,9 @@ class RestTimer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: onSubtract15s, child: const Text('-15s')),
-              TextButton(onPressed: onSkip, child: const Text('Skip Rest')),
-              TextButton(onPressed: onAdd15s, child: const Text('+30s')),
+              TextButton(onPressed: onSubtract15s, child: Text(l10n.restTimerSubtract)),
+              TextButton(onPressed: onSkip, child: Text(l10n.restTimerSkip)),
+              TextButton(onPressed: onAdd15s, child: Text(l10n.restTimerAdd)),
             ],
           ),
         ],

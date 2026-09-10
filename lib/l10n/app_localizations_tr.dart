@@ -771,4 +771,43 @@ class AppLocalizationsTr extends AppLocalizations {
   String settingsSecondsFormat(int seconds) {
     return '$seconds sn';
   }
+
+  @override
+  String get mealCardNoItems => 'Henüz bir şey eklenmedi';
+
+  @override
+  String get mealCardAddFood => 'Yemek Ekle';
+
+  @override
+  String workoutCardSummary(int minutes, int count) {
+    return '$minutes dk • $count egzersiz';
+  }
+
+  @override
+  String exerciseCardSetsReps(int sets, int reps) {
+    return '$sets Set × $reps Tekrar';
+  }
+
+  @override
+  String exerciseCardLastBest(String value) {
+    return 'Son: $value';
+  }
+
+  @override
+  String get restTimerLabel => 'DİNLENME';
+
+  @override
+  String get restTimerSubtract => '-15sn';
+
+  @override
+  String get restTimerSkip => 'Dinlenmeyi Atla';
+
+  @override
+  String get restTimerAdd => '+30sn';
+
+  @override
+  String get splashTagline => 'Daha akıllı antrenman. Daha güçlü ol.';
+
+  @override
+  String get lineChartNoData => 'Henüz veri yok';
 }

@@ -341,5 +341,26 @@
   "settingsSecondsFormat": "{seconds}s",
   "@settingsSecondsFormat": {
     "placeholders": { "seconds": { "type": "int" } }
-  }
+  },
+
+  "mealCardNoItems": "No items logged yet",
+  "mealCardAddFood": "Add Food",
+  "workoutCardSummary": "{minutes} min • {count} exercises",
+  "@workoutCardSummary": {
+    "placeholders": { "minutes": { "type": "int" }, "count": { "type": "int" } }
+  },
+  "exerciseCardSetsReps": "{sets} Sets × {reps} Reps",
+  "@exerciseCardSetsReps": {
+    "placeholders": { "sets": { "type": "int" }, "reps": { "type": "int" } }
+  },
+  "exerciseCardLastBest": "Last: {value}",
+  "@exerciseCardLastBest": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "restTimerLabel": "REST",
+  "restTimerSubtract": "-15s",
+  "restTimerSkip": "Skip Rest",
+  "restTimerAdd": "+30s",
+  "splashTagline": "Train smarter. Get stronger.",
+  "lineChartNoData": "No data yet"
 }

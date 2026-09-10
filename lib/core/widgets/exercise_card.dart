@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
@@ -14,6 +15,7 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final workingSets = exercise.sets.where((s) => !s.isWarmup).toList();
     final targetReps = workingSets.isNotEmpty ? workingSets.first.targetReps : 0;
     final targetWeight = workingSets.isNotEmpty ? workingSets.first.targetWeightKg : 0.0;
@@ -41,7 +43,7 @@ class ExerciseCard extends StatelessWidget {
                 children: [
                   Text(exercise.name, style: AppTypography.bodyLg),
                   Text(
-                    '${workingSets.length} Sets × $targetReps Reps',
+                    l10n.exerciseCardSetsReps(workingSets.length, targetReps),
                     style: AppTypography.caption,
                   ),
                 ],
@@ -53,7 +55,7 @@ class ExerciseCard extends StatelessWidget {
                 Text('${targetWeight.toStringAsFixed(1)} kg', style: AppTypography.bodyMd
                     .copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600)),
                 if (previousBest != null)
-                  Text('Last: $previousBest', style: AppTypography.caption),
+                  Text(l10n.exerciseCardLastBest(previousBest!), style: AppTypography.caption),
               ],
             ),
           ],

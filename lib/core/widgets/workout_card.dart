@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
@@ -46,7 +47,8 @@ class WorkoutCard extends StatelessWidget {
                 Text(day.name, style: AppTypography.headingSm),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
-                  '${day.estimatedDuration.inMinutes} min • ${day.exercises.length} exercises',
+                  AppLocalizations.of(context)!
+                      .workoutCardSummary(day.estimatedDuration.inMinutes, day.exercises.length),
                   style: AppTypography.caption,
                 ),
               ],

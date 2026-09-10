@@ -1492,6 +1492,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{seconds}s'**
   String settingsSecondsFormat(int seconds);
+
+  /// No description provided for @mealCardNoItems.
+  ///
+  /// In en, this message translates to:
+  /// **'No items logged yet'**
+  String get mealCardNoItems;
+
+  /// No description provided for @mealCardAddFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Food'**
+  String get mealCardAddFood;
+
+  /// No description provided for @workoutCardSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min • {count} exercises'**
+  String workoutCardSummary(int minutes, int count);
+
+  /// No description provided for @exerciseCardSetsReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} Sets × {reps} Reps'**
+  String exerciseCardSetsReps(int sets, int reps);
+
+  /// No description provided for @exerciseCardLastBest.
+  ///
+  /// In en, this message translates to:
+  /// **'Last: {value}'**
+  String exerciseCardLastBest(String value);
+
+  /// No description provided for @restTimerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'REST'**
+  String get restTimerLabel;
+
+  /// No description provided for @restTimerSubtract.
+  ///
+  /// In en, this message translates to:
+  /// **'-15s'**
+  String get restTimerSubtract;
+
+  /// No description provided for @restTimerSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Rest'**
+  String get restTimerSkip;
+
+  /// No description provided for @restTimerAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'+30s'**
+  String get restTimerAdd;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Train smarter. Get stronger.'**
+  String get splashTagline;
+
+  /// No description provided for @lineChartNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get lineChartNoData;
 }
 
 class _AppLocalizationsDelegate

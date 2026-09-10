@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
@@ -36,7 +37,7 @@ class LineChartCard extends StatelessWidget {
       return AppCard(
         child: SizedBox(
           height: 160,
-          child: Center(child: Text('No data yet', style: AppTypography.bodyMd)),
+          child: Center(child: Text(AppLocalizations.of(context)!.lineChartNoData, style: AppTypography.bodyMd)),
         ),
       );
     }

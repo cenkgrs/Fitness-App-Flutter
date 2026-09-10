@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../constants/app_constants.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            Text('Train smarter. Get stronger.',
+            Text(AppLocalizations.of(context)!.splashTagline,
                 style: AppTypography.bodyMd.copyWith(color: AppColors.textTertiary)),
             const SizedBox(height: 48),
             const SizedBox(

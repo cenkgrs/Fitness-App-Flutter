@@ -248,5 +248,17 @@
   "settingsSubscription": "Abonelik",
   "settingsSendFeedback": "Geri Bildirim Gönder",
   "settingsPrivacyPolicy": "Gizlilik Politikası",
-  "settingsSecondsFormat": "{seconds} sn"
+  "settingsSecondsFormat": "{seconds} sn",
+
+  "mealCardNoItems": "Henüz bir şey eklenmedi",
+  "mealCardAddFood": "Yemek Ekle",
+  "workoutCardSummary": "{minutes} dk • {count} egzersiz",
+  "exerciseCardSetsReps": "{sets} Set × {reps} Tekrar",
+  "exerciseCardLastBest": "Son: {value}",
+  "restTimerLabel": "DİNLENME",
+  "restTimerSubtract": "-15sn",
+  "restTimerSkip": "Dinlenmeyi Atla",
+  "restTimerAdd": "+30sn",
+  "splashTagline": "Daha akıllı antrenman. Daha güçlü ol.",
+  "lineChartNoData": "Henüz veri yok"
 }
