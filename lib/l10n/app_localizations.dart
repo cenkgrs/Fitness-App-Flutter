@@ -547,6 +547,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start My Plan'**
   String get onboardingStartMyPlan;
+
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get homeGreetingEvening;
+
+  /// No description provided for @homeDefaultAthleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Athlete'**
+  String get homeDefaultAthleteName;
+
+  /// No description provided for @homeReadySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to get stronger?'**
+  String get homeReadySubtitle;
+
+  /// No description provided for @homeCaloriesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} left'**
+  String homeCaloriesLeft(int count);
+
+  /// No description provided for @homeTodaysWorkoutLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY\'S WORKOUT'**
+  String get homeTodaysWorkoutLabel;
+
+  /// No description provided for @homeRestDayMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest day today. 🧘'**
+  String get homeRestDayMessage;
+
+  /// No description provided for @homeNoWorkoutPlanned.
+  ///
+  /// In en, this message translates to:
+  /// **'No workout planned yet.'**
+  String get homeNoWorkoutPlanned;
+
+  /// No description provided for @homeWorkoutSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'⏱ {minutes} min • 🏋️ {count} exercises'**
+  String homeWorkoutSummary(int minutes, int count);
+
+  /// No description provided for @homeStartWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Workout'**
+  String get homeStartWorkout;
+
+  /// No description provided for @homeWeightGoalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WEIGHT GOAL'**
+  String get homeWeightGoalLabel;
+
+  /// No description provided for @homeWeightRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining: {kg} kg'**
+  String homeWeightRemaining(String kg);
+
+  /// No description provided for @homeQuickActionAddMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Meal'**
+  String get homeQuickActionAddMeal;
+
+  /// No description provided for @homeQuickActionLogWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Weight'**
+  String get homeQuickActionLogWeight;
+
+  /// No description provided for @homeQuickActionViewProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'View Progress'**
+  String get homeQuickActionViewProgress;
 }
 
 class _AppLocalizationsDelegate

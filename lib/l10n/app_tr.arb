@@ -76,5 +76,22 @@
   "macroFat": "Yağ",
   "onboardingDaysPerWeekProgram": "Haftada {days} Gün Program",
   "onboardingPlanTagline": "Kas Gelişimi ve Yağ Kaybı",
-  "onboardingStartMyPlan": "Planımı Başlat"
+  "onboardingStartMyPlan": "Planımı Başlat",
+
+  "homeGreetingMorning": "Günaydın",
+  "homeGreetingAfternoon": "İyi günler",
+  "homeGreetingEvening": "İyi akşamlar",
+  "homeDefaultAthleteName": "Sporcu",
+  "homeReadySubtitle": "Güçlenmeye hazır mısın?",
+  "homeCaloriesLeft": "{count} kaldı",
+  "homeTodaysWorkoutLabel": "BUGÜNÜN ANTRENMANI",
+  "homeRestDayMessage": "Bugün dinlenme günü. 🧘",
+  "homeNoWorkoutPlanned": "Henüz planlanmış antrenman yok.",
+  "homeWorkoutSummary": "⏱ {minutes} dk • 🏋️ {count} egzersiz",
+  "homeStartWorkout": "Antrenmana Başla",
+  "homeWeightGoalLabel": "KİLO HEDEFİ",
+  "homeWeightRemaining": "Kalan: {kg} kg",
+  "homeQuickActionAddMeal": "Öğün Ekle",
+  "homeQuickActionLogWeight": "Kilo Kaydet",
+  "homeQuickActionViewProgress": "İlerlemeyi Gör"
 }

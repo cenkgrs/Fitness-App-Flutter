@@ -246,4 +246,58 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get onboardingStartMyPlan => 'Planımı Başlat';
+
+  @override
+  String get homeGreetingMorning => 'Günaydın';
+
+  @override
+  String get homeGreetingAfternoon => 'İyi günler';
+
+  @override
+  String get homeGreetingEvening => 'İyi akşamlar';
+
+  @override
+  String get homeDefaultAthleteName => 'Sporcu';
+
+  @override
+  String get homeReadySubtitle => 'Güçlenmeye hazır mısın?';
+
+  @override
+  String homeCaloriesLeft(int count) {
+    return '$count kaldı';
+  }
+
+  @override
+  String get homeTodaysWorkoutLabel => 'BUGÜNÜN ANTRENMANI';
+
+  @override
+  String get homeRestDayMessage => 'Bugün dinlenme günü. 🧘';
+
+  @override
+  String get homeNoWorkoutPlanned => 'Henüz planlanmış antrenman yok.';
+
+  @override
+  String homeWorkoutSummary(int minutes, int count) {
+    return '⏱ $minutes dk • 🏋️ $count egzersiz';
+  }
+
+  @override
+  String get homeStartWorkout => 'Antrenmana Başla';
+
+  @override
+  String get homeWeightGoalLabel => 'KİLO HEDEFİ';
+
+  @override
+  String homeWeightRemaining(String kg) {
+    return 'Kalan: $kg kg';
+  }
+
+  @override
+  String get homeQuickActionAddMeal => 'Öğün Ekle';
+
+  @override
+  String get homeQuickActionLogWeight => 'Kilo Kaydet';
+
+  @override
+  String get homeQuickActionViewProgress => 'İlerlemeyi Gör';
 }

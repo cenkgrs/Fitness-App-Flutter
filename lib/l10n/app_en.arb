@@ -88,5 +88,31 @@
     "placeholders": { "days": { "type": "int" } }
   },
   "onboardingPlanTagline": "Muscle Hypertrophy & Fat Loss",
-  "onboardingStartMyPlan": "Start My Plan"
+  "onboardingStartMyPlan": "Start My Plan",
+
+  "homeGreetingMorning": "Good morning",
+  "homeGreetingAfternoon": "Good afternoon",
+  "homeGreetingEvening": "Good evening",
+  "homeDefaultAthleteName": "Athlete",
+  "homeReadySubtitle": "Ready to get stronger?",
+  "homeCaloriesLeft": "{count} left",
+  "@homeCaloriesLeft": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "homeTodaysWorkoutLabel": "TODAY'S WORKOUT",
+  "homeRestDayMessage": "Rest day today. 🧘",
+  "homeNoWorkoutPlanned": "No workout planned yet.",
+  "homeWorkoutSummary": "⏱ {minutes} min • 🏋️ {count} exercises",
+  "@homeWorkoutSummary": {
+    "placeholders": { "minutes": { "type": "int" }, "count": { "type": "int" } }
+  },
+  "homeStartWorkout": "Start Workout",
+  "homeWeightGoalLabel": "WEIGHT GOAL",
+  "homeWeightRemaining": "Remaining: {kg} kg",
+  "@homeWeightRemaining": {
+    "placeholders": { "kg": { "type": "String" } }
+  },
+  "homeQuickActionAddMeal": "Add Meal",
+  "homeQuickActionLogWeight": "Log Weight",
+  "homeQuickActionViewProgress": "View Progress"
 }

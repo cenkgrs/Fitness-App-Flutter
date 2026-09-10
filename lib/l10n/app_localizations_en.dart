@@ -247,4 +247,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingStartMyPlan => 'Start My Plan';
+
+  @override
+  String get homeGreetingMorning => 'Good morning';
+
+  @override
+  String get homeGreetingAfternoon => 'Good afternoon';
+
+  @override
+  String get homeGreetingEvening => 'Good evening';
+
+  @override
+  String get homeDefaultAthleteName => 'Athlete';
+
+  @override
+  String get homeReadySubtitle => 'Ready to get stronger?';
+
+  @override
+  String homeCaloriesLeft(int count) {
+    return '$count left';
+  }
+
+  @override
+  String get homeTodaysWorkoutLabel => 'TODAY\'S WORKOUT';
+
+  @override
+  String get homeRestDayMessage => 'Rest day today. 🧘';
+
+  @override
+  String get homeNoWorkoutPlanned => 'No workout planned yet.';
+
+  @override
+  String homeWorkoutSummary(int minutes, int count) {
+    return '⏱ $minutes min • 🏋️ $count exercises';
+  }
+
+  @override
+  String get homeStartWorkout => 'Start Workout';
+
+  @override
+  String get homeWeightGoalLabel => 'WEIGHT GOAL';
+
+  @override
+  String homeWeightRemaining(String kg) {
+    return 'Remaining: $kg kg';
+  }
+
+  @override
+  String get homeQuickActionAddMeal => 'Add Meal';
+
+  @override
+  String get homeQuickActionLogWeight => 'Log Weight';
+
+  @override
+  String get homeQuickActionViewProgress => 'View Progress';
 }

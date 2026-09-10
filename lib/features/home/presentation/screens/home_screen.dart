@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final profileAsync = ref.watch(userProfileProvider);
     final user = ref.watch(authStateProvider).valueOrNull;
     final nutritionAsync = ref.watch(dailyNutritionProvider);
@@ -25,10 +27,12 @@ class HomeScreen extends ConsumerWidget {
     final goalAsync = ref.watch(activeGoalProvider);
 
     final hour = DateTime.now().hour;
-    final greeting = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
+    final greeting = hour < 12
+        ? l10n.homeGreetingMorning
+        : (hour < 18 ? l10n.homeGreetingAfternoon : l10n.homeGreetingEvening);
     final name = profileAsync.valueOrNull?.name.isNotEmpty == true
         ? profileAsync.valueOrNull!.name
-        : (user?.displayName ?? 'Athlete');
+        : (user?.displayName ?? l10n.homeDefaultAthleteName);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +44,7 @@ class HomeScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('$greeting, $name', style: AppTypography.headingMd),
-                  Text('Ready to get stronger?', style: AppTypography.caption),
+                  Text(l10n.homeReadySubtitle, style: AppTypography.caption),
                 ],
               ),
             ),
@@ -75,7 +79,7 @@ class HomeScreen extends ConsumerWidget {
                       size: 100,
                       strokeWidth: 8,
                       centerValue: nutrition.consumedCalories.round().toString(),
-                      centerLabel: '${nutrition.remainingCalories.round()} left',
+                      centerLabel: l10n.homeCaloriesLeft(nutrition.remainingCalories.round()),
                       rings: [
                         RingData(progress: nutrition.calorieProgress, color: AppColors.calories),
                         RingData(
@@ -90,19 +94,19 @@ class HomeScreen extends ConsumerWidget {
                       child: Column(
                         children: [
                           MacroProgress(
-                              label: 'Protein',
+                              label: l10n.macroProtein,
                               consumed: nutrition.consumedProteinG,
                               goal: nutrition.proteinGoal.toDouble(),
                               color: AppColors.protein),
                           const SizedBox(height: AppSpacing.sm),
                           MacroProgress(
-                              label: 'Carbs',
+                              label: l10n.macroCarbs,
                               consumed: nutrition.consumedCarbsG,
                               goal: nutrition.carbsGoal.toDouble(),
                               color: AppColors.carbs),
                           const SizedBox(height: AppSpacing.sm),
                           MacroProgress(
-                              label: 'Fat',
+                              label: l10n.macroFat,
                               consumed: nutrition.consumedFatG,
                               goal: nutrition.fatGoal.toDouble(),
                               color: AppColors.fat),
@@ -114,7 +118,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
-            Text('TODAY\'S WORKOUT', style: AppTypography.caption),
+            Text(l10n.homeTodaysWorkoutLabel, style: AppTypography.caption),
             const SizedBox(height: AppSpacing.sm),
             todayWorkoutAsync.when(
               loading: () => const LoadingShimmer(height: 140),
@@ -123,7 +127,7 @@ class HomeScreen extends ConsumerWidget {
                 if (day == null || day.isRestDay) {
                   return AppCard(
                     child: Text(
-                      day?.isRestDay == true ? 'Bugün dinlenme günü. 🧘' : 'No workout planned yet.',
+                      day?.isRestDay == true ? l10n.homeRestDayMessage : l10n.homeNoWorkoutPlanned,
                       style: AppTypography.bodyMd,
                     ),
                   );
@@ -136,12 +140,12 @@ class HomeScreen extends ConsumerWidget {
                       Text(day.name, style: AppTypography.headingMd),
                       const SizedBox(height: AppSpacing.xs),
                       Text(
-                        '⏱ ${day.estimatedDuration.inMinutes} min • 🏋️ ${day.exercises.length} exercises',
+                        l10n.homeWorkoutSummary(day.estimatedDuration.inMinutes, day.exercises.length),
                         style: AppTypography.caption,
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       PrimaryButton(
-                        label: 'Start Workout',
+                        label: l10n.homeStartWorkout,
                         icon: Icons.play_arrow,
                         onPressed: () => context.push('/workout/active/${day.id}'),
                       ),
@@ -169,7 +173,7 @@ class HomeScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('WEIGHT GOAL', style: AppTypography.caption),
+                          Text(l10n.homeWeightGoalLabel, style: AppTypography.caption),
                           Text(
                             '${goal.currentWeightKg!.toStringAsFixed(1)} kg → ${goal.targetWeightKg!.toStringAsFixed(1)} kg',
                             style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary),
@@ -187,7 +191,7 @@ class HomeScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.xs),
-                      Text('Remaining: ${remaining.toStringAsFixed(1)} kg', style: AppTypography.caption),
+                      Text(l10n.homeWeightRemaining(remaining.toStringAsFixed(1)), style: AppTypography.caption),
                     ],
                   ),
                 );
@@ -204,7 +208,7 @@ class HomeScreen extends ConsumerWidget {
               children: [
                 _QuickAction(
                   icon: Icons.play_circle_fill,
-                  label: 'Start Workout',
+                  label: l10n.homeStartWorkout,
                   onTap: () {
                     final day = todayWorkoutAsync.valueOrNull;
                     if (day != null && !day.isRestDay) {
@@ -216,17 +220,17 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 _QuickAction(
                   icon: Icons.add_circle,
-                  label: 'Add Meal',
+                  label: l10n.homeQuickActionAddMeal,
                   onTap: () => context.go('/nutrition'),
                 ),
                 _QuickAction(
                   icon: Icons.monitor_weight,
-                  label: 'Log Weight',
+                  label: l10n.homeQuickActionLogWeight,
                   onTap: () => context.go('/progress'),
                 ),
                 _QuickAction(
                   icon: Icons.insights,
-                  label: 'View Progress',
+                  label: l10n.homeQuickActionViewProgress,
                   onTap: () => context.go('/progress'),
                 ),
               ],
