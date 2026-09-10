@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,21 +20,35 @@ import '../../features/workouts/presentation/screens/workouts_screen.dart';
 import '../widgets/splash_screen.dart';
 import 'main_shell.dart';
 
+/// Notifies go_router to re-evaluate `redirect` when auth/onboarding state
+/// changes, without rebuilding the [GoRouter] instance itself. Rebuilding
+/// GoRouter (e.g. via `ref.watch` inside the provider below) recreates the
+/// whole Navigator tree, which wipes any in-progress screen's local state —
+/// this bit the onboarding flow, whose step index reset to 0 whenever
+/// `onboardingCompleteProvider` was invalidated mid-flow.
+class _RouterRefreshNotifier extends ChangeNotifier {
+  _RouterRefreshNotifier(Ref ref) {
+    ref.listen(authStateProvider, (_, __) => notifyListeners());
+    ref.listen(onboardingCompleteProvider, (_, __) => notifyListeners());
+  }
+}
+
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
-  final onboardingState = ref.watch(onboardingCompleteProvider);
+  final refreshNotifier = _RouterRefreshNotifier(ref);
+  ref.onDispose(refreshNotifier.dispose);
 
   return GoRouter(
     initialLocation: '/splash',
+    refreshListenable: refreshNotifier,
     redirect: (context, state) {
       final loc = state.matchedLocation;
       if (loc == '/splash') return null;
 
-      final isAuthLoading = authState.isLoading;
-      if (isAuthLoading) return null;
+      final authState = ref.read(authStateProvider);
+      if (authState.isLoading) return null;
 
       final user = authState.valueOrNull;
-      final onboardingDone = onboardingState.valueOrNull ?? false;
+      final onboardingDone = ref.read(onboardingCompleteProvider);
 
       final goingToAuth = loc == '/auth';
       final goingToOnboarding = loc == '/onboarding';

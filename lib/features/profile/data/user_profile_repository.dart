@@ -19,7 +19,12 @@ class UserProfileRepository {
     await _storage.profileBox.put(_key, profile.toJson());
   }
 
-  Future<bool> hasCompletedOnboarding() async {
+  Future<bool> hasCompletedOnboarding() async => hasCompletedOnboardingSync();
+
+  /// Hive reads are synchronous under the hood; exposed directly so the
+  /// router's redirect logic can check this without an async gap that would
+  /// otherwise cause a one-frame bounce back to /onboarding.
+  bool hasCompletedOnboardingSync() {
     return _storage.profileBox.get('onboarding_complete') as bool? ?? false;
   }
 

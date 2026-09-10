@@ -131,7 +131,9 @@ class OnboardingController extends Notifier<OnboardingDraft> {
 final onboardingControllerProvider =
     NotifierProvider<OnboardingController, OnboardingDraft>(OnboardingController.new);
 
-final onboardingCompleteProvider = FutureProvider<bool>((ref) async {
+/// Synchronous by design (Hive reads don't need to be async) so the
+/// router's redirect logic can read it without an AsyncLoading gap.
+final onboardingCompleteProvider = Provider<bool>((ref) {
   final repo = ref.watch(userProfileRepositoryProvider);
-  return repo.hasCompletedOnboarding();
+  return repo.hasCompletedOnboardingSync();
 });
