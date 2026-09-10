@@ -103,7 +103,9 @@ class LineChartCard extends StatelessWidget {
                     isCurved: true,
                     color: lineColor,
                     barWidth: 3,
-                    dotData: const FlDotData(show: false),
+                    // A single point has no line to draw, so it'd otherwise
+                    // render as an empty-looking card — show the dot then.
+                    dotData: FlDotData(show: points.length == 1),
                     belowBarData: BarAreaData(show: true, color: lineColor.withOpacity(0.12)),
                   ),
                 ],

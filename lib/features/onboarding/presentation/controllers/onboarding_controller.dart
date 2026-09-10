@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
+import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../../shared/services/nutrition_calculator.dart';
 
 /// Draft answers collected across the onboarding flow. Mutable-by-copy;
@@ -125,8 +127,19 @@ class OnboardingController extends Notifier<OnboardingDraft> {
           createdAt: DateTime.now(),
         ));
 
+    // Seeds the weight trend chart (Progress > Weight) with the value the
+    // user just entered — otherwise it stays empty until they manually log
+    // a weight entry, even though they already gave us their weight.
+    await ref.read(nutritionRepositoryProvider).addWeightEntry(WeightEntry(
+          id: const Uuid().v4(),
+          userId: userId,
+          date: DateTime.now(),
+          weightKg: profile.weightKg,
+        ));
+
     ref.invalidate(onboardingCompleteProvider);
     ref.invalidate(userProfileProvider);
+    ref.invalidate(weightEntriesProvider);
   }
 }
 

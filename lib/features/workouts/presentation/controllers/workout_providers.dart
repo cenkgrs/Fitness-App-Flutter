@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../core/utils/locale_resolver.dart';
 import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../../shared/services/consistency_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../data/local_workout_repository.dart';
 import '../../domain/workout_repository.dart';
 
@@ -59,7 +61,8 @@ class AIProgramRegenerationController extends AsyncNotifier<void> {
     state = await AsyncValue.guard(() async {
       final profile = await ref.read(userProfileProvider.future);
       if (profile == null) throw StateError('No profile to generate a plan from');
-      final program = await coach.generateWorkoutPlan(profile);
+      final locale = resolveLanguageCode(ref.read(settingsControllerProvider).languageCode);
+      final program = await coach.generateWorkoutPlan(profile, locale: locale);
       await ref.read(workoutRepositoryProvider).saveProgram(program);
       ref.invalidate(activeProgramProvider);
     });

@@ -168,6 +168,14 @@ const TEXT_SCHEMA = {
   required: ["text"],
 };
 
+/** All prompts take an explicit locale instead of asking Gemini to guess
+ * from profile data (which has no language field) — that previously
+ * defaulted to Turkish regardless of the app's actual display language. */
+function languageInstruction(payload: Record<string, unknown>): string {
+  const locale = payload.locale === "tr" ? "tr" : "en";
+  return `Respond in ${locale === "tr" ? "Turkish" : "English"}.`;
+}
+
 async function handleAction(action: string, payload: Record<string, unknown>) {
   switch (action) {
     case "generate_workout_plan": {
@@ -188,8 +196,7 @@ async function handleAction(action: string, payload: Record<string, unknown>) {
         `4-6 reps, hypertrophy/build muscle: 8-12 reps, fat loss/endurance: ` +
         `12-15 reps). The exercises list must total realistic volume for ` +
         `the stated session duration — do not return a day with only 1-2 ` +
-        `exercises. Respond in the user's language if evident from their ` +
-        `profile, otherwise Turkish.`;
+        `exercises. ${languageInstruction(payload)}`;
       return await callGemini(prompt, WORKOUT_PLAN_SCHEMA);
     }
 
@@ -208,7 +215,7 @@ async function handleAction(action: string, payload: Record<string, unknown>) {
         `Analyze this completed workout session and give a short (2-3 ` +
         `sentence), encouraging, specific summary covering load management ` +
         `and any notable personal records: ${JSON.stringify(payload.session)}. ` +
-        `Respond in Turkish.`;
+        `${languageInstruction(payload)}`;
       return await callGemini(prompt, TEXT_SCHEMA);
     }
 
@@ -216,7 +223,7 @@ async function handleAction(action: string, payload: Record<string, unknown>) {
       const prompt =
         `Given this user's recent daily nutrition logs vs. their targets: ` +
         `${JSON.stringify(payload.recentDays)}, give one short, actionable ` +
-        `suggestion (e.g. "increase protein by 20g") in 1-2 sentences, in Turkish.`;
+        `suggestion (e.g. "increase protein by 20g") in 1-2 sentences. ${languageInstruction(payload)}`;
       return await callGemini(prompt, TEXT_SCHEMA);
     }
 

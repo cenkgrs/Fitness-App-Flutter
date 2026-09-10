@@ -23,8 +23,9 @@ class SupabaseAIWorkoutCoach implements AIWorkoutCoach {
   }
 
   @override
-  Future<WorkoutProgram> generateWorkoutPlan(UserProfile profile) async {
-    final result = await _invoke('generate_workout_plan', {'profile': profile.toJson()});
+  Future<WorkoutProgram> generateWorkoutPlan(UserProfile profile, {String locale = 'en'}) async {
+    final result =
+        await _invoke('generate_workout_plan', {'profile': profile.toJson(), 'locale': locale});
 
     final days = (result['days'] as List<dynamic>).map((rawDay) {
       final day = Map<String, dynamic>.from(rawDay as Map);
