@@ -1023,6 +1023,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick Add'**
   String get quickAddEntryDefaultName;
+
+  /// No description provided for @progressScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressScreenTitle;
+
+  /// No description provided for @progressTabWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get progressTabWeight;
+
+  /// No description provided for @progressTabStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
+  String get progressTabStrength;
+
+  /// No description provided for @progressTabConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get progressTabConsistency;
+
+  /// No description provided for @progressTabMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get progressTabMeasurements;
+
+  /// No description provided for @progressWeightChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get progressWeightChartTitle;
+
+  /// No description provided for @progressStrengthEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No strength data yet'**
+  String get progressStrengthEmptyTitle;
+
+  /// No description provided for @progressStrengthEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a workout to start tracking your 1RM progression.'**
+  String get progressStrengthEmptyMessage;
+
+  /// No description provided for @progressStrengthChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{exercise} Progression'**
+  String progressStrengthChartTitle(String exercise);
+
+  /// No description provided for @progressCurrentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get progressCurrentStreak;
+
+  /// No description provided for @progressLongestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest Streak'**
+  String get progressLongestStreak;
+
+  /// No description provided for @progressConsistencyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get progressConsistencyLabel;
+
+  /// No description provided for @measurementWaist.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist'**
+  String get measurementWaist;
+
+  /// No description provided for @measurementNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get measurementNeck;
+
+  /// No description provided for @measurementHip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip'**
+  String get measurementHip;
+
+  /// No description provided for @measurementChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get measurementChest;
+
+  /// No description provided for @measurementBiceps.
+  ///
+  /// In en, this message translates to:
+  /// **'Biceps'**
+  String get measurementBiceps;
+
+  /// No description provided for @measurementThigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Thigh'**
+  String get measurementThigh;
+
+  /// No description provided for @measurementsBodyFatHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your waist and neck measurements to see your body fat percentage.'**
+  String get measurementsBodyFatHint;
+
+  /// No description provided for @measurementsBodyFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Fat — {category}'**
+  String measurementsBodyFatLabel(String category);
+
+  /// No description provided for @bodyFatCategoryEssential.
+  ///
+  /// In en, this message translates to:
+  /// **'Essential Fat'**
+  String get bodyFatCategoryEssential;
+
+  /// No description provided for @bodyFatCategoryAthletic.
+  ///
+  /// In en, this message translates to:
+  /// **'Athletic'**
+  String get bodyFatCategoryAthletic;
+
+  /// No description provided for @bodyFatCategoryFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get bodyFatCategoryFitness;
+
+  /// No description provided for @bodyFatCategoryAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get bodyFatCategoryAverage;
+
+  /// No description provided for @bodyFatCategoryHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get bodyFatCategoryHigh;
+
+  /// No description provided for @measurementsAddButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Measurement'**
+  String get measurementsAddButton;
+
+  /// No description provided for @measurementsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No measurements yet'**
+  String get measurementsEmptyTitle;
+
+  /// No description provided for @measurementsEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first measurement to start tracking.'**
+  String get measurementsEmptyMessage;
+
+  /// No description provided for @measurementsChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{measurement} (cm)'**
+  String measurementsChartTitle(String measurement);
+
+  /// No description provided for @measurementsSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Measurement'**
+  String get measurementsSheetTitle;
+
+  /// No description provided for @measurementsFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{measurement} (cm)'**
+  String measurementsFieldHint(String measurement);
+
+  /// No description provided for @commonSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get commonSave;
 }
 
 class _AppLocalizationsDelegate

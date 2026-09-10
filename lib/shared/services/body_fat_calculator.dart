@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 import '../models/enums.dart';
 
+enum BodyFatCategory { essential, athletic, fitness, average, high }
+
 class BodyFatResult {
   final double percent;
-  final String category;
+  final BodyFatCategory category;
   const BodyFatResult({required this.percent, required this.category});
 }
 
@@ -41,12 +43,18 @@ class BodyFatCalculator {
   /// ACE body-fat category boundaries, applied per gender (unspecified
   /// falls back to the male formula/thresholds — the Navy method itself
   /// only defines a male and a female variant).
-  String _category(bool isFemale, double percent) {
+  BodyFatCategory _category(bool isFemale, double percent) {
     final thresholds = isFemale ? const [13.0, 20.0, 24.0, 31.0] : const [5.0, 13.0, 17.0, 24.0];
-    const labels = ['Temel Yağ', 'Atletik', 'Fit', 'Ortalama', 'Yüksek'];
+    const categories = [
+      BodyFatCategory.essential,
+      BodyFatCategory.athletic,
+      BodyFatCategory.fitness,
+      BodyFatCategory.average,
+      BodyFatCategory.high,
+    ];
     for (var i = 0; i < thresholds.length; i++) {
-      if (percent < thresholds[i]) return labels[i];
+      if (percent < thresholds[i]) return categories[i];
     }
-    return labels.last;
+    return categories.last;
   }
 }

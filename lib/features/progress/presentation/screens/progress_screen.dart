@@ -4,13 +4,32 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
-import '../../../../shared/models/models.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/services/body_fat_calculator.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../../domain/measurement_repository.dart';
 import '../controllers/measurement_providers.dart';
 import '../controllers/progress_providers.dart';
 import '../widgets/consistency_heatmap.dart';
+
+String _bodyFatCategoryLabel(AppLocalizations l10n, BodyFatCategory category) => switch (category) {
+      BodyFatCategory.essential => l10n.bodyFatCategoryEssential,
+      BodyFatCategory.athletic => l10n.bodyFatCategoryAthletic,
+      BodyFatCategory.fitness => l10n.bodyFatCategoryFitness,
+      BodyFatCategory.average => l10n.bodyFatCategoryAverage,
+      BodyFatCategory.high => l10n.bodyFatCategoryHigh,
+    };
+
+String _measurementLabel(AppLocalizations l10n, String key) => switch (key) {
+      'waist' => l10n.measurementWaist,
+      'neck' => l10n.measurementNeck,
+      'hip' => l10n.measurementHip,
+      'chest' => l10n.measurementChest,
+      'biceps' => l10n.measurementBiceps,
+      'thigh' => l10n.measurementThigh,
+      _ => key,
+    };
 
 class ProgressScreen extends ConsumerStatefulWidget {
   const ProgressScreen({super.key});
@@ -30,19 +49,20 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Progress'),
+        title: Text(l10n.progressScreenTitle),
         bottom: TabBar(
           controller: _tabController,
           labelColor: AppColors.primary,
           indicatorColor: AppColors.primary,
           isScrollable: true,
-          tabs: const [
-            Tab(text: 'Weight'),
-            Tab(text: 'Strength'),
-            Tab(text: 'Consistency'),
-            Tab(text: 'Ölçüler'),
+          tabs: [
+            Tab(text: l10n.progressTabWeight),
+            Tab(text: l10n.progressTabStrength),
+            Tab(text: l10n.progressTabConsistency),
+            Tab(text: l10n.progressTabMeasurements),
           ],
         ),
       ),
@@ -59,6 +79,7 @@ class _WeightTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final pointsAsync = ref.watch(weightChartPointsProvider);
     final goalAsync = ref.watch(activeGoalProvider);
 
@@ -67,9 +88,9 @@ class _WeightTab extends ConsumerWidget {
       children: [
         pointsAsync.when(
           loading: () => const LoadingShimmer(height: 220),
-          error: (e, st) => Text('Error: $e'),
+          error: (e, st) => Text(l10n.genericError(e.toString())),
           data: (points) => LineChartCard(
-            title: 'Weight (kg)',
+            title: l10n.progressWeightChartTitle,
             points: points,
             unit: ' kg',
             targetValue: goalAsync.valueOrNull?.targetWeightKg,
@@ -85,6 +106,7 @@ class _StrengthTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final progressionAsync = ref.watch(strengthProgressionProvider);
     final namesAsync = ref.watch(exerciseNameByIdProvider);
     final selectedId = ref.watch(selectedStrengthExerciseProvider);
@@ -94,13 +116,13 @@ class _StrengthTab extends ConsumerWidget {
         padding: EdgeInsets.all(AppSpacing.screenMargin),
         child: LoadingShimmer(height: 220),
       ),
-      error: (e, st) => Center(child: Text('Error: $e')),
+      error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
       data: (progression) {
         if (progression.isEmpty) {
-          return const EmptyState(
+          return EmptyState(
             icon: Icons.show_chart,
-            title: 'No strength data yet',
-            message: 'Complete a workout to start tracking your 1RM progression.',
+            title: l10n.progressStrengthEmptyTitle,
+            message: l10n.progressStrengthEmptyMessage,
           );
         }
         final names = namesAsync.valueOrNull ?? {};
@@ -121,7 +143,7 @@ class _StrengthTab extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.lg),
             LineChartCard(
-              title: '${names[activeId] ?? activeId} Progression',
+              title: l10n.progressStrengthChartTitle(names[activeId] ?? activeId),
               points: progression[activeId] ?? const [],
               lineColor: AppColors.protein,
               unit: ' kg',
@@ -138,6 +160,7 @@ class _ConsistencyTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final sessionsAsync = ref.watch(workoutSessionsProvider);
     final consistencyAsync = ref.watch(consistencyProvider);
 
@@ -146,7 +169,7 @@ class _ConsistencyTab extends ConsumerWidget {
       children: [
         sessionsAsync.when(
           loading: () => const LoadingShimmer(height: 160),
-          error: (e, st) => Text('Error: $e'),
+          error: (e, st) => Text(l10n.genericError(e.toString())),
           data: (sessions) => ConsistencyHeatmap(sessions: sessions),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -155,9 +178,9 @@ class _ConsistencyTab extends ConsumerWidget {
           error: (e, st) => const SizedBox.shrink(),
           data: (c) => Row(
             children: [
-              Expanded(child: StatCard(icon: '🔥', value: '${c.currentStreak}', label: 'Current Streak')),
+              Expanded(child: StatCard(icon: '🔥', value: '${c.currentStreak}', label: l10n.progressCurrentStreak)),
               const SizedBox(width: AppSpacing.md),
-              Expanded(child: StatCard(icon: '🏆', value: '${c.longestStreak}', label: 'Longest Streak')),
+              Expanded(child: StatCard(icon: '🏆', value: '${c.longestStreak}', label: l10n.progressLongestStreak)),
             ],
           ),
         ),
@@ -165,15 +188,6 @@ class _ConsistencyTab extends ConsumerWidget {
     );
   }
 }
-
-const _measurementLabels = {
-  'waist': 'Bel',
-  'neck': 'Boyun',
-  'hip': 'Kalça',
-  'chest': 'Göğüs',
-  'biceps': 'Kol',
-  'thigh': 'Bacak',
-};
 
 class _MeasurementsTab extends ConsumerStatefulWidget {
   const _MeasurementsTab();
@@ -187,6 +201,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final metricsAsync = ref.watch(measurementsProvider);
     final bodyFatAsync = ref.watch(bodyFatResultProvider);
 
@@ -200,7 +215,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
               ? Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: Text(
-                    'Vücut yağı yüzdesini görmek için bel ve boyun ölçünü ekle.',
+                    l10n.measurementsBodyFatHint,
                     style: AppTypography.caption,
                   ),
                 )
@@ -209,15 +224,15 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
                   child: StatCard(
                     icon: '📏',
                     value: '%${result.percent.toStringAsFixed(1)}',
-                    label: 'Vücut Yağı — ${result.category}',
+                    label: l10n.measurementsBodyFatLabel(_bodyFatCategoryLabel(l10n, result.category)),
                   ),
                 ),
         ),
-        PrimaryButton(label: 'Ölçü Ekle', onPressed: () => _showAddSheet(context)),
+        PrimaryButton(label: l10n.measurementsAddButton, onPressed: () => _showAddSheet(context)),
         const SizedBox(height: AppSpacing.lg),
         metricsAsync.when(
           loading: () => const LoadingShimmer(height: 220),
-          error: (e, st) => Text('Error: $e'),
+          error: (e, st) => Text(l10n.genericError(e.toString())),
           data: (metrics) {
             final byKey = <String, List<ChartPoint>>{};
             for (final key in measurementKeys) {
@@ -227,10 +242,10 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
                   .toList();
             }
             if (metrics.isEmpty) {
-              return const EmptyState(
+              return EmptyState(
                 icon: Icons.straighten,
-                title: 'Henüz ölçü yok',
-                message: 'İlk ölçünü ekleyerek takibe başla.',
+                title: l10n.measurementsEmptyTitle,
+                message: l10n.measurementsEmptyMessage,
               );
             }
             return Column(
@@ -240,7 +255,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
                   dropdownColor: AppColors.surface2,
                   decoration: const InputDecoration(),
                   items: measurementKeys
-                      .map((k) => DropdownMenuItem(value: k, child: Text(_measurementLabels[k]!)))
+                      .map((k) => DropdownMenuItem(value: k, child: Text(_measurementLabel(l10n, k))))
                       .toList(),
                   onChanged: (v) {
                     if (v != null) setState(() => _selectedKey = v);
@@ -248,7 +263,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 LineChartCard(
-                  title: '${_measurementLabels[_selectedKey]} (cm)',
+                  title: l10n.measurementsChartTitle(_measurementLabel(l10n, _selectedKey)),
                   points: byKey[_selectedKey] ?? const [],
                   lineColor: AppColors.carbs,
                   unit: ' cm',
@@ -292,6 +307,7 @@ class _AddMeasurementSheetState extends ConsumerState<_AddMeasurementSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(measurementControllerProvider);
 
     ref.listen(measurementControllerProvider, (prev, next) {
@@ -311,19 +327,19 @@ class _AddMeasurementSheetState extends ConsumerState<_AddMeasurementSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Ölçü Ekle', style: AppTypography.headingMd),
+          Text(l10n.measurementsSheetTitle, style: AppTypography.headingMd),
           const SizedBox(height: AppSpacing.lg),
           for (final key in measurementKeys) ...[
             TextField(
               controller: _controllers[key],
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(hintText: '${_measurementLabels[key]} (cm)'),
+              decoration: InputDecoration(hintText: l10n.measurementsFieldHint(_measurementLabel(l10n, key))),
             ),
             const SizedBox(height: AppSpacing.md),
           ],
           const SizedBox(height: AppSpacing.sm),
           PrimaryButton(
-            label: 'Kaydet',
+            label: l10n.commonSave,
             isLoading: state.isLoading,
             onPressed: () {
               final values = <String, double>{};

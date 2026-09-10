@@ -232,5 +232,51 @@
   "quickAddProteinLabel": "Protein (g)",
   "quickAddCarbsLabel": "Carbs (g)",
   "quickAddFatLabel": "Fat (g)",
-  "quickAddEntryDefaultName": "Quick Add"
+  "quickAddEntryDefaultName": "Quick Add",
+
+  "progressScreenTitle": "Progress",
+  "progressTabWeight": "Weight",
+  "progressTabStrength": "Strength",
+  "progressTabConsistency": "Consistency",
+  "progressTabMeasurements": "Measurements",
+  "progressWeightChartTitle": "Weight (kg)",
+  "progressStrengthEmptyTitle": "No strength data yet",
+  "progressStrengthEmptyMessage": "Complete a workout to start tracking your 1RM progression.",
+  "progressStrengthChartTitle": "{exercise} Progression",
+  "@progressStrengthChartTitle": {
+    "placeholders": { "exercise": { "type": "String" } }
+  },
+  "progressCurrentStreak": "Current Streak",
+  "progressLongestStreak": "Longest Streak",
+  "progressConsistencyLabel": "Consistency",
+
+  "measurementWaist": "Waist",
+  "measurementNeck": "Neck",
+  "measurementHip": "Hip",
+  "measurementChest": "Chest",
+  "measurementBiceps": "Biceps",
+  "measurementThigh": "Thigh",
+  "measurementsBodyFatHint": "Add your waist and neck measurements to see your body fat percentage.",
+  "measurementsBodyFatLabel": "Body Fat — {category}",
+  "@measurementsBodyFatLabel": {
+    "placeholders": { "category": { "type": "String" } }
+  },
+  "bodyFatCategoryEssential": "Essential Fat",
+  "bodyFatCategoryAthletic": "Athletic",
+  "bodyFatCategoryFitness": "Fitness",
+  "bodyFatCategoryAverage": "Average",
+  "bodyFatCategoryHigh": "High",
+  "measurementsAddButton": "Add Measurement",
+  "measurementsEmptyTitle": "No measurements yet",
+  "measurementsEmptyMessage": "Add your first measurement to start tracking.",
+  "measurementsChartTitle": "{measurement} (cm)",
+  "@measurementsChartTitle": {
+    "placeholders": { "measurement": { "type": "String" } }
+  },
+  "measurementsSheetTitle": "Add Measurement",
+  "measurementsFieldHint": "{measurement} (cm)",
+  "@measurementsFieldHint": {
+    "placeholders": { "measurement": { "type": "String" } }
+  },
+  "commonSave": "Save"
 }

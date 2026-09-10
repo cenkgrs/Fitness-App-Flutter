@@ -519,4 +519,111 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickAddEntryDefaultName => 'Quick Add';
+
+  @override
+  String get progressScreenTitle => 'Progress';
+
+  @override
+  String get progressTabWeight => 'Weight';
+
+  @override
+  String get progressTabStrength => 'Strength';
+
+  @override
+  String get progressTabConsistency => 'Consistency';
+
+  @override
+  String get progressTabMeasurements => 'Measurements';
+
+  @override
+  String get progressWeightChartTitle => 'Weight (kg)';
+
+  @override
+  String get progressStrengthEmptyTitle => 'No strength data yet';
+
+  @override
+  String get progressStrengthEmptyMessage =>
+      'Complete a workout to start tracking your 1RM progression.';
+
+  @override
+  String progressStrengthChartTitle(String exercise) {
+    return '$exercise Progression';
+  }
+
+  @override
+  String get progressCurrentStreak => 'Current Streak';
+
+  @override
+  String get progressLongestStreak => 'Longest Streak';
+
+  @override
+  String get progressConsistencyLabel => 'Consistency';
+
+  @override
+  String get measurementWaist => 'Waist';
+
+  @override
+  String get measurementNeck => 'Neck';
+
+  @override
+  String get measurementHip => 'Hip';
+
+  @override
+  String get measurementChest => 'Chest';
+
+  @override
+  String get measurementBiceps => 'Biceps';
+
+  @override
+  String get measurementThigh => 'Thigh';
+
+  @override
+  String get measurementsBodyFatHint =>
+      'Add your waist and neck measurements to see your body fat percentage.';
+
+  @override
+  String measurementsBodyFatLabel(String category) {
+    return 'Body Fat — $category';
+  }
+
+  @override
+  String get bodyFatCategoryEssential => 'Essential Fat';
+
+  @override
+  String get bodyFatCategoryAthletic => 'Athletic';
+
+  @override
+  String get bodyFatCategoryFitness => 'Fitness';
+
+  @override
+  String get bodyFatCategoryAverage => 'Average';
+
+  @override
+  String get bodyFatCategoryHigh => 'High';
+
+  @override
+  String get measurementsAddButton => 'Add Measurement';
+
+  @override
+  String get measurementsEmptyTitle => 'No measurements yet';
+
+  @override
+  String get measurementsEmptyMessage =>
+      'Add your first measurement to start tracking.';
+
+  @override
+  String measurementsChartTitle(String measurement) {
+    return '$measurement (cm)';
+  }
+
+  @override
+  String get measurementsSheetTitle => 'Add Measurement';
+
+  @override
+  String measurementsFieldHint(String measurement) {
+    return '$measurement (cm)';
+  }
+
+  @override
+  String get commonSave => 'Save';
 }

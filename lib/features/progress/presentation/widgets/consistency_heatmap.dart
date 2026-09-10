@@ -3,6 +3,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/app_card.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/workout_session.dart';
 
 /// GitHub-contribution-style heatmap of completed workout days over the
@@ -34,7 +35,7 @@ class ConsistencyHeatmap extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Consistency', style: AppTypography.headingSm),
+          Text(AppLocalizations.of(context)!.progressConsistencyLabel, style: AppTypography.headingSm),
           const SizedBox(height: AppSpacing.md),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,

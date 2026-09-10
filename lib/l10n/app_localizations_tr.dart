@@ -517,4 +517,110 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quickAddEntryDefaultName => 'Hızlı Ekle';
+
+  @override
+  String get progressScreenTitle => 'İlerleme';
+
+  @override
+  String get progressTabWeight => 'Kilo';
+
+  @override
+  String get progressTabStrength => 'Güç';
+
+  @override
+  String get progressTabConsistency => 'Süreklilik';
+
+  @override
+  String get progressTabMeasurements => 'Ölçüler';
+
+  @override
+  String get progressWeightChartTitle => 'Kilo (kg)';
+
+  @override
+  String get progressStrengthEmptyTitle => 'Henüz güç verisi yok';
+
+  @override
+  String get progressStrengthEmptyMessage =>
+      '1RM ilerlemeni takip etmeye başlamak için bir antrenman tamamla.';
+
+  @override
+  String progressStrengthChartTitle(String exercise) {
+    return '$exercise İlerlemesi';
+  }
+
+  @override
+  String get progressCurrentStreak => 'Güncel Seri';
+
+  @override
+  String get progressLongestStreak => 'En Uzun Seri';
+
+  @override
+  String get progressConsistencyLabel => 'Süreklilik';
+
+  @override
+  String get measurementWaist => 'Bel';
+
+  @override
+  String get measurementNeck => 'Boyun';
+
+  @override
+  String get measurementHip => 'Kalça';
+
+  @override
+  String get measurementChest => 'Göğüs';
+
+  @override
+  String get measurementBiceps => 'Kol';
+
+  @override
+  String get measurementThigh => 'Bacak';
+
+  @override
+  String get measurementsBodyFatHint =>
+      'Vücut yağı yüzdesini görmek için bel ve boyun ölçünü ekle.';
+
+  @override
+  String measurementsBodyFatLabel(String category) {
+    return 'Vücut Yağı — $category';
+  }
+
+  @override
+  String get bodyFatCategoryEssential => 'Temel Yağ';
+
+  @override
+  String get bodyFatCategoryAthletic => 'Atletik';
+
+  @override
+  String get bodyFatCategoryFitness => 'Fit';
+
+  @override
+  String get bodyFatCategoryAverage => 'Ortalama';
+
+  @override
+  String get bodyFatCategoryHigh => 'Yüksek';
+
+  @override
+  String get measurementsAddButton => 'Ölçü Ekle';
+
+  @override
+  String get measurementsEmptyTitle => 'Henüz ölçü yok';
+
+  @override
+  String get measurementsEmptyMessage => 'İlk ölçünü ekleyerek takibe başla.';
+
+  @override
+  String measurementsChartTitle(String measurement) {
+    return '$measurement (cm)';
+  }
+
+  @override
+  String get measurementsSheetTitle => 'Ölçü Ekle';
+
+  @override
+  String measurementsFieldHint(String measurement) {
+    return '$measurement (cm)';
+  }
+
+  @override
+  String get commonSave => 'Kaydet';
 }
