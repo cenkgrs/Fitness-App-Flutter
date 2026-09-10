@@ -5,6 +5,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../../core/utils/haptics_helper.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../domain/personal_record_detector.dart';
 import '../../domain/workout_runner_logic.dart';
 import '../../domain/workout_runner_state.dart';
 import 'workout_providers.dart';
@@ -72,18 +73,11 @@ class WorkoutRunnerNotifier extends StateNotifier<WorkoutRunnerState> {
   void addExtraSet() => state = WorkoutRunnerLogic.addExtraSet(state);
 
   Future<void> _finish() async {
-    final sessions = await _ref.read(workoutRepositoryProvider).getSessions(state.session.userId);
-    final prBests = <String, double>{};
-    for (final s in sessions) {
-      for (final set in s.sets.where((s) => s.isCompleted)) {
-        final current = prBests[set.exerciseId] ?? 0;
-        if (set.actualWeightKg > current) prBests[set.exerciseId] = set.actualWeightKg;
-      }
-    }
-    final prSetIds = state.session.sets
-        .where((s) => s.isCompleted && s.actualWeightKg > (prBests[s.exerciseId] ?? 0))
-        .map((s) => s.id)
-        .toList();
+    final priorSessions = await _ref.read(workoutRepositoryProvider).getSessions(state.session.userId);
+    final prSetIds = detectPersonalRecordSetIds(
+      priorSessions: priorSessions,
+      currentSession: state.session,
+    );
 
     final finalSession = state.session.copyWith(personalRecordSetIds: prSetIds);
     state = state.copyWith(session: finalSession);
