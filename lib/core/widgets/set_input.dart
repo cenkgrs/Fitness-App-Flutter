@@ -24,21 +24,30 @@ class SetInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(label, style: AppTypography.caption),
         const SizedBox(height: AppSpacing.sm),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             _StepButton(icon: Icons.remove, onTap: onDecrement),
-            SizedBox(
-              width: 100,
-              child: Text(
-                displayValue,
-                textAlign: TextAlign.center,
-                style: AppTypography.displayMd,
+            const SizedBox(width: AppSpacing.xs),
+            // FittedBox shrinks long values (e.g. "142.5") instead of
+            // overflowing — two of these stepper pairs must fit
+            // side-by-side even on narrow phones.
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 76),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  displayValue,
+                  textAlign: TextAlign.center,
+                  style: AppTypography.displayMd,
+                ),
               ),
             ),
+            const SizedBox(width: AppSpacing.xs),
             _StepButton(icon: Icons.add, onTap: onIncrement),
           ],
         ),

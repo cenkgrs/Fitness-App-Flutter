@@ -115,19 +115,23 @@ class _RunnerView extends ConsumerWidget {
                     )
                   else
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SetInput(
-                          label: 'WEIGHT (KG)',
-                          displayValue: runnerState.draftWeightKg.toStringAsFixed(1),
-                          onIncrement: () => notifier.updateDraftWeight(runnerState.draftWeightKg + 2.5),
-                          onDecrement: () => notifier.updateDraftWeight((runnerState.draftWeightKg - 2.5).clamp(0, 999)),
+                        Expanded(
+                          child: SetInput(
+                            label: 'WEIGHT (KG)',
+                            displayValue: runnerState.draftWeightKg.toStringAsFixed(1),
+                            onIncrement: () => notifier.updateDraftWeight(runnerState.draftWeightKg + 2.5),
+                            onDecrement: () =>
+                                notifier.updateDraftWeight((runnerState.draftWeightKg - 2.5).clamp(0, 999)),
+                          ),
                         ),
-                        SetInput(
-                          label: 'REPS',
-                          displayValue: '${runnerState.draftReps}',
-                          onIncrement: () => notifier.updateDraftReps(runnerState.draftReps + 1),
-                          onDecrement: () => notifier.updateDraftReps((runnerState.draftReps - 1).clamp(0, 99)),
+                        Expanded(
+                          child: SetInput(
+                            label: 'REPS',
+                            displayValue: '${runnerState.draftReps}',
+                            onIncrement: () => notifier.updateDraftReps(runnerState.draftReps + 1),
+                            onDecrement: () => notifier.updateDraftReps((runnerState.draftReps - 1).clamp(0, 99)),
+                          ),
                         ),
                       ],
                     ),
