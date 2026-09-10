@@ -28,28 +28,31 @@ class SetInput extends StatelessWidget {
       children: [
         Text(label, style: AppTypography.caption),
         const SizedBox(height: AppSpacing.sm),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _StepButton(icon: Icons.remove, onTap: onDecrement),
-            const SizedBox(width: AppSpacing.xs),
-            // FittedBox shrinks long values (e.g. "142.5") instead of
-            // overflowing — two of these stepper pairs must fit
-            // side-by-side even on narrow phones.
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 76),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
+        // FittedBox scales the whole control (buttons included) down to
+        // whatever width it's actually given, instead of relying on a
+        // guessed max value width — two of these stepper pairs must fit
+        // side-by-side even on the narrowest phones, and a fixed-width
+        // guess (e.g. capping the text at 76dp) still overflowed once the
+        // weight reached 3 digits ("100.0").
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _StepButton(icon: Icons.remove, onTap: onDecrement),
+              const SizedBox(width: AppSpacing.xs),
+              SizedBox(
+                width: 90,
                 child: Text(
                   displayValue,
                   textAlign: TextAlign.center,
                   style: AppTypography.displayMd,
                 ),
               ),
-            ),
-            const SizedBox(width: AppSpacing.xs),
-            _StepButton(icon: Icons.add, onTap: onIncrement),
-          ],
+              const SizedBox(width: AppSpacing.xs),
+              _StepButton(icon: Icons.add, onTap: onIncrement),
+            ],
+          ),
         ),
       ],
     );
