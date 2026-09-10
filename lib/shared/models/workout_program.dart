@@ -39,7 +39,7 @@ class WorkoutDay extends Equatable {
         name: json['name'] as String,
         dayOfWeek: json['dayOfWeek'] as int,
         exercises: (json['exercises'] as List<dynamic>? ?? [])
-            .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
+            .map((e) => Exercise.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList(),
         isRestDay: json['isRestDay'] as bool? ?? false,
         estimatedDuration: Duration(minutes: json['estimatedDurationMinutes'] as int? ?? 45),
@@ -78,7 +78,7 @@ class WorkoutProgram extends Equatable {
         userId: json['userId'] as String,
         name: json['name'] as String,
         days: (json['days'] as List<dynamic>? ?? [])
-            .map((d) => WorkoutDay.fromJson(d as Map<String, dynamic>))
+            .map((d) => WorkoutDay.fromJson(Map<String, dynamic>.from(d as Map)))
             .toList(),
         createdAt: DateTime.parse(json['createdAt'] as String),
       );

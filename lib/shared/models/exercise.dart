@@ -105,7 +105,7 @@ class Exercise extends Equatable {
         imageUrl: json['imageUrl'] as String?,
         videoUrl: json['videoUrl'] as String?,
         sets: (json['sets'] as List<dynamic>? ?? [])
-            .map((s) => ExerciseSet.fromJson(s as Map<String, dynamic>))
+            .map((s) => ExerciseSet.fromJson(Map<String, dynamic>.from(s as Map)))
             .toList(),
         restDuration: Duration(seconds: json['restDurationSeconds'] as int? ?? 90),
       );

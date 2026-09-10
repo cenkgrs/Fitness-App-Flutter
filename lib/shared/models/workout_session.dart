@@ -171,7 +171,7 @@ class WorkoutSession extends Equatable {
         startedAt: DateTime.parse(json['startedAt'] as String),
         completedAt: json['completedAt'] != null ? DateTime.parse(json['completedAt'] as String) : null,
         sets: (json['sets'] as List<dynamic>? ?? [])
-            .map((s) => WorkoutSet.fromJson(s as Map<String, dynamic>))
+            .map((s) => WorkoutSet.fromJson(Map<String, dynamic>.from(s as Map)))
             .toList(),
         personalRecordSetIds:
             (json['personalRecordSetIds'] as List<dynamic>? ?? []).cast<String>(),

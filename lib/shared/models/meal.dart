@@ -99,7 +99,7 @@ class Meal extends Equatable {
         date: DateTime.parse(json['date'] as String),
         type: enumFromString(MealType.values, json['type'] as String?, MealType.snack),
         entries: (json['entries'] as List<dynamic>? ?? [])
-            .map((e) => MealEntry.fromJson(e as Map<String, dynamic>))
+            .map((e) => MealEntry.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList(),
       );
 
