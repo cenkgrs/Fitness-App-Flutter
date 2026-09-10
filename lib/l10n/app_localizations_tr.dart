@@ -300,4 +300,134 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get homeQuickActionViewProgress => 'İlerlemeyi Gör';
+
+  @override
+  String genericError(String error) {
+    return 'Hata: $error';
+  }
+
+  @override
+  String get commonCancel => 'İptal';
+
+  @override
+  String get weekdayMonday => 'Pazartesi';
+
+  @override
+  String get weekdayTuesday => 'Salı';
+
+  @override
+  String get weekdayWednesday => 'Çarşamba';
+
+  @override
+  String get weekdayThursday => 'Perşembe';
+
+  @override
+  String get weekdayFriday => 'Cuma';
+
+  @override
+  String get weekdaySaturday => 'Cumartesi';
+
+  @override
+  String get weekdaySunday => 'Pazar';
+
+  @override
+  String get workoutsScreenTitle => 'Haftalık Program';
+
+  @override
+  String get workoutsAiUpdateTooltip => 'AI ile Güncelle';
+
+  @override
+  String workoutsAiUpdateFailedSnackbar(String error) {
+    return 'AI programı güncelleyemedi: $error';
+  }
+
+  @override
+  String workoutsFailedToLoad(String error) {
+    return 'Program yüklenemedi: $error';
+  }
+
+  @override
+  String get workoutsOnboardingCta =>
+      'Kişisel rutinini oluşturmak için onboarding\'i tamamla.';
+
+  @override
+  String get workoutsCreateMyPlan => 'Planımı Oluştur';
+
+  @override
+  String get activeWorkoutNoExercises => 'Bu gün için egzersiz yok.';
+
+  @override
+  String activeWorkoutExerciseCounter(int current, int total) {
+    return '$total egzersizden $current.';
+  }
+
+  @override
+  String activeWorkoutSetCounter(int current, int total) {
+    return 'SET $current / $total';
+  }
+
+  @override
+  String activeWorkoutTarget(String weight, String reps) {
+    return 'Hedef: $weight kg × $reps tekrar';
+  }
+
+  @override
+  String get activeWorkoutWeightLabel => 'AĞIRLIK (KG)';
+
+  @override
+  String get activeWorkoutRepsLabel => 'TEKRAR';
+
+  @override
+  String get activeWorkoutSkipExercise => 'Egzersizi Atla';
+
+  @override
+  String get activeWorkoutAddSet => 'Set Ekle';
+
+  @override
+  String get activeWorkoutCompleteSet => 'SETİ TAMAMLA';
+
+  @override
+  String get activeWorkoutEndTitle => 'Antrenmanı bitir?';
+
+  @override
+  String get activeWorkoutEndContent => 'Bu seanstaki ilerlemen kaybolacak.';
+
+  @override
+  String get activeWorkoutEndConfirm => 'Antrenmanı Bitir';
+
+  @override
+  String get workoutDetailNotFound => 'Antrenman bulunamadı';
+
+  @override
+  String get workoutDetailStartButton => 'ANTRENMANA BAŞLA';
+
+  @override
+  String get workoutSummarySessionNotFound => 'Seans bulunamadı';
+
+  @override
+  String get workoutSummaryComplete => 'ANTRENMAN TAMAMLANDI 🎉';
+
+  @override
+  String get workoutSummaryDuration => 'Süre';
+
+  @override
+  String get workoutSummaryTotalVolume => 'Toplam Hacim';
+
+  @override
+  String get workoutSummarySetsCompleted => 'Tamamlanan Set';
+
+  @override
+  String get workoutSummaryEstCalories => 'Tahmini Kalori';
+
+  @override
+  String workoutSummaryNewPr(String weight, String reps) {
+    return 'YENİ REKOR! $weight kg × $reps tekrar';
+  }
+
+  @override
+  String get workoutSummaryEncouragement =>
+      'Harika bir iş çıkardın! Kasların güçleniyor ve hedefine bir adım daha yaklaştın.';
+
+  @override
+  String get workoutSummaryFinish => 'Bitir ve Ana Sayfaya Dön';
 }

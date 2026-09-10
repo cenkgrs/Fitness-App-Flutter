@@ -93,5 +93,49 @@
   "homeWeightRemaining": "Kalan: {kg} kg",
   "homeQuickActionAddMeal": "Öğün Ekle",
   "homeQuickActionLogWeight": "Kilo Kaydet",
-  "homeQuickActionViewProgress": "İlerlemeyi Gör"
+  "homeQuickActionViewProgress": "İlerlemeyi Gör",
+
+  "genericError": "Hata: {error}",
+  "commonCancel": "İptal",
+
+  "weekdayMonday": "Pazartesi",
+  "weekdayTuesday": "Salı",
+  "weekdayWednesday": "Çarşamba",
+  "weekdayThursday": "Perşembe",
+  "weekdayFriday": "Cuma",
+  "weekdaySaturday": "Cumartesi",
+  "weekdaySunday": "Pazar",
+
+  "workoutsScreenTitle": "Haftalık Program",
+  "workoutsAiUpdateTooltip": "AI ile Güncelle",
+  "workoutsAiUpdateFailedSnackbar": "AI programı güncelleyemedi: {error}",
+  "workoutsFailedToLoad": "Program yüklenemedi: {error}",
+  "workoutsOnboardingCta": "Kişisel rutinini oluşturmak için onboarding'i tamamla.",
+  "workoutsCreateMyPlan": "Planımı Oluştur",
+
+  "activeWorkoutNoExercises": "Bu gün için egzersiz yok.",
+  "activeWorkoutExerciseCounter": "{total} egzersizden {current}.",
+  "activeWorkoutSetCounter": "SET {current} / {total}",
+  "activeWorkoutTarget": "Hedef: {weight} kg × {reps} tekrar",
+  "activeWorkoutWeightLabel": "AĞIRLIK (KG)",
+  "activeWorkoutRepsLabel": "TEKRAR",
+  "activeWorkoutSkipExercise": "Egzersizi Atla",
+  "activeWorkoutAddSet": "Set Ekle",
+  "activeWorkoutCompleteSet": "SETİ TAMAMLA",
+  "activeWorkoutEndTitle": "Antrenmanı bitir?",
+  "activeWorkoutEndContent": "Bu seanstaki ilerlemen kaybolacak.",
+  "activeWorkoutEndConfirm": "Antrenmanı Bitir",
+
+  "workoutDetailNotFound": "Antrenman bulunamadı",
+  "workoutDetailStartButton": "ANTRENMANA BAŞLA",
+
+  "workoutSummarySessionNotFound": "Seans bulunamadı",
+  "workoutSummaryComplete": "ANTRENMAN TAMAMLANDI 🎉",
+  "workoutSummaryDuration": "Süre",
+  "workoutSummaryTotalVolume": "Toplam Hacim",
+  "workoutSummarySetsCompleted": "Tamamlanan Set",
+  "workoutSummaryEstCalories": "Tahmini Kalori",
+  "workoutSummaryNewPr": "YENİ REKOR! {weight} kg × {reps} tekrar",
+  "workoutSummaryEncouragement": "Harika bir iş çıkardın! Kasların güçleniyor ve hedefine bir adım daha yaklaştın.",
+  "workoutSummaryFinish": "Bitir ve Ana Sayfaya Dön"
 }

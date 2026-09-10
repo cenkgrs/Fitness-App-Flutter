@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/workout_providers.dart';
 
 class WorkoutSummaryScreen extends ConsumerWidget {
@@ -13,14 +14,15 @@ class WorkoutSummaryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final sessionAsync = ref.watch(sessionByIdProvider(sessionId));
 
     return Scaffold(
       body: sessionAsync.when(
         loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
-        error: (e, st) => Center(child: Text('Error: $e')),
+        error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
         data: (session) {
-          if (session == null) return const Center(child: Text('Session not found'));
+          if (session == null) return Center(child: Text(l10n.workoutSummarySessionNotFound));
           final estCalories = (session.totalVolumeKg * 0.08).round();
           final prSets = session.sets.where((s) => session.personalRecordSetIds.contains(s.id)).toList();
 
@@ -29,7 +31,7 @@ class WorkoutSummaryScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(AppSpacing.screenMargin),
               children: [
                 const SizedBox(height: AppSpacing.lg),
-                Text('WORKOUT COMPLETE 🎉', style: AppTypography.headingLg, textAlign: TextAlign.center),
+                Text(l10n.workoutSummaryComplete, style: AppTypography.headingLg, textAlign: TextAlign.center),
                 const SizedBox(height: AppSpacing.xs),
                 Text(session.workoutDayName, style: AppTypography.bodyMd, textAlign: TextAlign.center),
                 const SizedBox(height: AppSpacing.xl),
@@ -41,10 +43,10 @@ class WorkoutSummaryScreen extends ConsumerWidget {
                   crossAxisSpacing: AppSpacing.md,
                   childAspectRatio: 1.6,
                   children: [
-                    StatCard(icon: '⏱', value: _formatDuration(session.duration), label: 'Duration'),
-                    StatCard(icon: '🏋️', value: '${session.totalVolumeKg.round()} kg', label: 'Total Volume'),
-                    StatCard(icon: '⚡', value: '${session.completedSetCount} Sets', label: 'Sets Completed'),
-                    StatCard(icon: '🔥', value: '$estCalories kcal', label: 'Est. Calories'),
+                    StatCard(icon: '⏱', value: _formatDuration(session.duration), label: l10n.workoutSummaryDuration),
+                    StatCard(icon: '🏋️', value: '${session.totalVolumeKg.round()} kg', label: l10n.workoutSummaryTotalVolume),
+                    StatCard(icon: '⚡', value: '${session.completedSetCount} Sets', label: l10n.workoutSummarySetsCompleted),
+                    StatCard(icon: '🔥', value: '$estCalories kcal', label: l10n.workoutSummaryEstCalories),
                   ],
                 ),
                 if (prSets.isNotEmpty) ...[
@@ -59,7 +61,7 @@ class WorkoutSummaryScreen extends ConsumerWidget {
                               const SizedBox(width: AppSpacing.sm),
                               Expanded(
                                 child: Text(
-                                  'NEW PR! ${s.actualWeightKg.toStringAsFixed(1)} kg × ${s.actualReps} reps',
+                                  l10n.workoutSummaryNewPr(s.actualWeightKg.toStringAsFixed(1), '${s.actualReps}'),
                                   style: AppTypography.bodyLg.copyWith(color: AppColors.warning),
                                 ),
                               ),
@@ -71,13 +73,13 @@ class WorkoutSummaryScreen extends ConsumerWidget {
                 const SizedBox(height: AppSpacing.xl),
                 AppCard(
                   child: Text(
-                    'Harika bir iş çıkardın! Kasların güçleniyor ve hedefine bir adım daha yaklaştın.',
+                    l10n.workoutSummaryEncouragement,
                     style: AppTypography.bodyMd,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 PrimaryButton(
-                  label: 'Finish & Return Home',
+                  label: l10n.workoutSummaryFinish,
                   onPressed: () => context.go('/home'),
                 ),
               ],

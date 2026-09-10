@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../../domain/workout_runner_state.dart';
 import '../controllers/workout_providers.dart';
@@ -16,16 +17,17 @@ class ActiveWorkoutScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final programAsync = ref.watch(activeProgramProvider);
     return Scaffold(
       backgroundColor: AppColors.background,
       body: programAsync.when(
         loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
-        error: (e, st) => Center(child: Text('Error: $e')),
+        error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
         data: (program) {
           final day = program?.days.firstWhere((d) => d.id == dayId, orElse: () => program.days.first);
           if (day == null || day.exercises.isEmpty) {
-            return const Center(child: Text('No exercises for this day.'));
+            return Center(child: Text(l10n.activeWorkoutNoExercises));
           }
           return _RunnerView(day: day);
         },
@@ -40,6 +42,7 @@ class _RunnerView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final runnerState = ref.watch(workoutRunnerProvider(day));
     final notifier = ref.read(workoutRunnerProvider(day).notifier);
 
@@ -72,7 +75,7 @@ class _RunnerView extends ConsumerWidget {
                   child: Column(
                     children: [
                       Text(_formatDuration(runnerState.elapsed), style: AppTypography.headingSm),
-                      Text('Exercise $exerciseNumber of $totalExercises', style: AppTypography.caption),
+                      Text(l10n.activeWorkoutExerciseCounter(exerciseNumber, totalExercises), style: AppTypography.caption),
                     ],
                   ),
                 ),
@@ -98,10 +101,13 @@ class _RunnerView extends ConsumerWidget {
                     child: const Center(child: Icon(Icons.fitness_center, size: 56, color: AppColors.surfaceBorder)),
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  Text('SET $setNumber OF $totalSets', style: AppTypography.headingSm),
+                  Text(l10n.activeWorkoutSetCounter(setNumber, totalSets), style: AppTypography.headingSm),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Target: ${runnerState.currentPlannedSet?.targetWeightKg.toStringAsFixed(1) ?? '-'} kg × ${runnerState.currentPlannedSet?.targetReps ?? '-'} reps',
+                    l10n.activeWorkoutTarget(
+                      runnerState.currentPlannedSet?.targetWeightKg.toStringAsFixed(1) ?? '-',
+                      '${runnerState.currentPlannedSet?.targetReps ?? '-'}',
+                    ),
                     style: AppTypography.bodyMd,
                   ),
                   const SizedBox(height: AppSpacing.xl),
@@ -118,7 +124,7 @@ class _RunnerView extends ConsumerWidget {
                       children: [
                         Expanded(
                           child: SetInput(
-                            label: 'WEIGHT (KG)',
+                            label: l10n.activeWorkoutWeightLabel,
                             displayValue: runnerState.draftWeightKg.toStringAsFixed(1),
                             onIncrement: () => notifier.updateDraftWeight(runnerState.draftWeightKg + 2.5),
                             onDecrement: () =>
@@ -127,7 +133,7 @@ class _RunnerView extends ConsumerWidget {
                         ),
                         Expanded(
                           child: SetInput(
-                            label: 'REPS',
+                            label: l10n.activeWorkoutRepsLabel,
                             displayValue: '${runnerState.draftReps}',
                             onIncrement: () => notifier.updateDraftReps(runnerState.draftReps + 1),
                             onDecrement: () => notifier.updateDraftReps((runnerState.draftReps - 1).clamp(0, 99)),
@@ -139,8 +145,8 @@ class _RunnerView extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(onPressed: notifier.skipExercise, child: const Text('Skip Exercise')),
-                      TextButton(onPressed: notifier.addExtraSet, child: const Text('Add Set')),
+                      TextButton(onPressed: notifier.skipExercise, child: Text(l10n.activeWorkoutSkipExercise)),
+                      TextButton(onPressed: notifier.addExtraSet, child: Text(l10n.activeWorkoutAddSet)),
                     ],
                   ),
                   const SizedBox(height: 100),
@@ -156,7 +162,7 @@ class _RunnerView extends ConsumerWidget {
           : Padding(
               padding: const EdgeInsets.all(AppSpacing.lg),
               child: PrimaryButton(
-                label: 'COMPLETE SET',
+                label: l10n.activeWorkoutCompleteSet,
                 icon: Icons.check,
                 backgroundColor: AppColors.success,
                 onPressed: () => notifier.completeSet(
@@ -175,20 +181,21 @@ class _RunnerView extends ConsumerWidget {
   }
 
   void _confirmExit(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surface1,
-        title: const Text('End workout?'),
-        content: const Text('Your progress on this session will be lost.'),
+        title: Text(l10n.activeWorkoutEndTitle),
+        content: Text(l10n.activeWorkoutEndContent),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(l10n.commonCancel)),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               context.pop();
             },
-            child: const Text('End Workout', style: TextStyle(color: AppColors.error)),
+            child: Text(l10n.activeWorkoutEndConfirm, style: const TextStyle(color: AppColors.error)),
           ),
         ],
       ),

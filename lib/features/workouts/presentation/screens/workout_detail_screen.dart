@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../controllers/workout_providers.dart';
 
@@ -14,16 +15,17 @@ class WorkoutDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final programAsync = ref.watch(activeProgramProvider);
     final sessionsAsync = ref.watch(workoutSessionsProvider);
 
     return Scaffold(
       body: programAsync.when(
         loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
-        error: (e, st) => Center(child: Text('Error: $e')),
+        error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
         data: (program) {
           final day = program?.days.firstWhere((d) => d.id == dayId, orElse: () => program.days.first);
-          if (day == null) return const Center(child: Text('Workout not found'));
+          if (day == null) return Center(child: Text(l10n.workoutDetailNotFound));
 
           final sessions = sessionsAsync.valueOrNull ?? [];
 
@@ -72,7 +74,7 @@ class WorkoutDetailScreen extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: PrimaryButton(
-                  label: 'START WORKOUT',
+                  label: l10n.workoutDetailStartButton,
                   icon: Icons.play_arrow,
                   onPressed: () => context.push('/workout/active/$dayId'),
                 ),

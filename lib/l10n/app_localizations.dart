@@ -643,6 +643,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View Progress'**
   String get homeQuickActionViewProgress;
+
+  /// No description provided for @genericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String genericError(String error);
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get commonCancel;
+
+  /// No description provided for @weekdayMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get weekdayMonday;
+
+  /// No description provided for @weekdayTuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get weekdayTuesday;
+
+  /// No description provided for @weekdayWednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get weekdayWednesday;
+
+  /// No description provided for @weekdayThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get weekdayThursday;
+
+  /// No description provided for @weekdayFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get weekdayFriday;
+
+  /// No description provided for @weekdaySaturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get weekdaySaturday;
+
+  /// No description provided for @weekdaySunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get weekdaySunday;
+
+  /// No description provided for @workoutsScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Routine'**
+  String get workoutsScreenTitle;
+
+  /// No description provided for @workoutsAiUpdateTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Update with AI'**
+  String get workoutsAiUpdateTooltip;
+
+  /// No description provided for @workoutsAiUpdateFailedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'AI couldn\'t update the program: {error}'**
+  String workoutsAiUpdateFailedSnackbar(String error);
+
+  /// No description provided for @workoutsFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load program: {error}'**
+  String workoutsFailedToLoad(String error);
+
+  /// No description provided for @workoutsOnboardingCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete onboarding to generate your personalized routine.'**
+  String get workoutsOnboardingCta;
+
+  /// No description provided for @workoutsCreateMyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Create My Plan'**
+  String get workoutsCreateMyPlan;
+
+  /// No description provided for @activeWorkoutNoExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises for this day.'**
+  String get activeWorkoutNoExercises;
+
+  /// No description provided for @activeWorkoutExerciseCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise {current} of {total}'**
+  String activeWorkoutExerciseCounter(int current, int total);
+
+  /// No description provided for @activeWorkoutSetCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'SET {current} OF {total}'**
+  String activeWorkoutSetCounter(int current, int total);
+
+  /// No description provided for @activeWorkoutTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Target: {weight} kg × {reps} reps'**
+  String activeWorkoutTarget(String weight, String reps);
+
+  /// No description provided for @activeWorkoutWeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WEIGHT (KG)'**
+  String get activeWorkoutWeightLabel;
+
+  /// No description provided for @activeWorkoutRepsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'REPS'**
+  String get activeWorkoutRepsLabel;
+
+  /// No description provided for @activeWorkoutSkipExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Exercise'**
+  String get activeWorkoutSkipExercise;
+
+  /// No description provided for @activeWorkoutAddSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Set'**
+  String get activeWorkoutAddSet;
+
+  /// No description provided for @activeWorkoutCompleteSet.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPLETE SET'**
+  String get activeWorkoutCompleteSet;
+
+  /// No description provided for @activeWorkoutEndTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'End workout?'**
+  String get activeWorkoutEndTitle;
+
+  /// No description provided for @activeWorkoutEndContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress on this session will be lost.'**
+  String get activeWorkoutEndContent;
+
+  /// No description provided for @activeWorkoutEndConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'End Workout'**
+  String get activeWorkoutEndConfirm;
+
+  /// No description provided for @workoutDetailNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout not found'**
+  String get workoutDetailNotFound;
+
+  /// No description provided for @workoutDetailStartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'START WORKOUT'**
+  String get workoutDetailStartButton;
+
+  /// No description provided for @workoutSummarySessionNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Session not found'**
+  String get workoutSummarySessionNotFound;
+
+  /// No description provided for @workoutSummaryComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'WORKOUT COMPLETE 🎉'**
+  String get workoutSummaryComplete;
+
+  /// No description provided for @workoutSummaryDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get workoutSummaryDuration;
+
+  /// No description provided for @workoutSummaryTotalVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Volume'**
+  String get workoutSummaryTotalVolume;
+
+  /// No description provided for @workoutSummarySetsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets Completed'**
+  String get workoutSummarySetsCompleted;
+
+  /// No description provided for @workoutSummaryEstCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'Est. Calories'**
+  String get workoutSummaryEstCalories;
+
+  /// No description provided for @workoutSummaryNewPr.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW PR! {weight} kg × {reps} reps'**
+  String workoutSummaryNewPr(String weight, String reps);
+
+  /// No description provided for @workoutSummaryEncouragement.
+  ///
+  /// In en, this message translates to:
+  /// **'Great work! Your muscles are getting stronger and you\'re one step closer to your goal.'**
+  String get workoutSummaryEncouragement;
+
+  /// No description provided for @workoutSummaryFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish & Return Home'**
+  String get workoutSummaryFinish;
 }
 
 class _AppLocalizationsDelegate

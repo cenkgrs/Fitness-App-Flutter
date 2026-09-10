@@ -114,5 +114,70 @@
   },
   "homeQuickActionAddMeal": "Add Meal",
   "homeQuickActionLogWeight": "Log Weight",
-  "homeQuickActionViewProgress": "View Progress"
+  "homeQuickActionViewProgress": "View Progress",
+
+  "genericError": "Error: {error}",
+  "@genericError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "commonCancel": "Cancel",
+
+  "weekdayMonday": "Monday",
+  "weekdayTuesday": "Tuesday",
+  "weekdayWednesday": "Wednesday",
+  "weekdayThursday": "Thursday",
+  "weekdayFriday": "Friday",
+  "weekdaySaturday": "Saturday",
+  "weekdaySunday": "Sunday",
+
+  "workoutsScreenTitle": "Weekly Routine",
+  "workoutsAiUpdateTooltip": "Update with AI",
+  "workoutsAiUpdateFailedSnackbar": "AI couldn't update the program: {error}",
+  "@workoutsAiUpdateFailedSnackbar": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "workoutsFailedToLoad": "Failed to load program: {error}",
+  "@workoutsFailedToLoad": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "workoutsOnboardingCta": "Complete onboarding to generate your personalized routine.",
+  "workoutsCreateMyPlan": "Create My Plan",
+
+  "activeWorkoutNoExercises": "No exercises for this day.",
+  "activeWorkoutExerciseCounter": "Exercise {current} of {total}",
+  "@activeWorkoutExerciseCounter": {
+    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "activeWorkoutSetCounter": "SET {current} OF {total}",
+  "@activeWorkoutSetCounter": {
+    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "activeWorkoutTarget": "Target: {weight} kg × {reps} reps",
+  "@activeWorkoutTarget": {
+    "placeholders": { "weight": { "type": "String" }, "reps": { "type": "String" } }
+  },
+  "activeWorkoutWeightLabel": "WEIGHT (KG)",
+  "activeWorkoutRepsLabel": "REPS",
+  "activeWorkoutSkipExercise": "Skip Exercise",
+  "activeWorkoutAddSet": "Add Set",
+  "activeWorkoutCompleteSet": "COMPLETE SET",
+  "activeWorkoutEndTitle": "End workout?",
+  "activeWorkoutEndContent": "Your progress on this session will be lost.",
+  "activeWorkoutEndConfirm": "End Workout",
+
+  "workoutDetailNotFound": "Workout not found",
+  "workoutDetailStartButton": "START WORKOUT",
+
+  "workoutSummarySessionNotFound": "Session not found",
+  "workoutSummaryComplete": "WORKOUT COMPLETE 🎉",
+  "workoutSummaryDuration": "Duration",
+  "workoutSummaryTotalVolume": "Total Volume",
+  "workoutSummarySetsCompleted": "Sets Completed",
+  "workoutSummaryEstCalories": "Est. Calories",
+  "workoutSummaryNewPr": "NEW PR! {weight} kg × {reps} reps",
+  "@workoutSummaryNewPr": {
+    "placeholders": { "weight": { "type": "String" }, "reps": { "type": "String" } }
+  },
+  "workoutSummaryEncouragement": "Great work! Your muscles are getting stronger and you're one step closer to your goal.",
+  "workoutSummaryFinish": "Finish & Return Home"
 }

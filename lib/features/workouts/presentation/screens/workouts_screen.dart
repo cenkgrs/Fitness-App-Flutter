@@ -4,15 +4,24 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/workout_providers.dart';
 
 class WorkoutsScreen extends ConsumerWidget {
   const WorkoutsScreen({super.key});
 
-  static const _dayNames = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final dayNames = [
+      l10n.weekdayMonday,
+      l10n.weekdayTuesday,
+      l10n.weekdayWednesday,
+      l10n.weekdayThursday,
+      l10n.weekdayFriday,
+      l10n.weekdaySaturday,
+      l10n.weekdaySunday,
+    ];
     final programAsync = ref.watch(activeProgramProvider);
     final sessionsAsync = ref.watch(workoutSessionsProvider);
     final aiRegenState = ref.watch(aiProgramRegenerationControllerProvider);
@@ -20,14 +29,14 @@ class WorkoutsScreen extends ConsumerWidget {
     ref.listen(aiProgramRegenerationControllerProvider, (prev, next) {
       if (next.hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('AI programı güncelleyemedi: ${next.error}')),
+          SnackBar(content: Text(l10n.workoutsAiUpdateFailedSnackbar(next.error.toString()))),
         );
       }
     });
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weekly Routine'),
+        title: Text(l10n.workoutsScreenTitle),
         actions: [
           IconButton(
             icon: aiRegenState.isLoading
@@ -37,7 +46,7 @@ class WorkoutsScreen extends ConsumerWidget {
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
                 : const Icon(Icons.auto_awesome),
-            tooltip: 'AI ile Güncelle',
+            tooltip: l10n.workoutsAiUpdateTooltip,
             onPressed: aiRegenState.isLoading
                 ? null
                 : () => ref.read(aiProgramRegenerationControllerProvider.notifier).regenerate(),
@@ -52,14 +61,14 @@ class WorkoutsScreen extends ConsumerWidget {
                 child: LoadingShimmer(height: 76),
               )),
         ),
-        error: (e, st) => Center(child: Text('Failed to load program: $e')),
+        error: (e, st) => Center(child: Text(l10n.workoutsFailedToLoad(e.toString()))),
         data: (program) {
           if (program == null) {
             return EmptyState(
               icon: Icons.fitness_center,
-              title: 'No workout planned yet.',
-              message: 'Complete onboarding to generate your personalized routine.',
-              ctaLabel: 'Create My Plan',
+              title: l10n.homeNoWorkoutPlanned,
+              message: l10n.workoutsOnboardingCta,
+              ctaLabel: l10n.workoutsCreateMyPlan,
               onCta: () => context.go('/onboarding'),
             );
           }
@@ -81,7 +90,7 @@ class WorkoutsScreen extends ConsumerWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-                    child: Text(_dayNames[index], style: AppTypography.caption),
+                    child: Text(dayNames[index], style: AppTypography.caption),
                   ),
                   WorkoutCard(
                     day: day,

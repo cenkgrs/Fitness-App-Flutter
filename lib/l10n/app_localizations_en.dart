@@ -301,4 +301,135 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeQuickActionViewProgress => 'View Progress';
+
+  @override
+  String genericError(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get commonCancel => 'Cancel';
+
+  @override
+  String get weekdayMonday => 'Monday';
+
+  @override
+  String get weekdayTuesday => 'Tuesday';
+
+  @override
+  String get weekdayWednesday => 'Wednesday';
+
+  @override
+  String get weekdayThursday => 'Thursday';
+
+  @override
+  String get weekdayFriday => 'Friday';
+
+  @override
+  String get weekdaySaturday => 'Saturday';
+
+  @override
+  String get weekdaySunday => 'Sunday';
+
+  @override
+  String get workoutsScreenTitle => 'Weekly Routine';
+
+  @override
+  String get workoutsAiUpdateTooltip => 'Update with AI';
+
+  @override
+  String workoutsAiUpdateFailedSnackbar(String error) {
+    return 'AI couldn\'t update the program: $error';
+  }
+
+  @override
+  String workoutsFailedToLoad(String error) {
+    return 'Failed to load program: $error';
+  }
+
+  @override
+  String get workoutsOnboardingCta =>
+      'Complete onboarding to generate your personalized routine.';
+
+  @override
+  String get workoutsCreateMyPlan => 'Create My Plan';
+
+  @override
+  String get activeWorkoutNoExercises => 'No exercises for this day.';
+
+  @override
+  String activeWorkoutExerciseCounter(int current, int total) {
+    return 'Exercise $current of $total';
+  }
+
+  @override
+  String activeWorkoutSetCounter(int current, int total) {
+    return 'SET $current OF $total';
+  }
+
+  @override
+  String activeWorkoutTarget(String weight, String reps) {
+    return 'Target: $weight kg × $reps reps';
+  }
+
+  @override
+  String get activeWorkoutWeightLabel => 'WEIGHT (KG)';
+
+  @override
+  String get activeWorkoutRepsLabel => 'REPS';
+
+  @override
+  String get activeWorkoutSkipExercise => 'Skip Exercise';
+
+  @override
+  String get activeWorkoutAddSet => 'Add Set';
+
+  @override
+  String get activeWorkoutCompleteSet => 'COMPLETE SET';
+
+  @override
+  String get activeWorkoutEndTitle => 'End workout?';
+
+  @override
+  String get activeWorkoutEndContent =>
+      'Your progress on this session will be lost.';
+
+  @override
+  String get activeWorkoutEndConfirm => 'End Workout';
+
+  @override
+  String get workoutDetailNotFound => 'Workout not found';
+
+  @override
+  String get workoutDetailStartButton => 'START WORKOUT';
+
+  @override
+  String get workoutSummarySessionNotFound => 'Session not found';
+
+  @override
+  String get workoutSummaryComplete => 'WORKOUT COMPLETE 🎉';
+
+  @override
+  String get workoutSummaryDuration => 'Duration';
+
+  @override
+  String get workoutSummaryTotalVolume => 'Total Volume';
+
+  @override
+  String get workoutSummarySetsCompleted => 'Sets Completed';
+
+  @override
+  String get workoutSummaryEstCalories => 'Est. Calories';
+
+  @override
+  String workoutSummaryNewPr(String weight, String reps) {
+    return 'NEW PR! $weight kg × $reps reps';
+  }
+
+  @override
+  String get workoutSummaryEncouragement =>
+      'Great work! Your muscles are getting stronger and you\'re one step closer to your goal.';
+
+  @override
+  String get workoutSummaryFinish => 'Finish & Return Home';
 }
