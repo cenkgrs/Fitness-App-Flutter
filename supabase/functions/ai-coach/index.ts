@@ -177,8 +177,19 @@ async function handleAction(action: string, payload: Record<string, unknown>) {
         `${JSON.stringify(payload.profile)}. Recent body-weight history: ` +
         `${JSON.stringify(payload.recentWeightEntries ?? [])}. Tailor exercise ` +
         `selection to their available equipment, fitness level, workout ` +
-        `location, days per week, and session duration. Respond in the ` +
-        `user's language if evident from their profile, otherwise Turkish.`;
+        `location, days per week, and session duration. ` +
+        `On every non-rest day, include a FULL session: 4-6 exercises ` +
+        `covering the day's target muscle groups from different angles ` +
+        `(e.g. a "Back and Biceps" day needs both a horizontal pull like a ` +
+        `row and a vertical pull like a pulldown/pull-up, plus isolation ` +
+        `work — never just one exercise per muscle group). Each exercise ` +
+        `needs 3-4 working sets (plus a warm-up set for compound lifts), ` +
+        `with rep ranges matching the user's primary goal (strength: ` +
+        `4-6 reps, hypertrophy/build muscle: 8-12 reps, fat loss/endurance: ` +
+        `12-15 reps). The exercises list must total realistic volume for ` +
+        `the stated session duration — do not return a day with only 1-2 ` +
+        `exercises. Respond in the user's language if evident from their ` +
+        `profile, otherwise Turkish.`;
       return await callGemini(prompt, WORKOUT_PLAN_SCHEMA);
     }
 
