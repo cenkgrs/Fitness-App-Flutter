@@ -22,6 +22,16 @@ class SupabaseAIWorkoutCoach implements AIWorkoutCoach {
     return Map<String, dynamic>.from(response.data as Map);
   }
 
+  /// Exercise/day ids must stay stable across regenerations — logged
+  /// [WorkoutSet.exerciseId]/[WorkoutSession.workoutDayId] history is keyed
+  /// on them, and strength-progression charts + "completed today" checkmarks
+  /// look history up by id. A fresh random uuid per regeneration (the
+  /// previous behavior) orphaned all prior history the moment the plan
+  /// changed. Slugifying the name gives the same exercise the same id every
+  /// time it reappears.
+  String _slug(String name) =>
+      name.trim().toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '-').replaceAll(RegExp(r'^-+|-+$'), '');
+
   @override
   Future<WorkoutProgram> generateWorkoutPlan(UserProfile profile, {String locale = 'en'}) async {
     final result =
@@ -34,9 +44,10 @@ class SupabaseAIWorkoutCoach implements AIWorkoutCoach {
         final sets = (exercise['sets'] as List<dynamic>)
             .map((rawSet) => ExerciseSet.fromJson(Map<String, dynamic>.from(rawSet as Map)))
             .toList();
+        final exerciseName = exercise['name'] as String;
         return Exercise(
-          id: _uuid.v4(),
-          name: exercise['name'] as String,
+          id: _slug(exerciseName),
+          name: exerciseName,
           muscleGroup: enumFromString(MuscleGroup.values, exercise['muscleGroup'] as String?, MuscleGroup.fullBody),
           equipment: (exercise['equipment'] as List<dynamic>)
               .map((e) => enumFromString(Equipment.values, e as String?, Equipment.bodyweight))
@@ -47,10 +58,11 @@ class SupabaseAIWorkoutCoach implements AIWorkoutCoach {
         );
       }).toList();
 
+      final dayOfWeek = day['dayOfWeek'] as int;
       return WorkoutDay(
-        id: _uuid.v4(),
+        id: 'day-$dayOfWeek',
         name: day['name'] as String,
-        dayOfWeek: day['dayOfWeek'] as int,
+        dayOfWeek: dayOfWeek,
         exercises: exercises,
         isRestDay: day['isRestDay'] as bool,
         estimatedDuration: Duration(minutes: day['estimatedDurationMinutes'] as int),
