@@ -5,7 +5,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
 import 'package:repwise/core/routing/app_router.dart';
+import 'package:repwise/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:repwise/features/onboarding/presentation/controllers/onboarding_controller.dart';
+
+/// Signs a user in and waits for [authStateProvider]'s first emission, so
+/// callers don't race the underlying broadcast stream (see
+/// LocalAuthRepository.authStateChanges for why the first value needs an
+/// active subscriber first).
+Future<void> _signIn(ProviderContainer container, String email) async {
+  await container.read(authRepositoryProvider).signInWithEmail(
+        email: email,
+        password: 'password123',
+      );
+  await container.read(authStateProvider.future);
+}
 
 const _boxNames = [
   'repwise_user',
@@ -44,6 +57,12 @@ void main() {
     final container = ProviderContainer();
     addTearDown(container.dispose);
 
+    // Onboarding-complete state is scoped per signed-in user (see
+    // onboardingCompleteProvider), and the router only ever reaches
+    // /onboarding once a user is authenticated — so sign one in first,
+    // matching real usage.
+    await _signIn(container, 'router-test@example.com');
+
     final routerBefore = container.read(routerProvider);
 
     await container.read(onboardingControllerProvider.notifier).completeOnboarding();
@@ -61,6 +80,8 @@ void main() {
   test('onboardingCompleteProvider flips synchronously, no AsyncLoading gap', () async {
     final container = ProviderContainer();
     addTearDown(container.dispose);
+
+    await _signIn(container, 'router-test-2@example.com');
 
     expect(container.read(onboardingCompleteProvider), isFalse);
 

@@ -108,7 +108,7 @@ class OnboardingController extends Notifier<OnboardingDraft> {
     final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
     final profile = state.toProfile(userId);
     await ref.read(userProfileRepositoryProvider).saveProfile(profile);
-    await ref.read(userProfileRepositoryProvider).markOnboardingComplete();
+    await ref.read(userProfileRepositoryProvider).markOnboardingComplete(userId);
 
     final macros = const NutritionCalculator().calculate(profile);
     await ref.read(goalRepositoryProvider).saveGoal(Goal(
@@ -136,6 +136,8 @@ final onboardingControllerProvider =
 /// Synchronous by design (Hive reads don't need to be async) so the
 /// router's redirect logic can read it without an AsyncLoading gap.
 final onboardingCompleteProvider = Provider<bool>((ref) {
+  final userId = ref.watch(authStateProvider).valueOrNull?.id;
+  if (userId == null) return false;
   final repo = ref.watch(userProfileRepositoryProvider);
-  return repo.hasCompletedOnboardingSync();
+  return repo.hasCompletedOnboardingSync(userId);
 });

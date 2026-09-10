@@ -7,11 +7,11 @@ abstract class UserProfileRepository {
   Future<UserProfile?> getProfile(String userId);
   Future<void> saveProfile(UserProfile profile);
 
-  Future<bool> hasCompletedOnboarding();
+  Future<bool> hasCompletedOnboarding(String userId);
 
   /// Synchronous read used by the router's redirect logic, which cannot
   /// tolerate an async gap without a one-frame bounce back to /onboarding.
-  bool hasCompletedOnboardingSync();
+  bool hasCompletedOnboardingSync(String userId);
 
-  Future<void> markOnboardingComplete();
+  Future<void> markOnboardingComplete(String userId);
 }

@@ -39,11 +39,25 @@ class AuthController extends AsyncNotifier<void> {
   Future<void> signInWithGoogle() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _repo.signInWithGoogle());
+    _resetIfAwaitingOAuthRedirect();
   }
 
   Future<void> signInWithApple() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _repo.signInWithApple());
+    _resetIfAwaitingOAuthRedirect();
+  }
+
+  /// The Supabase OAuth flow hands off to an external browser/native sheet
+  /// and completes asynchronously via authStateProvider — it doesn't return
+  /// a user synchronously, so [SupabaseAuthRepository] surfaces that as a
+  /// StateError. That's an expected transitional state, not a real failure,
+  /// so it shouldn't show as an error banner to the user.
+  void _resetIfAwaitingOAuthRedirect() {
+    final error = state.error;
+    if (error is StateError && error.message.contains('awaiting redirect')) {
+      state = const AsyncData(null);
+    }
   }
 
   Future<void> signOut() async {
