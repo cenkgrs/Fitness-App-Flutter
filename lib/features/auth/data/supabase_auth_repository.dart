@@ -14,6 +14,11 @@ import '../domain/auth_repository.dart';
 class SupabaseAuthRepository implements AuthRepository {
   final sb.SupabaseClient _client;
 
+  // Must match: the Android intent-filter in
+  // android/app/src/main/AndroidManifest.xml, and be added to Supabase
+  // Dashboard > Authentication > URL Configuration > Redirect URLs.
+  static const _oauthRedirectUrl = 'com.repwise.app.repwise://login-callback';
+
   SupabaseAuthRepository(this._client);
 
   AppUser? _mapUser(sb.User? user) {
@@ -55,7 +60,7 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<AppUser> signInWithGoogle() async {
-    await _client.auth.signInWithOAuth(sb.OAuthProvider.google);
+    await _client.auth.signInWithOAuth(sb.OAuthProvider.google, redirectTo: _oauthRedirectUrl);
     // signInWithOAuth redirects out to the browser/native flow; the actual
     // session arrives asynchronously via authStateChanges(). Callers should
     // watch authStateProvider rather than this method's return value.
@@ -66,7 +71,7 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<AppUser> signInWithApple() async {
-    await _client.auth.signInWithOAuth(sb.OAuthProvider.apple);
+    await _client.auth.signInWithOAuth(sb.OAuthProvider.apple, redirectTo: _oauthRedirectUrl);
     final user = _mapUser(_client.auth.currentUser);
     if (user == null) throw StateError('OAuth flow started; awaiting redirect.');
     return user;
