@@ -28,7 +28,12 @@ class MacroProgress extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: AppTypography.caption),
+            // Turkish labels (e.g. "Karbonhidrat" vs. "Carbs") can run
+            // noticeably longer than English ones in these narrow
+            // three-across columns — truncate instead of overflowing.
+            Expanded(
+              child: Text(label, style: AppTypography.caption, overflow: TextOverflow.ellipsis),
+            ),
             Text(
               '${consumed.round()}/${goal.round()}$unit',
               style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
