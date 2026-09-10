@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
@@ -79,16 +80,24 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
     if (mounted) context.pop();
   }
 
+  String _mealTypeLabel(AppLocalizations l10n, MealType type) => switch (type) {
+        MealType.breakfast => l10n.mealTypeBreakfast,
+        MealType.lunch => l10n.mealTypeLunch,
+        MealType.dinner => l10n.mealTypeDinner,
+        MealType.snack => l10n.mealTypeSnack,
+      };
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add to ${_type.name[0].toUpperCase()}${_type.name.substring(1)}'),
+        title: Text(l10n.foodLoggerTitle(_mealTypeLabel(l10n, _type))),
         bottom: TabBar(
           controller: _tabController,
           labelColor: AppColors.primary,
           indicatorColor: AppColors.primary,
-          tabs: const [Tab(text: 'Search'), Tab(text: 'Quick Add')],
+          tabs: [Tab(text: l10n.foodLoggerSearchTab), Tab(text: l10n.foodLoggerQuickAddTab)],
         ),
       ),
       body: TabBarView(
@@ -138,6 +147,7 @@ class _SearchTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         Padding(
@@ -145,15 +155,18 @@ class _SearchTab extends StatelessWidget {
           child: TextField(
             controller: searchController,
             onChanged: onSearch,
-            decoration: const InputDecoration(
-              hintText: 'Yemek veya marka ara...',
-              prefixIcon: Icon(Icons.search, color: AppColors.textTertiary),
+            decoration: InputDecoration(
+              hintText: l10n.foodLoggerSearchHint,
+              prefixIcon: const Icon(Icons.search, color: AppColors.textTertiary),
             ),
           ),
         ),
         Expanded(
           child: results.isEmpty
-              ? const EmptyState(icon: Icons.search_off, title: 'No results', message: 'Try a different search term.')
+              ? EmptyState(
+                  icon: Icons.search_off,
+                  title: l10n.foodLoggerNoResultsTitle,
+                  message: l10n.foodLoggerNoResultsMessage)
               : ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenMargin),
                   itemCount: results.length,
@@ -164,7 +177,12 @@ class _SearchTab extends StatelessWidget {
                       contentPadding: EdgeInsets.zero,
                       title: Text(food.name, style: AppTypography.bodyLg),
                       subtitle: Text(
-                        '${food.caloriesPer100g.round()} kcal / 100g • P:${food.proteinPer100g.round()}g C:${food.carbsPer100g.round()}g F:${food.fatPer100g.round()}g',
+                        l10n.foodLoggerNutritionSummary(
+                          food.caloriesPer100g.round().toString(),
+                          food.proteinPer100g.round().toString(),
+                          food.carbsPer100g.round().toString(),
+                          food.fatPer100g.round().toString(),
+                        ),
                         style: AppTypography.caption,
                       ),
                       trailing: const Icon(Icons.chevron_right, color: AppColors.textTertiary),
@@ -192,6 +210,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final f = widget.food;
     final ratio = _grams / 100;
     final calories = f.caloriesPer100g * ratio;
@@ -227,11 +246,13 @@ class _QuantitySheetState extends State<_QuantitySheet> {
             }).toList(),
           ),
           const SizedBox(height: AppSpacing.lg),
-          Text('${calories.round()} kcal — P: ${protein.round()}g, C: ${carbs.round()}g, F: ${fat.round()}g',
+          Text(
+              l10n.foodLoggerQuantitySummary(calories.round().toString(), protein.round().toString(),
+                  carbs.round().toString(), fat.round().toString()),
               style: AppTypography.bodyMd),
           const SizedBox(height: AppSpacing.lg),
           PrimaryButton(
-            label: 'Add',
+            label: l10n.commonAdd,
             onPressed: () => widget.onConfirm(MealEntry(
               id: const Uuid().v4(),
               foodId: f.id,
@@ -276,6 +297,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
   }
 
   Future<void> _fillWithAI() async {
+    final l10n = AppLocalizations.of(context)!;
     final parser = ref.read(aiFoodParserProvider);
     if (parser == null || _aiText.text.trim().isEmpty) return;
     setState(() => _aiLoading = true);
@@ -286,7 +308,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('AI yemekleri ayrıştıramadı: $e')),
+          SnackBar(content: Text(l10n.foodLoggerAiParseFailedSnackbar(e.toString()))),
         );
       }
     } finally {
@@ -296,6 +318,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final aiAvailable = ref.watch(aiFoodParserProvider) != null;
 
     return SingleChildScrollView(
@@ -307,46 +330,46 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
             TextField(
               controller: _aiText,
               maxLines: 2,
-              decoration: const InputDecoration(
-                hintText: 'Örn: 3 yumurta, 100g pirinç, bir avuç badem',
+              decoration: InputDecoration(
+                hintText: l10n.foodLoggerAiHint,
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
             SecondaryButton(
-              label: _aiLoading ? 'Ayrıştırılıyor...' : 'AI ile Doldur',
+              label: _aiLoading ? l10n.foodLoggerAiParsing : l10n.foodLoggerAiFillButton,
               icon: Icons.auto_awesome,
               onPressed: _aiLoading ? null : _fillWithAI,
             ),
             const SizedBox(height: AppSpacing.lg),
             Row(
-              children: const [
-                Expanded(child: Divider()),
+              children: [
+                const Expanded(child: Divider()),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                  child: Text('veya manuel gir', style: AppTypography.caption),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  child: Text(l10n.foodLoggerOrManualEntry, style: AppTypography.caption),
                 ),
-                Expanded(child: Divider()),
+                const Expanded(child: Divider()),
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
           ],
-          _numberField('Calories', _calories),
+          _numberField(l10n.quickAddCaloriesLabel, _calories),
           const SizedBox(height: AppSpacing.md),
-          _numberField('Protein (g)', _protein),
+          _numberField(l10n.quickAddProteinLabel, _protein),
           const SizedBox(height: AppSpacing.md),
-          _numberField('Carbs (g)', _carbs),
+          _numberField(l10n.quickAddCarbsLabel, _carbs),
           const SizedBox(height: AppSpacing.md),
-          _numberField('Fat (g)', _fat),
+          _numberField(l10n.quickAddFatLabel, _fat),
           const SizedBox(height: AppSpacing.xl),
           PrimaryButton(
-            label: 'Add',
+            label: l10n.commonAdd,
             onPressed: () {
               final calories = double.tryParse(_calories.text) ?? 0;
               if (calories <= 0) return;
               widget.onSave([
                 MealEntry(
                   id: const Uuid().v4(),
-                  name: 'Quick Add',
+                  name: l10n.quickAddEntryDefaultName,
                   quantityGrams: 0,
                   calories: calories,
                   proteinG: double.tryParse(_protein.text) ?? 0,

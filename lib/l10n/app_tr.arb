@@ -137,5 +137,33 @@
   "workoutSummaryEstCalories": "Tahmini Kalori",
   "workoutSummaryNewPr": "YENİ REKOR! {weight} kg × {reps} tekrar",
   "workoutSummaryEncouragement": "Harika bir iş çıkardın! Kasların güçleniyor ve hedefine bir adım daha yaklaştın.",
-  "workoutSummaryFinish": "Bitir ve Ana Sayfaya Dön"
+  "workoutSummaryFinish": "Bitir ve Ana Sayfaya Dön",
+
+  "commonAdd": "Ekle",
+  "nutritionToday": "Bugün",
+  "nutritionCaloriesProgress": "{consumed} / {goal} kcal",
+
+  "mealTypeBreakfast": "Kahvaltı",
+  "mealTypeLunch": "Öğle Yemeği",
+  "mealTypeDinner": "Akşam Yemeği",
+  "mealTypeSnack": "Atıştırmalık",
+
+  "foodLoggerTitle": "{mealType} Ekle",
+  "foodLoggerSearchTab": "Ara",
+  "foodLoggerQuickAddTab": "Hızlı Ekle",
+  "foodLoggerSearchHint": "Yemek veya marka ara...",
+  "foodLoggerNoResultsTitle": "Sonuç yok",
+  "foodLoggerNoResultsMessage": "Farklı bir arama terimi dene.",
+  "foodLoggerNutritionSummary": "{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g",
+  "foodLoggerQuantitySummary": "{kcal} kcal — P: {protein}g, C: {carbs}g, F: {fat}g",
+  "foodLoggerAiHint": "Örn: 3 yumurta, 100g pirinç, bir avuç badem",
+  "foodLoggerAiFillButton": "AI ile Doldur",
+  "foodLoggerAiParsing": "Ayrıştırılıyor...",
+  "foodLoggerOrManualEntry": "veya manuel gir",
+  "foodLoggerAiParseFailedSnackbar": "AI yemekleri ayrıştıramadı: {error}",
+  "quickAddCaloriesLabel": "Kalori",
+  "quickAddProteinLabel": "Protein (g)",
+  "quickAddCarbsLabel": "Karbonhidrat (g)",
+  "quickAddFatLabel": "Yağ (g)",
+  "quickAddEntryDefaultName": "Hızlı Ekle"
 }

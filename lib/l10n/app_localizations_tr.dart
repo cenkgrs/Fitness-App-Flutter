@@ -430,4 +430,91 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get workoutSummaryFinish => 'Bitir ve Ana Sayfaya Dön';
+
+  @override
+  String get commonAdd => 'Ekle';
+
+  @override
+  String get nutritionToday => 'Bugün';
+
+  @override
+  String nutritionCaloriesProgress(int consumed, int goal) {
+    return '$consumed / $goal kcal';
+  }
+
+  @override
+  String get mealTypeBreakfast => 'Kahvaltı';
+
+  @override
+  String get mealTypeLunch => 'Öğle Yemeği';
+
+  @override
+  String get mealTypeDinner => 'Akşam Yemeği';
+
+  @override
+  String get mealTypeSnack => 'Atıştırmalık';
+
+  @override
+  String foodLoggerTitle(String mealType) {
+    return '$mealType Ekle';
+  }
+
+  @override
+  String get foodLoggerSearchTab => 'Ara';
+
+  @override
+  String get foodLoggerQuickAddTab => 'Hızlı Ekle';
+
+  @override
+  String get foodLoggerSearchHint => 'Yemek veya marka ara...';
+
+  @override
+  String get foodLoggerNoResultsTitle => 'Sonuç yok';
+
+  @override
+  String get foodLoggerNoResultsMessage => 'Farklı bir arama terimi dene.';
+
+  @override
+  String foodLoggerNutritionSummary(
+      String kcal, String protein, String carbs, String fat) {
+    return '$kcal kcal / 100g • P:${protein}g C:${carbs}g F:${fat}g';
+  }
+
+  @override
+  String foodLoggerQuantitySummary(
+      String kcal, String protein, String carbs, String fat) {
+    return '$kcal kcal — P: ${protein}g, C: ${carbs}g, F: ${fat}g';
+  }
+
+  @override
+  String get foodLoggerAiHint => 'Örn: 3 yumurta, 100g pirinç, bir avuç badem';
+
+  @override
+  String get foodLoggerAiFillButton => 'AI ile Doldur';
+
+  @override
+  String get foodLoggerAiParsing => 'Ayrıştırılıyor...';
+
+  @override
+  String get foodLoggerOrManualEntry => 'veya manuel gir';
+
+  @override
+  String foodLoggerAiParseFailedSnackbar(String error) {
+    return 'AI yemekleri ayrıştıramadı: $error';
+  }
+
+  @override
+  String get quickAddCaloriesLabel => 'Kalori';
+
+  @override
+  String get quickAddProteinLabel => 'Protein (g)';
+
+  @override
+  String get quickAddCarbsLabel => 'Karbonhidrat (g)';
+
+  @override
+  String get quickAddFatLabel => 'Yağ (g)';
+
+  @override
+  String get quickAddEntryDefaultName => 'Hızlı Ekle';
 }

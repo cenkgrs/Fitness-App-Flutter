@@ -432,4 +432,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutSummaryFinish => 'Finish & Return Home';
+
+  @override
+  String get commonAdd => 'Add';
+
+  @override
+  String get nutritionToday => 'Today';
+
+  @override
+  String nutritionCaloriesProgress(int consumed, int goal) {
+    return '$consumed / $goal kcal';
+  }
+
+  @override
+  String get mealTypeBreakfast => 'Breakfast';
+
+  @override
+  String get mealTypeLunch => 'Lunch';
+
+  @override
+  String get mealTypeDinner => 'Dinner';
+
+  @override
+  String get mealTypeSnack => 'Snack';
+
+  @override
+  String foodLoggerTitle(String mealType) {
+    return 'Add to $mealType';
+  }
+
+  @override
+  String get foodLoggerSearchTab => 'Search';
+
+  @override
+  String get foodLoggerQuickAddTab => 'Quick Add';
+
+  @override
+  String get foodLoggerSearchHint => 'Search for food or brand...';
+
+  @override
+  String get foodLoggerNoResultsTitle => 'No results';
+
+  @override
+  String get foodLoggerNoResultsMessage => 'Try a different search term.';
+
+  @override
+  String foodLoggerNutritionSummary(
+      String kcal, String protein, String carbs, String fat) {
+    return '$kcal kcal / 100g • P:${protein}g C:${carbs}g F:${fat}g';
+  }
+
+  @override
+  String foodLoggerQuantitySummary(
+      String kcal, String protein, String carbs, String fat) {
+    return '$kcal kcal — P: ${protein}g, C: ${carbs}g, F: ${fat}g';
+  }
+
+  @override
+  String get foodLoggerAiHint => 'e.g. 3 eggs, 100g rice, a handful of almonds';
+
+  @override
+  String get foodLoggerAiFillButton => 'Fill with AI';
+
+  @override
+  String get foodLoggerAiParsing => 'Parsing...';
+
+  @override
+  String get foodLoggerOrManualEntry => 'or enter manually';
+
+  @override
+  String foodLoggerAiParseFailedSnackbar(String error) {
+    return 'AI couldn\'t parse the meal: $error';
+  }
+
+  @override
+  String get quickAddCaloriesLabel => 'Calories';
+
+  @override
+  String get quickAddProteinLabel => 'Protein (g)';
+
+  @override
+  String get quickAddCarbsLabel => 'Carbs (g)';
+
+  @override
+  String get quickAddFatLabel => 'Fat (g)';
+
+  @override
+  String get quickAddEntryDefaultName => 'Quick Add';
 }

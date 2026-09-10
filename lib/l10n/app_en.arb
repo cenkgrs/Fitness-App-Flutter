@@ -179,5 +179,58 @@
     "placeholders": { "weight": { "type": "String" }, "reps": { "type": "String" } }
   },
   "workoutSummaryEncouragement": "Great work! Your muscles are getting stronger and you're one step closer to your goal.",
-  "workoutSummaryFinish": "Finish & Return Home"
+  "workoutSummaryFinish": "Finish & Return Home",
+
+  "commonAdd": "Add",
+  "nutritionToday": "Today",
+  "nutritionCaloriesProgress": "{consumed} / {goal} kcal",
+  "@nutritionCaloriesProgress": {
+    "placeholders": { "consumed": { "type": "int" }, "goal": { "type": "int" } }
+  },
+
+  "mealTypeBreakfast": "Breakfast",
+  "mealTypeLunch": "Lunch",
+  "mealTypeDinner": "Dinner",
+  "mealTypeSnack": "Snack",
+
+  "foodLoggerTitle": "Add to {mealType}",
+  "@foodLoggerTitle": {
+    "placeholders": { "mealType": { "type": "String" } }
+  },
+  "foodLoggerSearchTab": "Search",
+  "foodLoggerQuickAddTab": "Quick Add",
+  "foodLoggerSearchHint": "Search for food or brand...",
+  "foodLoggerNoResultsTitle": "No results",
+  "foodLoggerNoResultsMessage": "Try a different search term.",
+  "foodLoggerNutritionSummary": "{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g",
+  "@foodLoggerNutritionSummary": {
+    "placeholders": {
+      "kcal": { "type": "String" },
+      "protein": { "type": "String" },
+      "carbs": { "type": "String" },
+      "fat": { "type": "String" }
+    }
+  },
+  "foodLoggerQuantitySummary": "{kcal} kcal — P: {protein}g, C: {carbs}g, F: {fat}g",
+  "@foodLoggerQuantitySummary": {
+    "placeholders": {
+      "kcal": { "type": "String" },
+      "protein": { "type": "String" },
+      "carbs": { "type": "String" },
+      "fat": { "type": "String" }
+    }
+  },
+  "foodLoggerAiHint": "e.g. 3 eggs, 100g rice, a handful of almonds",
+  "foodLoggerAiFillButton": "Fill with AI",
+  "foodLoggerAiParsing": "Parsing...",
+  "foodLoggerOrManualEntry": "or enter manually",
+  "foodLoggerAiParseFailedSnackbar": "AI couldn't parse the meal: {error}",
+  "@foodLoggerAiParseFailedSnackbar": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "quickAddCaloriesLabel": "Calories",
+  "quickAddProteinLabel": "Protein (g)",
+  "quickAddCarbsLabel": "Carbs (g)",
+  "quickAddFatLabel": "Fat (g)",
+  "quickAddEntryDefaultName": "Quick Add"
 }

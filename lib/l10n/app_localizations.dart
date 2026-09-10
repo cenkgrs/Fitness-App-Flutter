@@ -871,6 +871,158 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish & Return Home'**
   String get workoutSummaryFinish;
+
+  /// No description provided for @commonAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get commonAdd;
+
+  /// No description provided for @nutritionToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get nutritionToday;
+
+  /// No description provided for @nutritionCaloriesProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{consumed} / {goal} kcal'**
+  String nutritionCaloriesProgress(int consumed, int goal);
+
+  /// No description provided for @mealTypeBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get mealTypeBreakfast;
+
+  /// No description provided for @mealTypeLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get mealTypeLunch;
+
+  /// No description provided for @mealTypeDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get mealTypeDinner;
+
+  /// No description provided for @mealTypeSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Snack'**
+  String get mealTypeSnack;
+
+  /// No description provided for @foodLoggerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to {mealType}'**
+  String foodLoggerTitle(String mealType);
+
+  /// No description provided for @foodLoggerSearchTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get foodLoggerSearchTab;
+
+  /// No description provided for @foodLoggerQuickAddTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Add'**
+  String get foodLoggerQuickAddTab;
+
+  /// No description provided for @foodLoggerSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for food or brand...'**
+  String get foodLoggerSearchHint;
+
+  /// No description provided for @foodLoggerNoResultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No results'**
+  String get foodLoggerNoResultsTitle;
+
+  /// No description provided for @foodLoggerNoResultsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term.'**
+  String get foodLoggerNoResultsMessage;
+
+  /// No description provided for @foodLoggerNutritionSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g'**
+  String foodLoggerNutritionSummary(
+      String kcal, String protein, String carbs, String fat);
+
+  /// No description provided for @foodLoggerQuantitySummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal — P: {protein}g, C: {carbs}g, F: {fat}g'**
+  String foodLoggerQuantitySummary(
+      String kcal, String protein, String carbs, String fat);
+
+  /// No description provided for @foodLoggerAiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 3 eggs, 100g rice, a handful of almonds'**
+  String get foodLoggerAiHint;
+
+  /// No description provided for @foodLoggerAiFillButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill with AI'**
+  String get foodLoggerAiFillButton;
+
+  /// No description provided for @foodLoggerAiParsing.
+  ///
+  /// In en, this message translates to:
+  /// **'Parsing...'**
+  String get foodLoggerAiParsing;
+
+  /// No description provided for @foodLoggerOrManualEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'or enter manually'**
+  String get foodLoggerOrManualEntry;
+
+  /// No description provided for @foodLoggerAiParseFailedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'AI couldn\'t parse the meal: {error}'**
+  String foodLoggerAiParseFailedSnackbar(String error);
+
+  /// No description provided for @quickAddCaloriesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories'**
+  String get quickAddCaloriesLabel;
+
+  /// No description provided for @quickAddProteinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein (g)'**
+  String get quickAddProteinLabel;
+
+  /// No description provided for @quickAddCarbsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs (g)'**
+  String get quickAddCarbsLabel;
+
+  /// No description provided for @quickAddFatLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat (g)'**
+  String get quickAddFatLabel;
+
+  /// No description provided for @quickAddEntryDefaultName.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Add'**
+  String get quickAddEntryDefaultName;
 }
 
 class _AppLocalizationsDelegate

@@ -6,6 +6,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../controllers/nutrition_providers.dart';
 
@@ -14,6 +15,7 @@ class NutritionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final date = ref.watch(selectedNutritionDateProvider);
     final nutritionAsync = ref.watch(dailyNutritionProvider);
     final isToday = _isSameDay(date, DateTime.now());
@@ -28,7 +30,7 @@ class NutritionScreen extends ConsumerWidget {
               onPressed: () => ref.read(selectedNutritionDateProvider.notifier).state =
                   date.subtract(const Duration(days: 1)),
             ),
-            Text(isToday ? 'Today' : DateFormat('d MMM').format(date)),
+            Text(isToday ? l10n.nutritionToday : DateFormat('d MMM').format(date)),
             IconButton(
               icon: const Icon(Icons.chevron_right),
               onPressed: isToday
@@ -56,7 +58,7 @@ class NutritionScreen extends ConsumerWidget {
             LoadingShimmer(height: 100),
           ],
         ),
-        error: (e, st) => Center(child: Text('Error: $e')),
+        error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
         data: (nutrition) {
           final mealFor = {
             for (final type in MealType.values)
@@ -75,9 +77,12 @@ class NutritionScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${nutrition.consumedCalories.round()} / ${nutrition.calorieGoal} kcal',
+                          Text(
+                              l10n.nutritionCaloriesProgress(
+                                  nutrition.consumedCalories.round(), nutrition.calorieGoal),
                               style: AppTypography.headingMd),
-                          Text('${nutrition.remainingCalories.round()} left', style: AppTypography.caption),
+                          Text(l10n.homeCaloriesLeft(nutrition.remainingCalories.round()),
+                              style: AppTypography.caption),
                         ],
                       ),
                       const SizedBox(height: AppSpacing.md),
@@ -99,21 +104,21 @@ class NutritionScreen extends ConsumerWidget {
                     children: [
                       Expanded(
                           child: MacroProgress(
-                              label: 'Protein',
+                              label: l10n.macroProtein,
                               consumed: nutrition.consumedProteinG,
                               goal: nutrition.proteinGoal.toDouble(),
                               color: AppColors.protein)),
                       const SizedBox(width: AppSpacing.lg),
                       Expanded(
                           child: MacroProgress(
-                              label: 'Carbs',
+                              label: l10n.macroCarbs,
                               consumed: nutrition.consumedCarbsG,
                               goal: nutrition.carbsGoal.toDouble(),
                               color: AppColors.carbs)),
                       const SizedBox(width: AppSpacing.lg),
                       Expanded(
                           child: MacroProgress(
-                              label: 'Fat',
+                              label: l10n.macroFat,
                               consumed: nutrition.consumedFatG,
                               goal: nutrition.fatGoal.toDouble(),
                               color: AppColors.fat)),
