@@ -4,7 +4,9 @@ abstract class NutritionRepository {
   Future<List<Meal>> getMealsForDate(String userId, DateTime date);
   Future<void> saveMeal(Meal meal);
   Future<void> removeEntry(String mealId, String entryId);
-  Future<List<Food>> searchFoods(String query);
+  /// [country] is an Open Food Facts country tag used to restrict results
+  /// (e.g. 'Turkey'); empty means no filter.
+  Future<List<Food>> searchFoods(String query, {String country = ''});
   Future<void> addCustomFood(Food food);
 
   Future<List<WeightEntry>> getWeightEntries(String userId);

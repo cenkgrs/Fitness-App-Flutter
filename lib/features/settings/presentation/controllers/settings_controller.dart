@@ -28,6 +28,8 @@ class SettingsController extends Notifier<AppSettings> {
   void setLanguageCode(String code) => _update((s) => s.copyWith(languageCode: code));
   void setUseAutoNutritionCalculation(bool value) =>
       _update((s) => s.copyWith(useAutoNutritionCalculation: value));
+  void setFoodSearchCountry(String country) =>
+      _update((s) => s.copyWith(foodSearchCountry: country));
 }
 
 final settingsControllerProvider = NotifierProvider<SettingsController, AppSettings>(SettingsController.new);

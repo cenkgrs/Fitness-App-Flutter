@@ -60,6 +60,19 @@ class SettingsScreen extends ConsumerWidget {
             value: settings.useAutoNutritionCalculation,
             onChanged: controller.setUseAutoNutritionCalculation,
           ),
+          _DropdownTile<String>(
+            label: 'Yemek Veritabanı',
+            value: settings.foodSearchCountry,
+            items: const {
+              '': 'Global (Tümü)',
+              'Turkey': 'Türkiye',
+              'Germany': 'Almanya',
+              'United Kingdom': 'Birleşik Krallık',
+              'United States': 'Amerika Birleşik Devletleri',
+              'France': 'Fransa',
+            },
+            onChanged: controller.setFoodSearchCountry,
+          ),
           if (!settings.useAutoNutritionCalculation)
             goalAsync.when(
               loading: () => const SizedBox.shrink(),

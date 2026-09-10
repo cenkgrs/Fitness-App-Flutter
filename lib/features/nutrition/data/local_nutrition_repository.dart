@@ -50,7 +50,7 @@ class LocalNutritionRepository implements NutritionRepository {
   }
 
   @override
-  Future<List<Food>> searchFoods(String query) async {
+  Future<List<Food>> searchFoods(String query, {String country = ''}) async {
     final all = _storage.foodsBox.values
         .map((raw) => Food.fromJson(Map<String, dynamic>.from(raw as Map)))
         .toList();

@@ -68,7 +68,7 @@ class SupabaseNutritionRepository implements NutritionRepository {
       );
 
   @override
-  Future<List<Food>> searchFoods(String query) async {
+  Future<List<Food>> searchFoods(String query, {String country = ''}) async {
     final trimmed = query.trim();
 
     final catalogRows = trimmed.isEmpty
@@ -81,7 +81,7 @@ class SupabaseNutritionRepository implements NutritionRepository {
 
     List<Food> external = const [];
     try {
-      external = await _openFoodFacts.search(trimmed);
+      external = await _openFoodFacts.search(trimmed, country: country);
     } catch (_) {
       // External source hiccup — the local catalog results above still
       // stand, so the user isn't left with an empty screen.

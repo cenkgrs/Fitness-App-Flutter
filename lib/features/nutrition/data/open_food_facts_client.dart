@@ -12,7 +12,10 @@ class OpenFoodFactsClient {
   // reach out about abuse: https://openfoodfacts.github.io/openfoodfacts-server/api/#requests
   static const _userAgent = 'Repwise - Flutter - Version 0.1.0 - cenk.gurses@argevim.com.tr';
 
-  Future<List<Food>> search(String query) async {
+  /// [country] is an Open Food Facts country tag (e.g. 'Turkey', 'Germany')
+  /// — user-selected in Settings. Empty means no filter: search spans the
+  /// whole global catalog, since users outside Turkey use this app too.
+  Future<List<Food>> search(String query, {String country = ''}) async {
     if (query.trim().isEmpty) return const [];
 
     final uri = Uri.parse(_baseUrl).replace(queryParameters: {
@@ -22,13 +25,11 @@ class OpenFoodFactsClient {
       'json': '1',
       'page_size': '20',
       'lc': 'tr',
-      // Without a country filter, Open Food Facts is a worldwide crowdsourced
-      // catalog and returns matches from every country's products for a
-      // given search term — restrict to products tagged as sold in Turkey
-      // so results are actually relevant to this app's users.
-      'tagtype_0': 'countries',
-      'tag_contains_0': 'contains',
-      'tag_0': 'Turkey',
+      if (country.isNotEmpty) ...{
+        'tagtype_0': 'countries',
+        'tag_contains_0': 'contains',
+        'tag_0': country,
+      },
       'fields': 'code,product_name,product_name_tr,brands,nutriments',
     });
 

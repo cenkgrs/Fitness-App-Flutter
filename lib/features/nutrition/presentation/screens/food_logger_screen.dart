@@ -10,6 +10,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../controllers/nutrition_providers.dart';
 
 class FoodLoggerScreen extends ConsumerStatefulWidget {
@@ -42,7 +43,9 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
   }
 
   Future<void> _search(String query) async {
-    final results = await ref.read(nutritionRepositoryProvider).searchFoods(query);
+    final country = ref.read(settingsControllerProvider).foodSearchCountry;
+    final results =
+        await ref.read(nutritionRepositoryProvider).searchFoods(query, country: country);
     if (mounted) setState(() => _results = results);
   }
 

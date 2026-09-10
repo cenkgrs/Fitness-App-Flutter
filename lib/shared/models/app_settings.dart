@@ -14,6 +14,9 @@ class AppSettings extends Equatable {
   final bool notificationsEnabled;
   final String languageCode; // 'tr' | 'en'
   final bool useAutoNutritionCalculation;
+  /// Open Food Facts country tag (e.g. 'Turkey', 'Germany') to restrict food
+  /// search results to; '' means no filter (global catalog).
+  final String foodSearchCountry;
 
   const AppSettings({
     this.weightUnit = WeightUnit.kg,
@@ -26,6 +29,7 @@ class AppSettings extends Equatable {
     this.notificationsEnabled = true,
     this.languageCode = 'en',
     this.useAutoNutritionCalculation = true,
+    this.foodSearchCountry = '',
   });
 
   AppSettings copyWith({
@@ -39,6 +43,7 @@ class AppSettings extends Equatable {
     bool? notificationsEnabled,
     String? languageCode,
     bool? useAutoNutritionCalculation,
+    String? foodSearchCountry,
   }) {
     return AppSettings(
       weightUnit: weightUnit ?? this.weightUnit,
@@ -52,6 +57,7 @@ class AppSettings extends Equatable {
       languageCode: languageCode ?? this.languageCode,
       useAutoNutritionCalculation:
           useAutoNutritionCalculation ?? this.useAutoNutritionCalculation,
+      foodSearchCountry: foodSearchCountry ?? this.foodSearchCountry,
     );
   }
 
@@ -66,6 +72,7 @@ class AppSettings extends Equatable {
         'notificationsEnabled': notificationsEnabled,
         'languageCode': languageCode,
         'useAutoNutritionCalculation': useAutoNutritionCalculation,
+        'foodSearchCountry': foodSearchCountry,
       };
 
   factory AppSettings.fromJson(Map<String, dynamic> json) => AppSettings(
@@ -80,6 +87,7 @@ class AppSettings extends Equatable {
         notificationsEnabled: json['notificationsEnabled'] as bool? ?? true,
         languageCode: json['languageCode'] as String? ?? 'en',
         useAutoNutritionCalculation: json['useAutoNutritionCalculation'] as bool? ?? true,
+        foodSearchCountry: json['foodSearchCountry'] as String? ?? '',
       );
 
   @override
@@ -94,5 +102,6 @@ class AppSettings extends Equatable {
         notificationsEnabled,
         languageCode,
         useAutoNutritionCalculation,
+        foodSearchCountry,
       ];
 }
