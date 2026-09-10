@@ -203,7 +203,18 @@ class _StrengthTab extends ConsumerWidget {
           );
         }
         final names = namesAsync.valueOrNull ?? {};
-        final ids = progression.keys.toList();
+        // Sets logged against an exercise id that no longer exists in the
+        // active program (e.g. history from before an AI regeneration, or
+        // a regeneration that renamed the exercise) can't be labeled —
+        // showing the raw id is worse than hiding that orphaned entry.
+        final ids = progression.keys.where(names.containsKey).toList();
+        if (ids.isEmpty) {
+          return EmptyState(
+            icon: Icons.show_chart,
+            title: l10n.progressStrengthEmptyTitle,
+            message: l10n.progressStrengthEmptyMessage,
+          );
+        }
         final activeId = selectedId != null && ids.contains(selectedId) ? selectedId : ids.first;
 
         return ListView(
