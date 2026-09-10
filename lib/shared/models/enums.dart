@@ -44,10 +44,10 @@ enum Equipment {
 
 enum WorkoutSessionStatus { notStarted, inProgress, paused, completed, cancelled }
 
-T enumFromString<T>(List<T> values, String? name, T fallback) {
+T enumFromString<T extends Enum>(List<T> values, String? name, T fallback) {
   if (name == null) return fallback;
-  return values.firstWhere(
-    (v) => (v as dynamic).name == name,
-    orElse: () => fallback,
-  );
+  for (final v in values) {
+    if (v.name == name) return v;
+  }
+  return fallback;
 }
