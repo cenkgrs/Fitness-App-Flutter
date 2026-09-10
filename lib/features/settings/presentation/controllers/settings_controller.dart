@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../shared/models/models.dart';
-import '../../data/settings_repository.dart';
+import '../../data/local_settings_repository.dart';
+import '../../domain/settings_repository.dart';
 
 final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
-  return SettingsRepository(ref.watch(localStorageServiceProvider));
+  return LocalSettingsRepository(ref.watch(localStorageServiceProvider));
 });
 
 class SettingsController extends Notifier<AppSettings> {

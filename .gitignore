@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local Supabase credentials — never commit, pass via --dart-define-from-file
+dart_defines*.json
+
+# Supabase CLI local cache
+supabase/.temp/

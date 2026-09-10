@@ -1,10 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/config/supabase_config.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../data/local_auth_repository.dart';
+import '../../data/supabase_auth_repository.dart';
 import '../../domain/auth_repository.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  if (SupabaseConfig.isConfigured) {
+    return SupabaseAuthRepository(Supabase.instance.client);
+  }
   return LocalAuthRepository(ref.watch(localStorageServiceProvider));
 });
 
