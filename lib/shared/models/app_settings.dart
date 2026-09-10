@@ -12,7 +12,8 @@ class AppSettings extends Equatable {
   final bool hapticsEnabled;
   final bool countdownBeepEnabled;
   final bool notificationsEnabled;
-  final String languageCode; // 'tr' | 'en'
+  /// 'system' (follow device locale, falling back to English) | 'en' | 'tr'.
+  final String languageCode;
   final bool useAutoNutritionCalculation;
   /// Open Food Facts country tag (e.g. 'Turkey', 'Germany') to restrict food
   /// search results to; '' means no filter (global catalog).
@@ -27,7 +28,7 @@ class AppSettings extends Equatable {
     this.hapticsEnabled = true,
     this.countdownBeepEnabled = true,
     this.notificationsEnabled = true,
-    this.languageCode = 'en',
+    this.languageCode = 'system',
     this.useAutoNutritionCalculation = true,
     this.foodSearchCountry = '',
   });
@@ -85,7 +86,7 @@ class AppSettings extends Equatable {
         hapticsEnabled: json['hapticsEnabled'] as bool? ?? true,
         countdownBeepEnabled: json['countdownBeepEnabled'] as bool? ?? true,
         notificationsEnabled: json['notificationsEnabled'] as bool? ?? true,
-        languageCode: json['languageCode'] as String? ?? 'en',
+        languageCode: json['languageCode'] as String? ?? 'system',
         useAutoNutritionCalculation: json['useAutoNutritionCalculation'] as bool? ?? true,
         foodSearchCountry: json['foodSearchCountry'] as String? ?? '',
       );

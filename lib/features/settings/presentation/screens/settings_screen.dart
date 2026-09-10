@@ -100,7 +100,7 @@ class SettingsScreen extends ConsumerWidget {
           _DropdownTile<String>(
             label: 'Language',
             value: settings.languageCode,
-            items: const {'tr': 'Türkçe', 'en': 'English'},
+            items: const {'system': 'Sistem', 'en': 'English', 'tr': 'Türkçe'},
             onChanged: controller.setLanguageCode,
           ),
           const SizedBox(height: AppSpacing.lg),

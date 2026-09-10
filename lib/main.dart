@@ -5,6 +5,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/config/supabase_config.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'features/settings/presentation/controllers/settings_controller.dart';
+import 'l10n/app_localizations.dart';
 import 'shared/services/local_storage_service.dart';
 
 Future<void> main() async {
@@ -27,6 +29,8 @@ class RepwiseApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final languageCode = ref.watch(settingsControllerProvider).languageCode;
+
     return MaterialApp.router(
       title: 'Repwise',
       debugShowCheckedModeBanner: false,
@@ -34,6 +38,14 @@ class RepwiseApp extends ConsumerWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.dark,
       routerConfig: router,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // English first: the fallback when the device locale isn't Turkish.
+      supportedLocales: AppLocalizations.supportedLocales,
+      // 'system' (the default) omits `locale:` entirely so Flutter's own
+      // locale resolution matches the device locale against
+      // supportedLocales — an explicit 'en'/'tr' forces that choice
+      // regardless of device locale.
+      locale: languageCode == 'system' ? null : Locale(languageCode),
     );
   }
 }
