@@ -72,6 +72,20 @@ void main() {
     expect(prIds, ['b']);
   });
 
+  test('an ascending ramp in the same session only flags the heaviest set', () {
+    // Reported: first-ever session on an exercise, sets go 40kg then 60kg —
+    // both exceeded the (zero) prior best individually, so both were
+    // flagged. Only the heaviest (60kg) should count.
+    final current = session('s1', [
+      completedSet(id: 'a', exerciseId: 'ex1', weight: 40),
+      completedSet(id: 'b', exerciseId: 'ex1', weight: 60),
+    ]);
+
+    final prIds = detectPersonalRecordSetIds(priorSessions: const [], currentSession: current);
+
+    expect(prIds, ['b']);
+  });
+
   test('each exercise tracks its own PR bar independently', () {
     final current = session('s1', [
       completedSet(id: 'a', exerciseId: 'bench', weight: 60),

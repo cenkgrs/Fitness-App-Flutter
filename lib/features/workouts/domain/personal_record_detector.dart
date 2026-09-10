@@ -3,13 +3,12 @@ import '../../../shared/models/models.dart';
 /// Determines which sets in a just-finished [currentSession] are personal
 /// records, given the user's prior session history.
 ///
-/// A set is a PR if its weight strictly exceeds the best weight ever lifted
-/// for that exercise *up to and including that point in time* — which
-/// means earlier PR-setting sets within the same session must raise the
-/// bar for later sets in that same session, not just prior sessions.
-/// Comparing every set only against history (ignoring sets already
-/// processed in the current session) marks every set at a given weight as
-/// a "new" PR and lets a lower later set outrank an earlier higher one.
+/// Only the single heaviest *completed* set per exercise in the session can
+/// be a PR, and only if it beats every prior session's best for that
+/// exercise. A typical session ramps up in weight per exercise (warm-up,
+/// then working sets); flagging every ascending step as its own "PR" is
+/// noisy and misleading — a personal record is the best result achieved,
+/// not every intermediate rung on the way there.
 List<String> detectPersonalRecordSetIds({
   required List<WorkoutSession> priorSessions,
   required WorkoutSession currentSession,
@@ -22,13 +21,16 @@ List<String> detectPersonalRecordSetIds({
     }
   }
 
-  final prSetIds = <String>[];
+  final heaviestSetByExercise = <String, WorkoutSet>{};
   for (final set in currentSession.sets.where((s) => s.isCompleted)) {
-    final best = bestByExercise[set.exerciseId] ?? 0;
-    if (set.actualWeightKg > best) {
-      prSetIds.add(set.id);
-      bestByExercise[set.exerciseId] = set.actualWeightKg;
+    final current = heaviestSetByExercise[set.exerciseId];
+    if (current == null || set.actualWeightKg > current.actualWeightKg) {
+      heaviestSetByExercise[set.exerciseId] = set;
     }
   }
-  return prSetIds;
+
+  return [
+    for (final entry in heaviestSetByExercise.entries)
+      if (entry.value.actualWeightKg > (bestByExercise[entry.key] ?? 0)) entry.value.id,
+  ];
 }
