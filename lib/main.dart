@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/config/supabase_config.dart';
+import 'core/providers/remote_sync.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'features/auth/presentation/controllers/auth_controller.dart';
 import 'features/settings/presentation/controllers/settings_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/services/local_storage_service.dart';
@@ -19,6 +21,18 @@ Future<void> main() async {
       url: SupabaseConfig.url,
       publishableKey: SupabaseConfig.anonKey,
     );
+    // A persisted session means this is a returning user — pull their real
+    // profile/settings into the local cache before the router (which reads
+    // that cache synchronously) ever renders, so a reinstall/new device
+    // doesn't briefly look like a brand-new account.
+    final userId = Supabase.instance.client.auth.currentSession?.user.id;
+    if (userId != null) {
+      await syncProfileAndSettingsFromRemote(
+        client: Supabase.instance.client,
+        storage: LocalStorageService(),
+        userId: userId,
+      );
+    }
   }
   runApp(const ProviderScope(child: RepwiseApp()));
 }
@@ -28,6 +42,7 @@ class RepwiseApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(authSyncProvider);
     final router = ref.watch(routerProvider);
     final languageCode = ref.watch(settingsControllerProvider).languageCode;
 

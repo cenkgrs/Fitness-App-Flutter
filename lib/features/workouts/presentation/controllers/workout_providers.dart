@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/config/supabase_config.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/locale_resolver.dart';
 import '../../../../shared/ai/ai_providers.dart';
@@ -8,9 +10,13 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../data/local_workout_repository.dart';
+import '../../data/supabase_workout_repository.dart';
 import '../../domain/workout_repository.dart';
 
 final workoutRepositoryProvider = Provider<WorkoutRepository>((ref) {
+  if (SupabaseConfig.isConfigured) {
+    return SupabaseWorkoutRepository(Supabase.instance.client);
+  }
   return LocalWorkoutRepository(ref.watch(localStorageServiceProvider));
 });
 

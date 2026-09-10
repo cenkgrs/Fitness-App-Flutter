@@ -1,11 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/config/supabase_config.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../shared/models/models.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../data/local_settings_repository.dart';
+import '../../data/supabase_settings_repository.dart';
 import '../../domain/settings_repository.dart';
 
 final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
-  return LocalSettingsRepository(ref.watch(localStorageServiceProvider));
+  final local = LocalSettingsRepository(ref.watch(localStorageServiceProvider));
+  final userId = ref.watch(authStateProvider).valueOrNull?.id;
+  if (SupabaseConfig.isConfigured && userId != null) {
+    return SupabaseSettingsRepository(Supabase.instance.client, local, userId);
+  }
+  return local;
 });
 
 class SettingsController extends Notifier<AppSettings> {
