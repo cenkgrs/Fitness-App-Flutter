@@ -8,6 +8,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
@@ -57,7 +58,12 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
     super.dispose();
   }
 
-  Future<void> _addEntry(MealEntry entry) async {
+  Future<void> _addEntry(MealEntry entry) => _addEntries([entry]);
+
+  /// Batch add so an AI-parsed free-text meal (which can produce several
+  /// entries at once, e.g. "3 eggs, 100g rice, salad") is saved as one meal
+  /// update instead of racing multiple read-modify-write calls.
+  Future<void> _addEntries(List<MealEntry> entries) async {
     final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
     final date = ref.read(selectedNutritionDateProvider);
     final repo = ref.read(nutritionRepositoryProvider);
@@ -66,8 +72,8 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
     for (final m in existingMeals) {
       if (m.type == _type) existing = m;
     }
-    final meal = existing?.copyWith(entries: [...existing.entries, entry]) ??
-        Meal(id: const Uuid().v4(), userId: userId, date: date, type: _type, entries: [entry]);
+    final meal = existing?.copyWith(entries: [...existing.entries, ...entries]) ??
+        Meal(id: const Uuid().v4(), userId: userId, date: date, type: _type, entries: entries);
     await repo.saveMeal(meal);
     ref.invalidate(dailyNutritionProvider);
     if (mounted) context.pop();
@@ -94,7 +100,7 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
             onSearch: _onSearchChanged,
             onSelectFood: (food) => _showQuantitySheet(food),
           ),
-          _QuickAddTab(onSave: _addEntry),
+          _QuickAddTab(onSave: _addEntries),
         ],
       ),
     );
@@ -243,19 +249,21 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   }
 }
 
-class _QuickAddTab extends StatefulWidget {
-  final Future<void> Function(MealEntry entry) onSave;
+class _QuickAddTab extends ConsumerStatefulWidget {
+  final Future<void> Function(List<MealEntry> entries) onSave;
   const _QuickAddTab({required this.onSave});
 
   @override
-  State<_QuickAddTab> createState() => _QuickAddTabState();
+  ConsumerState<_QuickAddTab> createState() => _QuickAddTabState();
 }
 
-class _QuickAddTabState extends State<_QuickAddTab> {
+class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
   final _calories = TextEditingController();
   final _protein = TextEditingController();
   final _carbs = TextEditingController();
   final _fat = TextEditingController();
+  final _aiText = TextEditingController();
+  bool _aiLoading = false;
 
   @override
   void dispose() {
@@ -263,16 +271,65 @@ class _QuickAddTabState extends State<_QuickAddTab> {
     _protein.dispose();
     _carbs.dispose();
     _fat.dispose();
+    _aiText.dispose();
     super.dispose();
+  }
+
+  Future<void> _fillWithAI() async {
+    final parser = ref.read(aiFoodParserProvider);
+    if (parser == null || _aiText.text.trim().isEmpty) return;
+    setState(() => _aiLoading = true);
+    try {
+      final entries = await parser.parseMealText(_aiText.text.trim());
+      if (entries.isEmpty) return;
+      await widget.onSave(entries);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('AI yemekleri ayrıştıramadı: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _aiLoading = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final aiAvailable = ref.watch(aiFoodParserProvider) != null;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.screenMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (aiAvailable) ...[
+            TextField(
+              controller: _aiText,
+              maxLines: 2,
+              decoration: const InputDecoration(
+                hintText: 'Örn: 3 yumurta, 100g pirinç, bir avuç badem',
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            SecondaryButton(
+              label: _aiLoading ? 'Ayrıştırılıyor...' : 'AI ile Doldur',
+              icon: Icons.auto_awesome,
+              onPressed: _aiLoading ? null : _fillWithAI,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            Row(
+              children: const [
+                Expanded(child: Divider()),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  child: Text('veya manuel gir', style: AppTypography.caption),
+                ),
+                Expanded(child: Divider()),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.lg),
+          ],
           _numberField('Calories', _calories),
           const SizedBox(height: AppSpacing.md),
           _numberField('Protein (g)', _protein),
@@ -286,16 +343,18 @@ class _QuickAddTabState extends State<_QuickAddTab> {
             onPressed: () {
               final calories = double.tryParse(_calories.text) ?? 0;
               if (calories <= 0) return;
-              widget.onSave(MealEntry(
-                id: const Uuid().v4(),
-                name: 'Quick Add',
-                quantityGrams: 0,
-                calories: calories,
-                proteinG: double.tryParse(_protein.text) ?? 0,
-                carbsG: double.tryParse(_carbs.text) ?? 0,
-                fatG: double.tryParse(_fat.text) ?? 0,
-                isQuickAdd: true,
-              ));
+              widget.onSave([
+                MealEntry(
+                  id: const Uuid().v4(),
+                  name: 'Quick Add',
+                  quantityGrams: 0,
+                  calories: calories,
+                  proteinG: double.tryParse(_protein.text) ?? 0,
+                  carbsG: double.tryParse(_carbs.text) ?? 0,
+                  fatG: double.tryParse(_fat.text) ?? 0,
+                  isQuickAdd: true,
+                ),
+              ]);
             },
           ),
         ],

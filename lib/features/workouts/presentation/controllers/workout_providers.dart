@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../../shared/services/consistency_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
@@ -41,3 +42,29 @@ final todaysWorkoutDayProvider = FutureProvider<WorkoutDay?>((ref) async {
 final sessionByIdProvider = FutureProvider.family<WorkoutSession?, String>((ref, sessionId) async {
   return ref.watch(workoutRepositoryProvider).getSession(sessionId);
 });
+
+/// Regenerates the active program via [AIWorkoutCoach] on demand (button
+/// tap only — no automatic/scheduled regeneration, per product decision).
+class AIProgramRegenerationController extends AsyncNotifier<void> {
+  @override
+  Future<void> build() async {}
+
+  Future<void> regenerate() async {
+    final coach = ref.read(aiWorkoutCoachProvider);
+    if (coach == null) {
+      state = AsyncError(StateError('AI is not configured'), StackTrace.current);
+      return;
+    }
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final profile = await ref.read(userProfileProvider.future);
+      if (profile == null) throw StateError('No profile to generate a plan from');
+      final program = await coach.generateWorkoutPlan(profile);
+      await ref.read(workoutRepositoryProvider).saveProgram(program);
+      ref.invalidate(activeProgramProvider);
+    });
+  }
+}
+
+final aiProgramRegenerationControllerProvider =
+    AsyncNotifierProvider<AIProgramRegenerationController, void>(AIProgramRegenerationController.new);

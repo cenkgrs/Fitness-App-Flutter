@@ -15,9 +15,35 @@ class WorkoutsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final programAsync = ref.watch(activeProgramProvider);
     final sessionsAsync = ref.watch(workoutSessionsProvider);
+    final aiRegenState = ref.watch(aiProgramRegenerationControllerProvider);
+
+    ref.listen(aiProgramRegenerationControllerProvider, (prev, next) {
+      if (next.hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('AI programı güncelleyemedi: ${next.error}')),
+        );
+      }
+    });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Weekly Routine')),
+      appBar: AppBar(
+        title: const Text('Weekly Routine'),
+        actions: [
+          IconButton(
+            icon: aiRegenState.isLoading
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.auto_awesome),
+            tooltip: 'AI ile Güncelle',
+            onPressed: aiRegenState.isLoading
+                ? null
+                : () => ref.read(aiProgramRegenerationControllerProvider.notifier).regenerate(),
+          ),
+        ],
+      ),
       body: programAsync.when(
         loading: () => ListView(
           padding: const EdgeInsets.all(AppSpacing.screenMargin),
