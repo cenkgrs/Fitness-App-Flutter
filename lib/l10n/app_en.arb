@@ -362,5 +362,8 @@
   "restTimerSkip": "Skip Rest",
   "restTimerAdd": "+30s",
   "splashTagline": "Train smarter. Get stronger.",
-  "lineChartNoData": "No data yet"
+  "lineChartNoData": "No data yet",
+
+  "weightLogButton": "Log Weight",
+  "weightFieldHint": "Weight (kg)"
 }

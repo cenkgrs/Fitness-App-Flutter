@@ -810,4 +810,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get lineChartNoData => 'Henüz veri yok';
+
+  @override
+  String get weightLogButton => 'Kilo Kaydet';
+
+  @override
+  String get weightFieldHint => 'Kilo (kg)';
 }

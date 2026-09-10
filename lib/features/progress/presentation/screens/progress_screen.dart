@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/services/body_fat_calculator.dart';
+import '../../../../shared/models/models.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
+import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../../domain/measurement_repository.dart';
 import '../controllers/measurement_providers.dart';
@@ -96,7 +100,80 @@ class _WeightTab extends ConsumerWidget {
             targetValue: goalAsync.valueOrNull?.targetWeightKg,
           ),
         ),
+        const SizedBox(height: AppSpacing.lg),
+        PrimaryButton(
+          label: l10n.weightLogButton,
+          onPressed: () => showModalBottomSheet(
+            context: context,
+            backgroundColor: AppColors.surface1,
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+            builder: (_) => const _LogWeightSheet(),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _LogWeightSheet extends ConsumerStatefulWidget {
+  const _LogWeightSheet();
+
+  @override
+  ConsumerState<_LogWeightSheet> createState() => _LogWeightSheetState();
+}
+
+class _LogWeightSheetState extends ConsumerState<_LogWeightSheet> {
+  final _weight = TextEditingController();
+  bool _saving = false;
+
+  @override
+  void dispose() {
+    _weight.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final value = double.tryParse(_weight.text);
+    if (value == null || value <= 0) return;
+    setState(() => _saving = true);
+    final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
+    await ref.read(nutritionRepositoryProvider).addWeightEntry(WeightEntry(
+          id: const Uuid().v4(),
+          userId: userId,
+          date: DateTime.now(),
+          weightKg: value,
+        ));
+    ref.invalidate(weightEntriesProvider);
+    if (mounted) Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: EdgeInsets.only(
+        left: AppSpacing.xl,
+        right: AppSpacing.xl,
+        top: AppSpacing.xl,
+        bottom: MediaQuery.of(context).viewInsets.bottom + AppSpacing.xl,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.weightLogButton, style: AppTypography.headingMd),
+          const SizedBox(height: AppSpacing.lg),
+          TextField(
+            controller: _weight,
+            autofocus: true,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            decoration: InputDecoration(hintText: l10n.weightFieldHint),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          PrimaryButton(label: l10n.commonSave, isLoading: _saving, onPressed: _save),
+        ],
+      ),
     );
   }
 }

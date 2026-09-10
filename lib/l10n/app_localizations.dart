@@ -1558,6 +1558,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No data yet'**
   String get lineChartNoData;
+
+  /// No description provided for @weightLogButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Weight'**
+  String get weightLogButton;
+
+  /// No description provided for @weightFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightFieldHint;
 }
 
 class _AppLocalizationsDelegate

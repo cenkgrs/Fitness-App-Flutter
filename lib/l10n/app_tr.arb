@@ -260,5 +260,8 @@
   "restTimerSkip": "Dinlenmeyi Atla",
   "restTimerAdd": "+30sn",
   "splashTagline": "Daha akıllı antrenman. Daha güçlü ol.",
-  "lineChartNoData": "Henüz veri yok"
+  "lineChartNoData": "Henüz veri yok",
+
+  "weightLogButton": "Kilo Kaydet",
+  "weightFieldHint": "Kilo (kg)"
 }

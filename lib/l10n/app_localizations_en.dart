@@ -811,4 +811,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lineChartNoData => 'No data yet';
+
+  @override
+  String get weightLogButton => 'Log Weight';
+
+  @override
+  String get weightFieldHint => 'Weight (kg)';
 }
