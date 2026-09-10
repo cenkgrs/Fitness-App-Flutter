@@ -4,6 +4,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../controllers/auth_controller.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
@@ -28,13 +29,14 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authControllerProvider);
     final isLoading = authState.isLoading;
 
     ref.listen(authControllerProvider, (prev, next) {
       if (next.hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Something went wrong: ${next.error}')),
+          SnackBar(content: Text(l10n.authErrorSnackbar(next.error.toString()))),
         );
       }
     });
@@ -47,36 +49,34 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: AppSpacing.xxl),
-              Text(_isSignUp ? 'Hesap Oluştur' : 'Tekrar Hoş Geldin',
+              Text(_isSignUp ? l10n.authSignUpTitle : l10n.authSignInTitle,
                   style: AppTypography.headingLg),
               const SizedBox(height: AppSpacing.xs),
               Text(
-                _isSignUp
-                    ? 'Önce bir hesap oluştur, sonra sana özel planını birlikte hazırlayalım.'
-                    : 'Giriş yap ve kaldığın yerden devam et.',
+                _isSignUp ? l10n.authSignUpSubtitle : l10n.authSignInSubtitle,
                 style: AppTypography.bodyMd,
               ),
               const SizedBox(height: AppSpacing.xxl),
               SecondaryButton(
-                label: 'Apple ile Devam Et',
+                label: l10n.authContinueWithApple,
                 icon: Icons.apple,
                 onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithApple(),
               ),
               const SizedBox(height: AppSpacing.md),
               SecondaryButton(
-                label: 'Google ile Devam Et',
+                label: l10n.authContinueWithGoogle,
                 icon: Icons.g_mobiledata,
                 onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithGoogle(),
               ),
               const SizedBox(height: AppSpacing.xl),
               Row(
-                children: const [
-                  Expanded(child: Divider()),
+                children: [
+                  const Expanded(child: Divider()),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                    child: Text('veya e-posta ile', style: AppTypography.caption),
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                    child: Text(l10n.authOrWithEmail, style: AppTypography.caption),
                   ),
-                  Expanded(child: Divider()),
+                  const Expanded(child: Divider()),
                 ],
               ),
               const SizedBox(height: AppSpacing.xl),
@@ -84,7 +84,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 style: AppTypography.bodyLg,
-                decoration: const InputDecoration(hintText: 'E-posta'),
+                decoration: InputDecoration(hintText: l10n.authEmailHint),
               ),
               const SizedBox(height: AppSpacing.md),
               TextField(
@@ -92,7 +92,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 obscureText: _obscure,
                 style: AppTypography.bodyLg,
                 decoration: InputDecoration(
-                  hintText: 'Şifre',
+                  hintText: l10n.authPasswordHint,
                   suffixIcon: IconButton(
                     icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility,
                         color: AppColors.textTertiary),
@@ -102,7 +102,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               ),
               const SizedBox(height: AppSpacing.xl),
               PrimaryButton(
-                label: _isSignUp ? 'Kayıt Ol' : 'Giriş Yap',
+                label: _isSignUp ? l10n.authSignUpButton : l10n.authSignInButton,
                 isLoading: isLoading,
                 onPressed: () {
                   final email = _emailController.text.trim();
@@ -119,9 +119,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               Center(
                 child: TextButton(
                   onPressed: () => setState(() => _isSignUp = !_isSignUp),
-                  child: Text(_isSignUp
-                      ? 'Zaten hesabın var mı? Giriş Yap'
-                      : 'Hesabın yok mu? Kayıt Ol'),
+                  child: Text(_isSignUp ? l10n.authSwitchToSignIn : l10n.authSwitchToSignUp),
                 ),
               ),
             ],

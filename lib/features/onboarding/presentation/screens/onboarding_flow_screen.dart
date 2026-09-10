@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../../../../shared/services/nutrition_calculator.dart';
 import '../controllers/onboarding_controller.dart';
@@ -85,6 +86,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
   }
 
   Widget _buildStep(BuildContext context, OnboardingDraft draft, OnboardingController notifier) {
+    final l10n = AppLocalizations.of(context)!;
     switch (_step) {
       case 0:
         return _WelcomeStep(onNext: _next);
@@ -100,7 +102,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 3:
         return _NumberWheelStep(
-          title: 'Yaşın kaç?',
+          title: l10n.onboardingAgeTitle,
           value: draft.age.toDouble(),
           min: 14,
           max: 90,
@@ -111,7 +113,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 4:
         return _NumberWheelStep(
-          title: 'Boyun (cm)',
+          title: l10n.onboardingHeightTitle,
           value: draft.heightCm,
           min: 130,
           max: 220,
@@ -122,7 +124,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 5:
         return _NumberWheelStep(
-          title: 'Kilon (kg)',
+          title: l10n.onboardingWeightTitle,
           value: draft.weightKg,
           min: 35,
           max: 200,
@@ -133,7 +135,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 6:
         return _NumberWheelStep(
-          title: 'Hedef kilon (kg)',
+          title: l10n.onboardingTargetWeightTitle,
           value: draft.targetWeightKg,
           min: 35,
           max: 200,
@@ -161,11 +163,11 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 9:
         return _PillChoiceStep<int>(
-          title: 'Haftada kaç gün antrenman yapmak istersin?',
+          title: l10n.onboardingDaysPerWeekTitle,
           options: const [2, 3, 4, 5, 6],
           labelBuilder: (v) => '$v',
           badge: 4,
-          badgeLabel: 'En popüler',
+          badgeLabel: l10n.onboardingMostPopular,
           value: draft.workoutDaysPerWeek,
           onSelect: (v) {
             notifier.update((d) => d.copyWith(workoutDaysPerWeek: v));
@@ -174,9 +176,9 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
         );
       case 10:
         return _PillChoiceStep<int>(
-          title: 'Antrenman süren ne kadar olsun?',
+          title: l10n.onboardingDurationTitle,
           options: const [20, 30, 45, 60, 90],
-          labelBuilder: (v) => '$v dk',
+          labelBuilder: (v) => l10n.onboardingDurationMinutes(v),
           value: draft.workoutDurationMinutes,
           onSelect: (v) {
             notifier.update((d) => d.copyWith(workoutDurationMinutes: v));
@@ -247,21 +249,22 @@ class _WelcomeStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(),
         const Icon(Icons.bolt, color: AppColors.primary, size: 64),
         const SizedBox(height: AppSpacing.xl),
-        Text('Reach your peak physique', style: AppTypography.headingLg, textAlign: TextAlign.center),
+        Text(l10n.onboardingWelcomeHeadline, style: AppTypography.headingLg, textAlign: TextAlign.center),
         const SizedBox(height: AppSpacing.sm),
         Text(
-          'Kişiselleştirilmiş antrenman ve beslenme planın için birkaç soru soracağız.',
+          l10n.onboardingWelcomeSubtitle,
           style: AppTypography.bodyMd,
           textAlign: TextAlign.center,
         ),
         const Spacer(),
-        PrimaryButton(label: 'Get Started', onPressed: onNext),
+        PrimaryButton(label: l10n.onboardingGetStarted, onPressed: onNext),
       ],
     );
   }
@@ -275,8 +278,9 @@ class _NameStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Sana nasıl hitap edelim?',
+      title: l10n.onboardingNameTitle,
       child: Align(
         alignment: Alignment.topCenter,
         child: TextField(
@@ -286,10 +290,10 @@ class _NameStep extends StatelessWidget {
           controller: TextEditingController(text: value)
             ..selection = TextSelection.collapsed(offset: value.length),
           onChanged: onChanged,
-          decoration: const InputDecoration(hintText: 'Adın'),
+          decoration: InputDecoration(hintText: l10n.onboardingNameHint),
         ),
       ),
-      footer: PrimaryButton(label: 'Continue', onPressed: value.trim().isEmpty ? null : onNext),
+      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: value.trim().isEmpty ? null : onNext),
     );
   }
 }
@@ -301,16 +305,17 @@ class _GenderStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Cinsiyetin nedir?',
+      title: l10n.onboardingGenderTitle,
       child: Column(
         children: [
-          _ChoiceCard(label: 'Erkek', icon: Icons.male, selected: value == Gender.male, onTap: () => onSelect(Gender.male)),
+          _ChoiceCard(label: l10n.onboardingGenderMale, icon: Icons.male, selected: value == Gender.male, onTap: () => onSelect(Gender.male)),
           const SizedBox(height: AppSpacing.md),
-          _ChoiceCard(label: 'Kadın', icon: Icons.female, selected: value == Gender.female, onTap: () => onSelect(Gender.female)),
+          _ChoiceCard(label: l10n.onboardingGenderFemale, icon: Icons.female, selected: value == Gender.female, onTap: () => onSelect(Gender.female)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
-              label: 'Belirtmek İstemiyorum',
+              label: l10n.onboardingGenderUnspecified,
               icon: Icons.person,
               selected: value == Gender.unspecified,
               onTap: () => onSelect(Gender.unspecified)),
@@ -371,7 +376,7 @@ class _NumberWheelStep extends StatelessWidget {
           ],
         ),
       ),
-      footer: PrimaryButton(label: 'Continue', onPressed: onNext),
+      footer: PrimaryButton(label: AppLocalizations.of(context)!.onboardingContinue, onPressed: onNext),
     );
   }
 }
@@ -402,25 +407,26 @@ class _FitnessLevelStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Fitness seviyen nedir?',
+      title: l10n.onboardingFitnessLevelTitle,
       child: Column(
         children: [
           _ChoiceCard(
-              label: 'Beginner',
-              subtitle: 'Temel formları öğreniyorum (0-1 yıl)',
+              label: l10n.fitnessBeginnerLabel,
+              subtitle: l10n.fitnessBeginnerSubtitle,
               selected: value == FitnessLevel.beginner,
               onTap: () => onSelect(FitnessLevel.beginner)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
-              label: 'Intermediate',
-              subtitle: 'Düzenli kaldırıyorum (1-3 yıl)',
+              label: l10n.fitnessIntermediateLabel,
+              subtitle: l10n.fitnessIntermediateSubtitle,
               selected: value == FitnessLevel.intermediate,
               onTap: () => onSelect(FitnessLevel.intermediate)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
-              label: 'Advanced',
-              subtitle: 'Ağır antrenman ve periyodizasyon (3+ yıl)',
+              label: l10n.fitnessAdvancedLabel,
+              subtitle: l10n.fitnessAdvancedSubtitle,
               selected: value == FitnessLevel.advanced,
               onTap: () => onSelect(FitnessLevel.advanced)),
         ],
@@ -434,23 +440,25 @@ class _PrimaryGoalStep extends StatelessWidget {
   final ValueChanged<PrimaryGoal> onSelect;
   const _PrimaryGoalStep({required this.value, required this.onSelect});
 
-  static const _labels = {
-    PrimaryGoal.loseWeight: 'Kilo Vermek',
-    PrimaryGoal.buildMuscle: 'Kas Kazanmak',
-    PrimaryGoal.loseFat: 'Yağ Oranını Azaltmak',
-    PrimaryGoal.maintainFitness: 'Formda Kalmak',
-  };
+  Map<PrimaryGoal, String> _labels(AppLocalizations l10n) => {
+        PrimaryGoal.loseWeight: l10n.goalLoseWeight,
+        PrimaryGoal.buildMuscle: l10n.goalBuildMuscle,
+        PrimaryGoal.loseFat: l10n.goalLoseFat,
+        PrimaryGoal.maintainFitness: l10n.goalMaintainFitness,
+      };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Ana hedefin nedir?',
+      title: l10n.onboardingPrimaryGoalTitle,
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: AppSpacing.md,
         crossAxisSpacing: AppSpacing.md,
         childAspectRatio: 1.1,
-        children: _labels.entries
+        children: _labels(l10n)
+            .entries
             .map((e) => _ChoiceCard(
                   label: e.value,
                   selected: value == e.key,
@@ -540,8 +548,9 @@ class _LocationEquipmentStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Nerede antrenman yapıyorsun?',
+      title: l10n.onboardingLocationTitle,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -550,9 +559,9 @@ class _LocationEquipmentStep extends StatelessWidget {
               children: WorkoutLocation.values.map((loc) {
                 final selected = loc == location;
                 final label = switch (loc) {
-                  WorkoutLocation.gym => 'Spor Salonu',
-                  WorkoutLocation.home => 'Ev',
-                  WorkoutLocation.both => 'Her İkisi',
+                  WorkoutLocation.gym => l10n.locationGym,
+                  WorkoutLocation.home => l10n.locationHome,
+                  WorkoutLocation.both => l10n.locationBoth,
                 };
                 return Expanded(
                   child: Padding(
@@ -563,7 +572,7 @@ class _LocationEquipmentStep extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: AppSpacing.xl),
-            Text('Ekipman', style: AppTypography.headingSm),
+            Text(l10n.onboardingEquipmentLabel, style: AppTypography.headingSm),
             const SizedBox(height: AppSpacing.md),
             Wrap(
               spacing: AppSpacing.sm,
@@ -587,7 +596,7 @@ class _LocationEquipmentStep extends StatelessWidget {
           ],
         ),
       ),
-      footer: PrimaryButton(label: 'Continue', onPressed: onNext),
+      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: onNext),
     );
   }
 }
@@ -599,25 +608,26 @@ class _ActivityLevelStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Günlük aktivite seviyen nedir?',
+      title: l10n.onboardingActivityLevelTitle,
       child: Column(
         children: [
           _ChoiceCard(
-              label: 'Sedentary',
-              subtitle: 'Masa başı iş, az hareket',
+              label: l10n.activitySedentaryLabel,
+              subtitle: l10n.activitySedentarySubtitle,
               selected: value == ActivityLevel.sedentary,
               onTap: () => onSelect(ActivityLevel.sedentary)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
-              label: 'Moderately Active',
-              subtitle: 'Günde ~7.500 adım',
+              label: l10n.activityModeratelyActiveLabel,
+              subtitle: l10n.activityModeratelyActiveSubtitle,
               selected: value == ActivityLevel.moderatelyActive,
               onTap: () => onSelect(ActivityLevel.moderatelyActive)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
-              label: 'Very Active',
-              subtitle: 'Günde 10.000+ adım, fiziksel iş',
+              label: l10n.activityVeryActiveLabel,
+              subtitle: l10n.activityVeryActiveSubtitle,
               selected: value == ActivityLevel.veryActive,
               onTap: () => onSelect(ActivityLevel.veryActive)),
         ],
@@ -631,20 +641,22 @@ class _NutritionPreferenceStep extends StatelessWidget {
   final ValueChanged<NutritionPreference> onSelect;
   const _NutritionPreferenceStep({required this.value, required this.onSelect});
 
-  static const _labels = {
-    NutritionPreference.standard: 'Standart',
-    NutritionPreference.highProtein: 'Yüksek Protein',
-    NutritionPreference.keto: 'Ketojenik',
-    NutritionPreference.vegetarian: 'Vejetaryen',
-    NutritionPreference.vegan: 'Vegan',
-  };
+  Map<NutritionPreference, String> _labels(AppLocalizations l10n) => {
+        NutritionPreference.standard: l10n.nutritionStandard,
+        NutritionPreference.highProtein: l10n.nutritionHighProtein,
+        NutritionPreference.keto: l10n.nutritionKeto,
+        NutritionPreference.vegetarian: l10n.nutritionVegetarian,
+        NutritionPreference.vegan: l10n.nutritionVegan,
+      };
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
-      title: 'Beslenme tercihin nedir?',
+      title: l10n.onboardingNutritionPrefTitle,
       child: ListView(
-        children: _labels.entries
+        children: _labels(l10n)
+            .entries
             .map((e) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: _ChoiceCard(label: e.value, selected: value == e.key, onTap: () => onSelect(e.key)),
@@ -660,15 +672,16 @@ class _CalculatingStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const CircularProgressIndicator(color: AppColors.primary),
           const SizedBox(height: AppSpacing.xl),
-          Text('Metabolizma hızınız hesaplanıyor...', style: AppTypography.bodyLg, textAlign: TextAlign.center),
+          Text(l10n.onboardingCalculatingLine1, style: AppTypography.bodyLg, textAlign: TextAlign.center),
           const SizedBox(height: AppSpacing.sm),
-          Text('Hipertrofi hacminiz optimize ediliyor...', style: AppTypography.bodyMd, textAlign: TextAlign.center),
+          Text(l10n.onboardingCalculatingLine2, style: AppTypography.bodyMd, textAlign: TextAlign.center),
         ],
       ),
     );
@@ -681,6 +694,7 @@ class _PlanReadyStep extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final macros = const NutritionCalculator().calculate(draft.toProfile('local'));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -690,8 +704,10 @@ class _PlanReadyStep extends ConsumerWidget {
             const Icon(Icons.check_circle, color: AppColors.success),
             const SizedBox(width: AppSpacing.sm),
             Expanded(
-              child: Text('Planın Hazır, ${draft.name.isEmpty ? 'Şampiyon' : draft.name}!',
-                  style: AppTypography.headingLg),
+              child: Text(
+                l10n.onboardingPlanReadyTitle(draft.name.isEmpty ? l10n.onboardingDefaultName : draft.name),
+                style: AppTypography.headingLg,
+              ),
             ),
           ],
         ),
@@ -703,21 +719,21 @@ class _PlanReadyStep extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('${macros.calories} kcal', style: AppTypography.displayMd.copyWith(color: AppColors.primary)),
-                  const Text('Daily Calories', style: AppTypography.caption),
+                  Text(l10n.onboardingDailyCalories, style: AppTypography.caption),
                   const SizedBox(height: AppSpacing.lg),
                   Row(
                     children: [
-                      Expanded(child: _MacroChip(label: 'Protein', value: '${macros.proteinG}g', color: AppColors.protein)),
-                      Expanded(child: _MacroChip(label: 'Carbs', value: '${macros.carbsG}g', color: AppColors.carbs)),
-                      Expanded(child: _MacroChip(label: 'Fat', value: '${macros.fatG}g', color: AppColors.fat)),
+                      Expanded(child: _MacroChip(label: l10n.macroProtein, value: '${macros.proteinG}g', color: AppColors.protein)),
+                      Expanded(child: _MacroChip(label: l10n.macroCarbs, value: '${macros.carbsG}g', color: AppColors.carbs)),
+                      Expanded(child: _MacroChip(label: l10n.macroFat, value: '${macros.fatG}g', color: AppColors.fat)),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   const Divider(),
                   const SizedBox(height: AppSpacing.md),
-                  Text('${draft.workoutDaysPerWeek} Days / Week Program', style: AppTypography.bodyLg),
+                  Text(l10n.onboardingDaysPerWeekProgram(draft.workoutDaysPerWeek), style: AppTypography.bodyLg),
                   const SizedBox(height: AppSpacing.xs),
-                  Text('Muscle Hypertrophy & Fat Loss', style: AppTypography.bodyMd),
+                  Text(l10n.onboardingPlanTagline, style: AppTypography.bodyMd),
                 ],
               ),
             ),
@@ -725,7 +741,7 @@ class _PlanReadyStep extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
         PrimaryButton(
-          label: 'Start My Plan',
+          label: l10n.onboardingStartMyPlan,
           onPressed: () async {
             await ref.read(onboardingControllerProvider.notifier).completeOnboarding();
             if (context.mounted) context.go('/home');

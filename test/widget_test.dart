@@ -46,6 +46,9 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1300));
     await tester.pumpAndSettle();
 
-    expect(find.text('Hesap Oluştur'), findsOneWidget);
+    // English: AppSettings.languageCode defaults to 'system', and the test
+    // harness's locale resolves to English (not Turkish), so the auth
+    // screen's sign-up title renders in English here.
+    expect(find.text('Create Account'), findsOneWidget);
   });
 }
