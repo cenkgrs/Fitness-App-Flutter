@@ -16,7 +16,5 @@ abstract class AuthRepository {
 
   Future<AppUser> signInWithApple();
 
-  Future<AppUser> continueAsGuest();
-
   Future<void> signOut();
 }

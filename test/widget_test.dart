@@ -36,7 +36,8 @@ void main() {
     if (await tempDir.exists()) await tempDir.delete(recursive: true);
   });
 
-  testWidgets('App boots through the splash screen into onboarding', (WidgetTester tester) async {
+  testWidgets('App boots through the splash screen into auth (login comes before onboarding)',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: RepwiseApp()));
     await tester.pump();
 
@@ -45,6 +46,6 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1300));
     await tester.pumpAndSettle();
 
-    expect(find.text('Reach your peak physique'), findsOneWidget);
+    expect(find.text('Hesap Oluştur'), findsOneWidget);
   });
 }

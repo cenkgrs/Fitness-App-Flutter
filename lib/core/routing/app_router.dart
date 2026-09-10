@@ -53,9 +53,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       final goingToAuth = loc == '/auth';
       final goingToOnboarding = loc == '/onboarding';
 
-      if (!onboardingDone && !goingToOnboarding) return '/onboarding';
-      if (onboardingDone && user == null && !goingToAuth) return '/auth';
-      if (onboardingDone && user != null && (goingToAuth || goingToOnboarding)) return '/home';
+      // Auth comes first: an account must exist before we build a plan for it.
+      if (user == null && !goingToAuth) return '/auth';
+      if (user != null && !onboardingDone && !goingToOnboarding) return '/onboarding';
+      if (user != null && onboardingDone && (goingToAuth || goingToOnboarding)) return '/home';
       return null;
     },
     routes: [

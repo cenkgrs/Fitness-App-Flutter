@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/models/models.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../../shared/services/nutrition_calculator.dart';
@@ -101,9 +102,10 @@ class OnboardingController extends Notifier<OnboardingDraft> {
   }
 
   /// Persists the profile, computed nutrition goal, and onboarding-complete
-  /// flag. Called from the "Your Plan Is Ready" screen's Start button.
+  /// flag. Called from the "Your Plan Is Ready" screen's Start button, by
+  /// which point the router has already required a signed-in account.
   Future<void> completeOnboarding() async {
-    const userId = 'local';
+    final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
     final profile = state.toProfile(userId);
     await ref.read(userProfileRepositoryProvider).saveProfile(profile);
     await ref.read(userProfileRepositoryProvider).markOnboardingComplete();

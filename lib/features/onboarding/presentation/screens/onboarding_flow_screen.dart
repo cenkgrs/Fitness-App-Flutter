@@ -728,7 +728,7 @@ class _PlanReadyStep extends ConsumerWidget {
           label: 'Start My Plan',
           onPressed: () async {
             await ref.read(onboardingControllerProvider.notifier).completeOnboarding();
-            if (context.mounted) context.go('/auth');
+            if (context.mounted) context.go('/home');
           },
         ),
       ],

@@ -13,9 +13,7 @@ class LocalAuthRepository implements AuthRepository {
   final _controller = StreamController<AppUser?>.broadcast();
   static const _sessionKey = 'current_user';
 
-  LocalAuthRepository(this._storage) {
-    _emitCurrent();
-  }
+  LocalAuthRepository(this._storage);
 
   void _emitCurrent() {
     _controller.add(_readUser());
@@ -34,7 +32,16 @@ class LocalAuthRepository implements AuthRepository {
   }
 
   @override
-  Stream<AppUser?> authStateChanges() => _controller.stream;
+  Stream<AppUser?> authStateChanges() async* {
+    // A broadcast StreamController drops any event emitted before a
+    // listener subscribes, so seeding the initial value in the constructor
+    // (before StreamProvider attaches) silently lost it — authStateProvider
+    // then sat in AsyncLoading forever, since nothing else emits until the
+    // next sign-in/out. Yielding the current value per-listener, then
+    // forwarding the live stream, fixes that.
+    yield _readUser();
+    yield* _controller.stream;
+  }
 
   @override
   Future<AppUser?> currentUser() async => _readUser();
@@ -85,15 +92,6 @@ class LocalAuthRepository implements AuthRepository {
       email: 'user@icloud.com',
       displayName: 'Apple User',
       authProvider: 'apple',
-      createdAt: DateTime.now(),
-    ));
-  }
-
-  @override
-  Future<AppUser> continueAsGuest() async {
-    return _persistAndReturn(AppUser(
-      id: const Uuid().v4(),
-      authProvider: 'guest',
       createdAt: DateTime.now(),
     ));
   }

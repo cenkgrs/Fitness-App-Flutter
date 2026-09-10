@@ -47,12 +47,12 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: AppSpacing.xxl),
-              Text(_isSignUp ? 'Save Your Progress' : 'Welcome Back',
+              Text(_isSignUp ? 'Hesap Oluştur' : 'Tekrar Hoş Geldin',
                   style: AppTypography.headingLg),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 _isSignUp
-                    ? 'Kayıt ol ve planını bulutla eşitle.'
+                    ? 'Önce bir hesap oluştur, sonra sana özel planını birlikte hazırlayalım.'
                     : 'Giriş yap ve kaldığın yerden devam et.',
                 style: AppTypography.bodyMd,
               ),
@@ -122,12 +122,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   child: Text(_isSignUp
                       ? 'Zaten hesabın var mı? Giriş Yap'
                       : 'Hesabın yok mu? Kayıt Ol'),
-                ),
-              ),
-              Center(
-                child: TextButton(
-                  onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).continueAsGuest(),
-                  child: const Text('Misafir olarak devam et'),
                 ),
               ),
             ],

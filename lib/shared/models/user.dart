@@ -7,7 +7,7 @@ class AppUser extends Equatable {
   final String? email;
   final String? displayName;
   final String? photoUrl;
-  final String authProvider; // 'email' | 'google' | 'apple' | 'guest'
+  final String authProvider; // 'email' | 'google' | 'apple'
   final DateTime createdAt;
 
   const AppUser({
@@ -18,8 +18,6 @@ class AppUser extends Equatable {
     required this.authProvider,
     required this.createdAt,
   });
-
-  bool get isGuest => authProvider == 'guest';
 
   AppUser copyWith({
     String? id,

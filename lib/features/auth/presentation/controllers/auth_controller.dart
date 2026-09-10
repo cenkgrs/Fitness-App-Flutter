@@ -40,11 +40,6 @@ class AuthController extends AsyncNotifier<void> {
     state = await AsyncValue.guard(() => _repo.signInWithApple());
   }
 
-  Future<void> continueAsGuest() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() => _repo.continueAsGuest());
-  }
-
   Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _repo.signOut());
