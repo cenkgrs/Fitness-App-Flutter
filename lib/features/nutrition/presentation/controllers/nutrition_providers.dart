@@ -1,12 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/config/supabase_config.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../data/local_nutrition_repository.dart';
+import '../../data/supabase_nutrition_repository.dart';
 import '../../domain/nutrition_repository.dart';
 
 final nutritionRepositoryProvider = Provider<NutritionRepository>((ref) {
+  if (SupabaseConfig.isConfigured) {
+    return SupabaseNutritionRepository(Supabase.instance.client);
+  }
   return LocalNutritionRepository(ref.watch(localStorageServiceProvider));
 });
 

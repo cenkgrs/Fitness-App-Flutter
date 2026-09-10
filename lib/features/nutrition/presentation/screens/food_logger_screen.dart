@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +24,7 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
   late final TabController _tabController = TabController(length: 2, vsync: this);
   final _searchController = TextEditingController();
   List<Food> _results = const [];
+  Timer? _debounce;
 
   MealType get _type => MealType.values.firstWhere((t) => t.name == widget.mealType);
 
@@ -31,6 +34,13 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
     _search('');
   }
 
+  /// Debounced: search now hits a live external API (Open Food Facts), not
+  /// just local Hive, so firing on every keystroke would spam it.
+  void _onSearchChanged(String query) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 400), () => _search(query));
+  }
+
   Future<void> _search(String query) async {
     final results = await ref.read(nutritionRepositoryProvider).searchFoods(query);
     if (mounted) setState(() => _results = results);
@@ -38,6 +48,7 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _tabController.dispose();
     _searchController.dispose();
     super.dispose();
@@ -77,7 +88,7 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
           _SearchTab(
             searchController: _searchController,
             results: _results,
-            onSearch: _search,
+            onSearch: _onSearchChanged,
             onSelectFood: (food) => _showQuantitySheet(food),
           ),
           _QuickAddTab(onSave: _addEntry),
