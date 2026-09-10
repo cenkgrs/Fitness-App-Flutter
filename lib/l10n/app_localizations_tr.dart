@@ -816,4 +816,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get weightFieldHint => 'Kilo (kg)';
+
+  @override
+  String get navHome => 'Ana Sayfa';
+
+  @override
+  String get navWorkouts => 'Antrenmanlar';
+
+  @override
+  String get navNutrition => 'Beslenme';
+
+  @override
+  String get navProgress => 'İlerleme';
+
+  @override
+  String get navProfile => 'Profil';
 }

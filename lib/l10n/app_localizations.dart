@@ -1570,6 +1570,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weight (kg)'**
   String get weightFieldHint;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get navWorkouts;
+
+  /// No description provided for @navNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get navNutrition;
+
+  /// No description provided for @navProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get navProgress;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
 }
 
 class _AppLocalizationsDelegate

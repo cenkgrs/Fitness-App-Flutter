@@ -817,4 +817,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weightFieldHint => 'Weight (kg)';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navWorkouts => 'Workouts';
+
+  @override
+  String get navNutrition => 'Nutrition';
+
+  @override
+  String get navProgress => 'Progress';
+
+  @override
+  String get navProfile => 'Profile';
 }

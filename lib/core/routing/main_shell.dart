@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 
 /// Bottom navigation shell wrapping the 5 primary tabs, per spec section
@@ -11,6 +12,7 @@ class MainShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: DecoratedBox(
@@ -26,12 +28,12 @@ class MainShell extends StatelessWidget {
                 index,
                 initialLocation: index == navigationShell.currentIndex,
               ),
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.dashboard_rounded), label: 'Home'),
-                BottomNavigationBarItem(icon: Icon(Icons.fitness_center_rounded), label: 'Workouts'),
-                BottomNavigationBarItem(icon: Icon(Icons.restaurant_rounded), label: 'Nutrition'),
-                BottomNavigationBarItem(icon: Icon(Icons.insights_rounded), label: 'Progress'),
-                BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Profile'),
+              items: [
+                BottomNavigationBarItem(icon: const Icon(Icons.dashboard_rounded), label: l10n.navHome),
+                BottomNavigationBarItem(icon: const Icon(Icons.fitness_center_rounded), label: l10n.navWorkouts),
+                BottomNavigationBarItem(icon: const Icon(Icons.restaurant_rounded), label: l10n.navNutrition),
+                BottomNavigationBarItem(icon: const Icon(Icons.insights_rounded), label: l10n.navProgress),
+                BottomNavigationBarItem(icon: const Icon(Icons.person_rounded), label: l10n.navProfile),
               ],
             ),
           ),

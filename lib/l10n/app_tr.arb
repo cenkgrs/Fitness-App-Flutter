@@ -263,5 +263,11 @@
   "lineChartNoData": "Henüz veri yok",
 
   "weightLogButton": "Kilo Kaydet",
-  "weightFieldHint": "Kilo (kg)"
+  "weightFieldHint": "Kilo (kg)",
+
+  "navHome": "Ana Sayfa",
+  "navWorkouts": "Antrenmanlar",
+  "navNutrition": "Beslenme",
+  "navProgress": "İlerleme",
+  "navProfile": "Profil"
 }
