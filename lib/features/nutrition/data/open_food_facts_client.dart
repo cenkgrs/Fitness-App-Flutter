@@ -22,6 +22,13 @@ class OpenFoodFactsClient {
       'json': '1',
       'page_size': '20',
       'lc': 'tr',
+      // Without a country filter, Open Food Facts is a worldwide crowdsourced
+      // catalog and returns matches from every country's products for a
+      // given search term — restrict to products tagged as sold in Turkey
+      // so results are actually relevant to this app's users.
+      'tagtype_0': 'countries',
+      'tag_contains_0': 'contains',
+      'tag_0': 'Turkey',
       'fields': 'code,product_name,product_name_tr,brands,nutriments',
     });
 
