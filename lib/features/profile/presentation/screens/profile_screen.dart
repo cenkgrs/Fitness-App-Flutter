@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../controllers/profile_providers.dart';
 
@@ -13,23 +14,24 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final profileAsync = ref.watch(userProfileProvider);
     final user = ref.watch(authStateProvider).valueOrNull;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
+      appBar: AppBar(title: Text(l10n.profileScreenTitle)),
       body: profileAsync.when(
         loading: () => const Padding(
           padding: EdgeInsets.all(AppSpacing.screenMargin),
           child: Column(children: [LoadingShimmer(height: 120), SizedBox(height: 16), LoadingShimmer(height: 200)]),
         ),
-        error: (e, st) => Center(child: Text('Couldn\'t load profile: $e')),
+        error: (e, st) => Center(child: Text(l10n.profileLoadError(e.toString()))),
         data: (profile) {
           if (profile == null) {
-            return const EmptyState(
+            return EmptyState(
               icon: Icons.person_outline,
-              title: 'No profile yet',
-              message: 'Complete onboarding to build your profile.',
+              title: l10n.profileEmptyTitle,
+              message: l10n.profileEmptyMessage,
             );
           }
           return ListView(
@@ -43,7 +45,7 @@ class ProfileScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(profile.name.isEmpty ? (user?.displayName ?? 'Athlete') : profile.name,
+                        Text(profile.name.isEmpty ? (user?.displayName ?? l10n.homeDefaultAthleteName) : profile.name,
                             style: AppTypography.headingMd),
                         Text(user?.email ?? 'REPWISE', style: AppTypography.caption),
                       ],
@@ -55,10 +57,10 @@ class ProfileScreen extends ConsumerWidget {
               AppCard(
                 child: Row(
                   children: [
-                    _BioChip(label: 'Age', value: '${profile.age}'),
-                    _BioChip(label: 'Height', value: '${profile.heightCm.round()} cm'),
-                    _BioChip(label: 'Weight', value: '${profile.weightKg.toStringAsFixed(1)} kg'),
-                    _BioChip(label: 'Level', value: profile.fitnessLevel.name),
+                    _BioChip(label: l10n.bioAge, value: '${profile.age}'),
+                    _BioChip(label: l10n.bioHeight, value: '${profile.heightCm.round()} cm'),
+                    _BioChip(label: l10n.bioWeight, value: '${profile.weightKg.toStringAsFixed(1)} kg'),
+                    _BioChip(label: l10n.bioLevel, value: profile.fitnessLevel.name),
                   ],
                 ),
               ),
@@ -67,7 +69,7 @@ class ProfileScreen extends ConsumerWidget {
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 leading: const Icon(Icons.settings_outlined),
-                title: const Text('Settings'),
+                title: Text(l10n.settingsScreenTitle),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => context.push('/profile/settings'),
               ),
@@ -76,7 +78,7 @@ class ProfileScreen extends ConsumerWidget {
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 leading: const Icon(Icons.flag_outlined),
-                title: const Text('Goals'),
+                title: Text(l10n.profileGoalsTile),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => context.push('/goals'),
               ),
@@ -85,7 +87,7 @@ class ProfileScreen extends ConsumerWidget {
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 leading: const Icon(Icons.logout, color: AppColors.error),
-                title: const Text('Sign Out', style: TextStyle(color: AppColors.error)),
+                title: Text(l10n.profileSignOut, style: const TextStyle(color: AppColors.error)),
                 onTap: () => ref.read(authControllerProvider.notifier).signOut(),
               ),
             ],

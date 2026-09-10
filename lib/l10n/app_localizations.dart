@@ -1215,6 +1215,283 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get commonSave;
+
+  /// No description provided for @profileScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileScreenTitle;
+
+  /// No description provided for @profileLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load profile: {error}'**
+  String profileLoadError(String error);
+
+  /// No description provided for @profileEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No profile yet'**
+  String get profileEmptyTitle;
+
+  /// No description provided for @profileEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete onboarding to build your profile.'**
+  String get profileEmptyMessage;
+
+  /// No description provided for @bioAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get bioAge;
+
+  /// No description provided for @bioHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get bioHeight;
+
+  /// No description provided for @bioWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get bioWeight;
+
+  /// No description provided for @bioLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get bioLevel;
+
+  /// No description provided for @profileGoalsTile.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get profileGoalsTile;
+
+  /// No description provided for @profileSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get profileSignOut;
+
+  /// No description provided for @goalsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No goals set'**
+  String get goalsEmptyTitle;
+
+  /// No description provided for @goalsEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete onboarding to set your goals.'**
+  String get goalsEmptyMessage;
+
+  /// No description provided for @goalsCurrentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get goalsCurrentLabel;
+
+  /// No description provided for @goalsTargetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get goalsTargetLabel;
+
+  /// No description provided for @goalsRemainingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get goalsRemainingLabel;
+
+  /// No description provided for @goalsWeeklyWorkoutLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WEEKLY WORKOUT GOAL'**
+  String get goalsWeeklyWorkoutLabel;
+
+  /// No description provided for @goalsDailyCalorieLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY CALORIE GOAL'**
+  String get goalsDailyCalorieLabel;
+
+  /// No description provided for @goalsProteinLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PROTEIN GOAL'**
+  String get goalsProteinLabel;
+
+  /// No description provided for @settingsWorkoutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Settings'**
+  String get settingsWorkoutSection;
+
+  /// No description provided for @settingsDefaultRestTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Rest Time'**
+  String get settingsDefaultRestTime;
+
+  /// No description provided for @settingsAutoStartNextSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-start Next Set'**
+  String get settingsAutoStartNextSet;
+
+  /// No description provided for @settingsWeightUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Unit'**
+  String get settingsWeightUnit;
+
+  /// No description provided for @settingsDistanceUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance Unit'**
+  String get settingsDistanceUnit;
+
+  /// No description provided for @settingsSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get settingsSound;
+
+  /// No description provided for @settingsHaptics.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptics'**
+  String get settingsHaptics;
+
+  /// No description provided for @settingsCountdownBeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Countdown Beep (3-2-1)'**
+  String get settingsCountdownBeep;
+
+  /// No description provided for @settingsNutritionSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition Settings'**
+  String get settingsNutritionSection;
+
+  /// No description provided for @settingsAutoCalculateTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-calculate targets (TDEE)'**
+  String get settingsAutoCalculateTargets;
+
+  /// No description provided for @settingsFoodDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Food Database'**
+  String get settingsFoodDatabase;
+
+  /// No description provided for @settingsFoodDbGlobal.
+  ///
+  /// In en, this message translates to:
+  /// **'Global (All)'**
+  String get settingsFoodDbGlobal;
+
+  /// No description provided for @settingsFoodDbTurkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey'**
+  String get settingsFoodDbTurkey;
+
+  /// No description provided for @settingsFoodDbGermany.
+  ///
+  /// In en, this message translates to:
+  /// **'Germany'**
+  String get settingsFoodDbGermany;
+
+  /// No description provided for @settingsFoodDbUK.
+  ///
+  /// In en, this message translates to:
+  /// **'United Kingdom'**
+  String get settingsFoodDbUK;
+
+  /// No description provided for @settingsFoodDbUS.
+  ///
+  /// In en, this message translates to:
+  /// **'United States'**
+  String get settingsFoodDbUS;
+
+  /// No description provided for @settingsFoodDbFrance.
+  ///
+  /// In en, this message translates to:
+  /// **'France'**
+  String get settingsFoodDbFrance;
+
+  /// No description provided for @settingsManualMacroEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual macro editing: Calories {calories} · Protein {protein}g · Carbs {carbs}g · Fat {fat}g'**
+  String settingsManualMacroEditing(
+      String calories, String protein, String carbs, String fat);
+
+  /// No description provided for @settingsNotificationsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get settingsNotificationsSection;
+
+  /// No description provided for @settingsEnableNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get settingsEnableNotifications;
+
+  /// No description provided for @settingsAppearanceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance & Language'**
+  String get settingsAppearanceSection;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsAccountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & Support'**
+  String get settingsAccountSection;
+
+  /// No description provided for @settingsSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get settingsSubscription;
+
+  /// No description provided for @settingsSendFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Feedback'**
+  String get settingsSendFeedback;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsSecondsFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s'**
+  String settingsSecondsFormat(int seconds);
 }
 
 class _AppLocalizationsDelegate

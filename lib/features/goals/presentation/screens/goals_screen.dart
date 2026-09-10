@@ -4,6 +4,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../controllers/goal_providers.dart';
@@ -13,21 +14,23 @@ class GoalsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final goalAsync = ref.watch(activeGoalProvider);
     final consistencyAsync = ref.watch(consistencyProvider);
     final nutritionAsync = ref.watch(dailyNutritionProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Goals')),
+      appBar: AppBar(title: Text(l10n.profileGoalsTile)),
       body: goalAsync.when(
         loading: () => const Padding(
           padding: EdgeInsets.all(AppSpacing.screenMargin),
           child: Column(children: [LoadingShimmer(height: 100), SizedBox(height: 16), LoadingShimmer(height: 100)]),
         ),
-        error: (e, st) => Center(child: Text('Error: $e')),
+        error: (e, st) => Center(child: Text(l10n.genericError(e.toString()))),
         data: (goal) {
           if (goal == null) {
-            return const EmptyState(icon: Icons.flag_outlined, title: 'No goals set', message: 'Complete onboarding to set your goals.');
+            return EmptyState(
+                icon: Icons.flag_outlined, title: l10n.goalsEmptyTitle, message: l10n.goalsEmptyMessage);
           }
           final weeklyCompleted = consistencyAsync.valueOrNull?.completedByDay.where((d) => d).length ?? 0;
 
@@ -39,15 +42,15 @@ class GoalsScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('WEIGHT GOAL', style: AppTypography.caption),
+                      Text(l10n.homeWeightGoalLabel, style: AppTypography.caption),
                       const SizedBox(height: AppSpacing.sm),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _Metric(label: 'Current', value: '${goal.currentWeightKg!.toStringAsFixed(1)} kg'),
-                          _Metric(label: 'Target', value: '${goal.targetWeightKg!.toStringAsFixed(1)} kg'),
+                          _Metric(label: l10n.goalsCurrentLabel, value: '${goal.currentWeightKg!.toStringAsFixed(1)} kg'),
+                          _Metric(label: l10n.goalsTargetLabel, value: '${goal.targetWeightKg!.toStringAsFixed(1)} kg'),
                           _Metric(
-                              label: 'Remaining',
+                              label: l10n.goalsRemainingLabel,
                               value: '${(goal.currentWeightKg! - goal.targetWeightKg!).abs().toStringAsFixed(1)} kg'),
                         ],
                       ),
@@ -62,7 +65,7 @@ class GoalsScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('WEEKLY WORKOUT GOAL', style: AppTypography.caption),
+                        Text(l10n.goalsWeeklyWorkoutLabel, style: AppTypography.caption),
                         Text('$weeklyCompleted / ${goal.weeklyWorkoutTarget}', style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                       ],
                     ),
@@ -90,7 +93,7 @@ class GoalsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('DAILY CALORIE GOAL', style: AppTypography.caption),
+                          Text(l10n.goalsDailyCalorieLabel, style: AppTypography.caption),
                           Text('${nutrition.consumedCalories.round()} / ${goal.dailyCalorieTarget}',
                               style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                         ],
@@ -109,7 +112,7 @@ class GoalsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('PROTEIN GOAL', style: AppTypography.caption),
+                          Text(l10n.goalsProteinLabel, style: AppTypography.caption),
                           Text('${nutrition.consumedProteinG.round()}g / ${goal.dailyProteinTarget}g',
                               style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                         ],

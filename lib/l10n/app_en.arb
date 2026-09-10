@@ -278,5 +278,68 @@
   "@measurementsFieldHint": {
     "placeholders": { "measurement": { "type": "String" } }
   },
-  "commonSave": "Save"
+  "commonSave": "Save",
+
+  "profileScreenTitle": "Profile",
+  "profileLoadError": "Couldn't load profile: {error}",
+  "@profileLoadError": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "profileEmptyTitle": "No profile yet",
+  "profileEmptyMessage": "Complete onboarding to build your profile.",
+  "bioAge": "Age",
+  "bioHeight": "Height",
+  "bioWeight": "Weight",
+  "bioLevel": "Level",
+  "profileGoalsTile": "Goals",
+  "profileSignOut": "Sign Out",
+
+  "goalsEmptyTitle": "No goals set",
+  "goalsEmptyMessage": "Complete onboarding to set your goals.",
+  "goalsCurrentLabel": "Current",
+  "goalsTargetLabel": "Target",
+  "goalsRemainingLabel": "Remaining",
+  "goalsWeeklyWorkoutLabel": "WEEKLY WORKOUT GOAL",
+  "goalsDailyCalorieLabel": "DAILY CALORIE GOAL",
+  "goalsProteinLabel": "PROTEIN GOAL",
+
+  "settingsWorkoutSection": "Workout Settings",
+  "settingsDefaultRestTime": "Default Rest Time",
+  "settingsAutoStartNextSet": "Auto-start Next Set",
+  "settingsWeightUnit": "Weight Unit",
+  "settingsDistanceUnit": "Distance Unit",
+  "settingsSound": "Sound",
+  "settingsHaptics": "Haptics",
+  "settingsCountdownBeep": "Countdown Beep (3-2-1)",
+  "settingsNutritionSection": "Nutrition Settings",
+  "settingsAutoCalculateTargets": "Auto-calculate targets (TDEE)",
+  "settingsFoodDatabase": "Food Database",
+  "settingsFoodDbGlobal": "Global (All)",
+  "settingsFoodDbTurkey": "Turkey",
+  "settingsFoodDbGermany": "Germany",
+  "settingsFoodDbUK": "United Kingdom",
+  "settingsFoodDbUS": "United States",
+  "settingsFoodDbFrance": "France",
+  "settingsManualMacroEditing": "Manual macro editing: Calories {calories} · Protein {protein}g · Carbs {carbs}g · Fat {fat}g",
+  "@settingsManualMacroEditing": {
+    "placeholders": {
+      "calories": { "type": "String" },
+      "protein": { "type": "String" },
+      "carbs": { "type": "String" },
+      "fat": { "type": "String" }
+    }
+  },
+  "settingsNotificationsSection": "Notifications",
+  "settingsEnableNotifications": "Enable Notifications",
+  "settingsAppearanceSection": "Appearance & Language",
+  "settingsLanguage": "Language",
+  "settingsLanguageSystem": "System",
+  "settingsAccountSection": "Account & Support",
+  "settingsSubscription": "Subscription",
+  "settingsSendFeedback": "Send Feedback",
+  "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsSecondsFormat": "{seconds}s",
+  "@settingsSecondsFormat": {
+    "placeholders": { "seconds": { "type": "int" } }
+  }
 }

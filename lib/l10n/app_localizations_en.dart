@@ -626,4 +626,150 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonSave => 'Save';
+
+  @override
+  String get profileScreenTitle => 'Profile';
+
+  @override
+  String profileLoadError(String error) {
+    return 'Couldn\'t load profile: $error';
+  }
+
+  @override
+  String get profileEmptyTitle => 'No profile yet';
+
+  @override
+  String get profileEmptyMessage =>
+      'Complete onboarding to build your profile.';
+
+  @override
+  String get bioAge => 'Age';
+
+  @override
+  String get bioHeight => 'Height';
+
+  @override
+  String get bioWeight => 'Weight';
+
+  @override
+  String get bioLevel => 'Level';
+
+  @override
+  String get profileGoalsTile => 'Goals';
+
+  @override
+  String get profileSignOut => 'Sign Out';
+
+  @override
+  String get goalsEmptyTitle => 'No goals set';
+
+  @override
+  String get goalsEmptyMessage => 'Complete onboarding to set your goals.';
+
+  @override
+  String get goalsCurrentLabel => 'Current';
+
+  @override
+  String get goalsTargetLabel => 'Target';
+
+  @override
+  String get goalsRemainingLabel => 'Remaining';
+
+  @override
+  String get goalsWeeklyWorkoutLabel => 'WEEKLY WORKOUT GOAL';
+
+  @override
+  String get goalsDailyCalorieLabel => 'DAILY CALORIE GOAL';
+
+  @override
+  String get goalsProteinLabel => 'PROTEIN GOAL';
+
+  @override
+  String get settingsWorkoutSection => 'Workout Settings';
+
+  @override
+  String get settingsDefaultRestTime => 'Default Rest Time';
+
+  @override
+  String get settingsAutoStartNextSet => 'Auto-start Next Set';
+
+  @override
+  String get settingsWeightUnit => 'Weight Unit';
+
+  @override
+  String get settingsDistanceUnit => 'Distance Unit';
+
+  @override
+  String get settingsSound => 'Sound';
+
+  @override
+  String get settingsHaptics => 'Haptics';
+
+  @override
+  String get settingsCountdownBeep => 'Countdown Beep (3-2-1)';
+
+  @override
+  String get settingsNutritionSection => 'Nutrition Settings';
+
+  @override
+  String get settingsAutoCalculateTargets => 'Auto-calculate targets (TDEE)';
+
+  @override
+  String get settingsFoodDatabase => 'Food Database';
+
+  @override
+  String get settingsFoodDbGlobal => 'Global (All)';
+
+  @override
+  String get settingsFoodDbTurkey => 'Turkey';
+
+  @override
+  String get settingsFoodDbGermany => 'Germany';
+
+  @override
+  String get settingsFoodDbUK => 'United Kingdom';
+
+  @override
+  String get settingsFoodDbUS => 'United States';
+
+  @override
+  String get settingsFoodDbFrance => 'France';
+
+  @override
+  String settingsManualMacroEditing(
+      String calories, String protein, String carbs, String fat) {
+    return 'Manual macro editing: Calories $calories · Protein ${protein}g · Carbs ${carbs}g · Fat ${fat}g';
+  }
+
+  @override
+  String get settingsNotificationsSection => 'Notifications';
+
+  @override
+  String get settingsEnableNotifications => 'Enable Notifications';
+
+  @override
+  String get settingsAppearanceSection => 'Appearance & Language';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageSystem => 'System';
+
+  @override
+  String get settingsAccountSection => 'Account & Support';
+
+  @override
+  String get settingsSubscription => 'Subscription';
+
+  @override
+  String get settingsSendFeedback => 'Send Feedback';
+
+  @override
+  String get settingsPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String settingsSecondsFormat(int seconds) {
+    return '${seconds}s';
+  }
 }

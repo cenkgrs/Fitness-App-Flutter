@@ -623,4 +623,152 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get commonSave => 'Kaydet';
+
+  @override
+  String get profileScreenTitle => 'Profil';
+
+  @override
+  String profileLoadError(String error) {
+    return 'Profil yüklenemedi: $error';
+  }
+
+  @override
+  String get profileEmptyTitle => 'Henüz profil yok';
+
+  @override
+  String get profileEmptyMessage =>
+      'Profilini oluşturmak için onboarding\'i tamamla.';
+
+  @override
+  String get bioAge => 'Yaş';
+
+  @override
+  String get bioHeight => 'Boy';
+
+  @override
+  String get bioWeight => 'Kilo';
+
+  @override
+  String get bioLevel => 'Seviye';
+
+  @override
+  String get profileGoalsTile => 'Hedefler';
+
+  @override
+  String get profileSignOut => 'Çıkış Yap';
+
+  @override
+  String get goalsEmptyTitle => 'Hedef belirlenmemiş';
+
+  @override
+  String get goalsEmptyMessage =>
+      'Hedeflerini belirlemek için onboarding\'i tamamla.';
+
+  @override
+  String get goalsCurrentLabel => 'Şu An';
+
+  @override
+  String get goalsTargetLabel => 'Hedef';
+
+  @override
+  String get goalsRemainingLabel => 'Kalan';
+
+  @override
+  String get goalsWeeklyWorkoutLabel => 'HAFTALIK ANTRENMAN HEDEFİ';
+
+  @override
+  String get goalsDailyCalorieLabel => 'GÜNLÜK KALORİ HEDEFİ';
+
+  @override
+  String get goalsProteinLabel => 'PROTEİN HEDEFİ';
+
+  @override
+  String get settingsWorkoutSection => 'Antrenman Ayarları';
+
+  @override
+  String get settingsDefaultRestTime => 'Varsayılan Dinlenme Süresi';
+
+  @override
+  String get settingsAutoStartNextSet => 'Sonraki Seti Otomatik Başlat';
+
+  @override
+  String get settingsWeightUnit => 'Ağırlık Birimi';
+
+  @override
+  String get settingsDistanceUnit => 'Mesafe Birimi';
+
+  @override
+  String get settingsSound => 'Ses';
+
+  @override
+  String get settingsHaptics => 'Titreşim';
+
+  @override
+  String get settingsCountdownBeep => 'Geri Sayım Sesi (3-2-1)';
+
+  @override
+  String get settingsNutritionSection => 'Beslenme Ayarları';
+
+  @override
+  String get settingsAutoCalculateTargets =>
+      'Hedefleri otomatik hesapla (TDEE)';
+
+  @override
+  String get settingsFoodDatabase => 'Yemek Veritabanı';
+
+  @override
+  String get settingsFoodDbGlobal => 'Global (Tümü)';
+
+  @override
+  String get settingsFoodDbTurkey => 'Türkiye';
+
+  @override
+  String get settingsFoodDbGermany => 'Almanya';
+
+  @override
+  String get settingsFoodDbUK => 'Birleşik Krallık';
+
+  @override
+  String get settingsFoodDbUS => 'Amerika Birleşik Devletleri';
+
+  @override
+  String get settingsFoodDbFrance => 'Fransa';
+
+  @override
+  String settingsManualMacroEditing(
+      String calories, String protein, String carbs, String fat) {
+    return 'Manuel makro düzenleme: Kalori $calories · Protein ${protein}g · Karbonhidrat ${carbs}g · Yağ ${fat}g';
+  }
+
+  @override
+  String get settingsNotificationsSection => 'Bildirimler';
+
+  @override
+  String get settingsEnableNotifications => 'Bildirimleri Etkinleştir';
+
+  @override
+  String get settingsAppearanceSection => 'Görünüm ve Dil';
+
+  @override
+  String get settingsLanguage => 'Dil';
+
+  @override
+  String get settingsLanguageSystem => 'Sistem';
+
+  @override
+  String get settingsAccountSection => 'Hesap ve Destek';
+
+  @override
+  String get settingsSubscription => 'Abonelik';
+
+  @override
+  String get settingsSendFeedback => 'Geri Bildirim Gönder';
+
+  @override
+  String get settingsPrivacyPolicy => 'Gizlilik Politikası';
+
+  @override
+  String settingsSecondsFormat(int seconds) {
+    return '$seconds sn';
+  }
 }
