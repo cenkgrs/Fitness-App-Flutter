@@ -37,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   letterSpacing: -0.5,
                 ),
                 children: [
-                  TextSpan(text: 'REP', style: TextStyle(color: AppColors.primary)),
-                  TextSpan(text: 'WISE', style: TextStyle(color: AppColors.textPrimary)),
+                  TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.primary)),
+                  TextSpan(text: '+', style: TextStyle(color: AppColors.textPrimary)),
                 ],
               ),
             ),
