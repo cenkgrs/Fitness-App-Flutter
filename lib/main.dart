@@ -47,7 +47,7 @@ class RepwiseApp extends ConsumerWidget {
     final languageCode = ref.watch(settingsControllerProvider).languageCode;
 
     return MaterialApp.router(
-      title: 'Repwise',
+      title: 'THRIVE+',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark,
       darkTheme: AppTheme.dark,

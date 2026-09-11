@@ -9,7 +9,7 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => 'Repwise';
+  String get appTitle => 'THRIVE+';
 
   @override
   String get settingsScreenTitle => 'Ayarlar';

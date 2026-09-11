@@ -1,4 +1,4 @@
-package com.repwise.app.repwise
+package com.silveroaktech.thrive
 
 import io.flutter.embedding.android.FlutterActivity
 

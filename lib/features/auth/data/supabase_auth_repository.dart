@@ -17,7 +17,7 @@ class SupabaseAuthRepository implements AuthRepository {
   // Must match: the Android intent-filter in
   // android/app/src/main/AndroidManifest.xml, and be added to Supabase
   // Dashboard > Authentication > URL Configuration > Redirect URLs.
-  static const _oauthRedirectUrl = 'com.repwise.app.repwise://login-callback';
+  static const _oauthRedirectUrl = 'com.silveroaktech.thrive://login-callback';
 
   SupabaseAuthRepository(this._client);
 
