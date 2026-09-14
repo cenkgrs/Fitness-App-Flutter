@@ -16,6 +16,16 @@
   "authSignInButton": "Sign In",
   "authSwitchToSignIn": "Already have an account? Sign In",
   "authSwitchToSignUp": "Don't have an account? Sign Up",
+  "authForgotPassword": "Forgot password?",
+  "authResetPasswordTitle": "Reset Password",
+  "authResetPasswordMessage": "Enter your email and we'll send you a reset link.",
+  "authResetPasswordSend": "Send Reset Link",
+  "authResetPasswordSent": "If that email exists, a reset link has been sent.",
+  "authResetPasswordFailed": "Couldn't send the reset link. Please try again.",
+  "authNewPasswordTitle": "Set a New Password",
+  "authNewPasswordHint": "New password",
+  "authNewPasswordButton": "Update Password",
+  "authNewPasswordSuccess": "Password updated. You're all set.",
   "authErrorSnackbar": "Something went wrong: {error}",
   "@authErrorSnackbar": {
     "placeholders": { "error": { "type": "String" } }
@@ -338,6 +348,11 @@
   "settingsSubscription": "Subscription",
   "settingsSendFeedback": "Send Feedback",
   "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsDeleteAccount": "Delete Account",
+  "settingsDeleteAccountConfirmTitle": "Delete your account?",
+  "settingsDeleteAccountConfirmMessage": "This permanently deletes your account and all your data — workouts, nutrition logs, progress, everything. This cannot be undone.",
+  "settingsDeleteAccountConfirmButton": "Delete Permanently",
+  "settingsDeleteAccountFailed": "Couldn't delete your account. Please try again.",
   "settingsSecondsFormat": "{seconds}s",
   "@settingsSecondsFormat": {
     "placeholders": { "seconds": { "type": "int" } }
@@ -365,7 +380,7 @@
   "lineChartNoData": "No data yet",
 
   "weightLogButton": "Log Weight",
-  "weightFieldHint": "Weight (kg)",
+  "weightFieldHint": "Weight",
 
   "navHome": "Home",
   "navWorkouts": "Workouts",

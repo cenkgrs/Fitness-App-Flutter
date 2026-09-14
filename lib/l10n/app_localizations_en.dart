@@ -55,6 +55,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authSwitchToSignUp => 'Don\'t have an account? Sign Up';
 
   @override
+  String get authForgotPassword => 'Forgot password?';
+
+  @override
+  String get authResetPasswordTitle => 'Reset Password';
+
+  @override
+  String get authResetPasswordMessage =>
+      'Enter your email and we\'ll send you a reset link.';
+
+  @override
+  String get authResetPasswordSend => 'Send Reset Link';
+
+  @override
+  String get authResetPasswordSent =>
+      'If that email exists, a reset link has been sent.';
+
+  @override
+  String get authResetPasswordFailed =>
+      'Couldn\'t send the reset link. Please try again.';
+
+  @override
+  String get authNewPasswordTitle => 'Set a New Password';
+
+  @override
+  String get authNewPasswordHint => 'New password';
+
+  @override
+  String get authNewPasswordButton => 'Update Password';
+
+  @override
+  String get authNewPasswordSuccess => 'Password updated. You\'re all set.';
+
+  @override
   String authErrorSnackbar(String error) {
     return 'Something went wrong: $error';
   }
@@ -769,6 +802,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPrivacyPolicy => 'Privacy Policy';
 
   @override
+  String get settingsDeleteAccount => 'Delete Account';
+
+  @override
+  String get settingsDeleteAccountConfirmTitle => 'Delete your account?';
+
+  @override
+  String get settingsDeleteAccountConfirmMessage =>
+      'This permanently deletes your account and all your data — workouts, nutrition logs, progress, everything. This cannot be undone.';
+
+  @override
+  String get settingsDeleteAccountConfirmButton => 'Delete Permanently';
+
+  @override
+  String get settingsDeleteAccountFailed =>
+      'Couldn\'t delete your account. Please try again.';
+
+  @override
   String settingsSecondsFormat(int seconds) {
     return '${seconds}s';
   }
@@ -816,7 +866,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weightLogButton => 'Log Weight';
 
   @override
-  String get weightFieldHint => 'Weight (kg)';
+  String get weightFieldHint => 'Weight';
 
   @override
   String get navHome => 'Home';

@@ -7,6 +7,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../data/local_settings_repository.dart';
 import '../../data/supabase_settings_repository.dart';
 import '../../domain/settings_repository.dart';
+import '../../../../shared/utils/weight_formatter.dart';
 
 final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
   final local = LocalSettingsRepository(ref.watch(localStorageServiceProvider));
@@ -42,3 +43,7 @@ class SettingsController extends Notifier<AppSettings> {
 }
 
 final settingsControllerProvider = NotifierProvider<SettingsController, AppSettings>(SettingsController.new);
+
+final weightFormatterProvider = Provider<WeightFormatter>((ref) {
+  return WeightFormatter(ref.watch(settingsControllerProvider).weightUnit);
+});

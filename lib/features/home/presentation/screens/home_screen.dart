@@ -10,6 +10,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../widgets/streak_tracker_card.dart';
 
@@ -25,6 +26,7 @@ class HomeScreen extends ConsumerWidget {
     final todayWorkoutAsync = ref.watch(todaysWorkoutDayProvider);
     final consistencyAsync = ref.watch(consistencyProvider);
     final goalAsync = ref.watch(activeGoalProvider);
+    final formatter = ref.watch(weightFormatterProvider);
 
     final hour = DateTime.now().hour;
     final greeting = hour < 12
@@ -175,7 +177,7 @@ class HomeScreen extends ConsumerWidget {
                         children: [
                           Text(l10n.homeWeightGoalLabel, style: AppTypography.caption),
                           Text(
-                            '${goal.currentWeightKg!.toStringAsFixed(1)} kg → ${goal.targetWeightKg!.toStringAsFixed(1)} kg',
+                            '${formatter.format(goal.currentWeightKg!)} → ${formatter.format(goal.targetWeightKg!)}',
                             style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary),
                           ),
                         ],

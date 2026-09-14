@@ -7,6 +7,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../domain/workout_runner_state.dart';
 import '../controllers/workout_providers.dart';
 import '../controllers/workout_runner_controller.dart';
@@ -45,6 +46,7 @@ class _RunnerView extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final runnerState = ref.watch(workoutRunnerProvider(day));
     final notifier = ref.read(workoutRunnerProvider(day).notifier);
+    final formatter = ref.watch(weightFormatterProvider);
 
     ref.listen(workoutRunnerProvider(day), (prev, next) {
       if (next.phase == WorkoutRunnerPhase.finished && prev?.phase != WorkoutRunnerPhase.finished) {
@@ -105,7 +107,9 @@ class _RunnerView extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.xs),
                   Text(
                     l10n.activeWorkoutTarget(
-                      runnerState.currentPlannedSet?.targetWeightKg.toStringAsFixed(1) ?? '-',
+                      runnerState.currentPlannedSet != null
+                          ? formatter.fromKg(runnerState.currentPlannedSet!.targetWeightKg).toStringAsFixed(1)
+                          : '-',
                       '${runnerState.currentPlannedSet?.targetReps ?? '-'}',
                     ),
                     style: AppTypography.bodyMd,

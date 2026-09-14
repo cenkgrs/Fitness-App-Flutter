@@ -11,6 +11,7 @@ import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../../domain/measurement_repository.dart';
 import '../controllers/measurement_providers.dart';
@@ -86,6 +87,7 @@ class _WeightTab extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final pointsAsync = ref.watch(weightChartPointsProvider);
     final goalAsync = ref.watch(activeGoalProvider);
+    final formatter = ref.watch(weightFormatterProvider);
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.screenMargin),
@@ -95,9 +97,11 @@ class _WeightTab extends ConsumerWidget {
           error: (e, st) => Text(l10n.genericError(e.toString())),
           data: (points) => LineChartCard(
             title: l10n.progressWeightChartTitle,
-            points: points,
-            unit: ' kg',
-            targetValue: goalAsync.valueOrNull?.targetWeightKg,
+            points: points.map((p) => ChartPoint(p.date, formatter.fromKg(p.value))).toList(),
+            unit: ' ${formatter.suffix}',
+            targetValue: goalAsync.valueOrNull?.targetWeightKg != null
+                ? formatter.fromKg(goalAsync.valueOrNull!.targetWeightKg!)
+                : null,
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -134,15 +138,16 @@ class _LogWeightSheetState extends ConsumerState<_LogWeightSheet> {
   }
 
   Future<void> _save() async {
-    final value = double.tryParse(_weight.text);
-    if (value == null || value <= 0) return;
+    final entered = double.tryParse(_weight.text);
+    if (entered == null || entered <= 0) return;
     setState(() => _saving = true);
+    final formatter = ref.read(weightFormatterProvider);
     final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
     await ref.read(nutritionRepositoryProvider).addWeightEntry(WeightEntry(
           id: const Uuid().v4(),
           userId: userId,
           date: DateTime.now(),
-          weightKg: value,
+          weightKg: formatter.toKg(entered),
         ));
     ref.invalidate(weightEntriesProvider);
     if (mounted) Navigator.pop(context);
@@ -151,6 +156,7 @@ class _LogWeightSheetState extends ConsumerState<_LogWeightSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final formatter = ref.watch(weightFormatterProvider);
     return Padding(
       padding: EdgeInsets.only(
         left: AppSpacing.xl,
@@ -168,7 +174,7 @@ class _LogWeightSheetState extends ConsumerState<_LogWeightSheet> {
             controller: _weight,
             autofocus: true,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: InputDecoration(hintText: l10n.weightFieldHint),
+            decoration: InputDecoration(hintText: l10n.weightFieldHint, suffixText: formatter.suffix),
           ),
           const SizedBox(height: AppSpacing.lg),
           PrimaryButton(label: l10n.commonSave, isLoading: _saving, onPressed: _save),
@@ -187,6 +193,7 @@ class _StrengthTab extends ConsumerWidget {
     final progressionAsync = ref.watch(strengthProgressionProvider);
     final namesAsync = ref.watch(exerciseNameByIdProvider);
     final selectedId = ref.watch(selectedStrengthExerciseProvider);
+    final formatter = ref.watch(weightFormatterProvider);
 
     return progressionAsync.when(
       loading: () => const Padding(
@@ -232,9 +239,11 @@ class _StrengthTab extends ConsumerWidget {
             const SizedBox(height: AppSpacing.lg),
             LineChartCard(
               title: l10n.progressStrengthChartTitle(names[activeId] ?? activeId),
-              points: progression[activeId] ?? const [],
+              points: (progression[activeId] ?? const [])
+                  .map((p) => ChartPoint(p.date, formatter.fromKg(p.value)))
+                  .toList(),
               lineColor: AppColors.protein,
-              unit: ' kg',
+              unit: ' ${formatter.suffix}',
             ),
           ],
         );

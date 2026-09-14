@@ -6,6 +6,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../controllers/goal_providers.dart';
 
@@ -18,6 +19,7 @@ class GoalsScreen extends ConsumerWidget {
     final goalAsync = ref.watch(activeGoalProvider);
     final consistencyAsync = ref.watch(consistencyProvider);
     final nutritionAsync = ref.watch(dailyNutritionProvider);
+    final formatter = ref.watch(weightFormatterProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileGoalsTile)),
@@ -47,11 +49,11 @@ class GoalsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _Metric(label: l10n.goalsCurrentLabel, value: '${goal.currentWeightKg!.toStringAsFixed(1)} kg'),
-                          _Metric(label: l10n.goalsTargetLabel, value: '${goal.targetWeightKg!.toStringAsFixed(1)} kg'),
+                          _Metric(label: l10n.goalsCurrentLabel, value: formatter.format(goal.currentWeightKg!)),
+                          _Metric(label: l10n.goalsTargetLabel, value: formatter.format(goal.targetWeightKg!)),
                           _Metric(
                               label: l10n.goalsRemainingLabel,
-                              value: '${(goal.currentWeightKg! - goal.targetWeightKg!).abs().toStringAsFixed(1)} kg'),
+                              value: formatter.format((goal.currentWeightKg! - goal.targetWeightKg!).abs())),
                         ],
                       ),
                     ],

@@ -7,6 +7,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../controllers/profile_providers.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -17,6 +18,7 @@ class ProfileScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final profileAsync = ref.watch(userProfileProvider);
     final user = ref.watch(authStateProvider).valueOrNull;
+    final formatter = ref.watch(weightFormatterProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileScreenTitle)),
@@ -59,7 +61,7 @@ class ProfileScreen extends ConsumerWidget {
                   children: [
                     _BioChip(label: l10n.bioAge, value: '${profile.age}'),
                     _BioChip(label: l10n.bioHeight, value: '${profile.heightCm.round()} cm'),
-                    _BioChip(label: l10n.bioWeight, value: '${profile.weightKg.toStringAsFixed(1)} kg'),
+                    _BioChip(label: l10n.bioWeight, value: formatter.format(profile.weightKg)),
                     _BioChip(label: l10n.bioLevel, value: profile.fitnessLevel.name),
                   ],
                 ),

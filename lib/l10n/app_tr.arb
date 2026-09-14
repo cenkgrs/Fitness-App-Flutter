@@ -16,6 +16,16 @@
   "authSignInButton": "Giriş Yap",
   "authSwitchToSignIn": "Zaten hesabın var mı? Giriş Yap",
   "authSwitchToSignUp": "Hesabın yok mu? Kayıt Ol",
+  "authForgotPassword": "Şifremi unuttum",
+  "authResetPasswordTitle": "Şifreyi Sıfırla",
+  "authResetPasswordMessage": "E-postanı gir, sana bir sıfırlama linki gönderelim.",
+  "authResetPasswordSend": "Sıfırlama Linki Gönder",
+  "authResetPasswordSent": "Bu e-posta kayıtlıysa bir sıfırlama linki gönderildi.",
+  "authResetPasswordFailed": "Sıfırlama linki gönderilemedi. Tekrar dene.",
+  "authNewPasswordTitle": "Yeni Şifre Belirle",
+  "authNewPasswordHint": "Yeni şifre",
+  "authNewPasswordButton": "Şifreyi Güncelle",
+  "authNewPasswordSuccess": "Şifre güncellendi. Hazırsın.",
   "authErrorSnackbar": "Bir şeyler ters gitti: {error}",
 
   "onboardingContinue": "Devam Et",
@@ -248,6 +258,11 @@
   "settingsSubscription": "Abonelik",
   "settingsSendFeedback": "Geri Bildirim Gönder",
   "settingsPrivacyPolicy": "Gizlilik Politikası",
+  "settingsDeleteAccount": "Hesabı Sil",
+  "settingsDeleteAccountConfirmTitle": "Hesabını silmek istiyor musun?",
+  "settingsDeleteAccountConfirmMessage": "Bu işlem hesabını ve tüm verilerini (antrenmanlar, beslenme kayıtları, ilerleme, her şey) kalıcı olarak siler. Geri alınamaz.",
+  "settingsDeleteAccountConfirmButton": "Kalıcı Olarak Sil",
+  "settingsDeleteAccountFailed": "Hesap silinemedi. Tekrar dene.",
   "settingsSecondsFormat": "{seconds} sn",
 
   "mealCardNoItems": "Henüz bir şey eklenmedi",
@@ -263,7 +278,7 @@
   "lineChartNoData": "Henüz veri yok",
 
   "weightLogButton": "Kilo Kaydet",
-  "weightFieldHint": "Kilo (kg)",
+  "weightFieldHint": "Kilo",
 
   "navHome": "Ana Sayfa",
   "navWorkouts": "Antrenmanlar",

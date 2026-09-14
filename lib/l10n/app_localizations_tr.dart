@@ -55,6 +55,39 @@ class AppLocalizationsTr extends AppLocalizations {
   String get authSwitchToSignUp => 'Hesabın yok mu? Kayıt Ol';
 
   @override
+  String get authForgotPassword => 'Şifremi unuttum';
+
+  @override
+  String get authResetPasswordTitle => 'Şifreyi Sıfırla';
+
+  @override
+  String get authResetPasswordMessage =>
+      'E-postanı gir, sana bir sıfırlama linki gönderelim.';
+
+  @override
+  String get authResetPasswordSend => 'Sıfırlama Linki Gönder';
+
+  @override
+  String get authResetPasswordSent =>
+      'Bu e-posta kayıtlıysa bir sıfırlama linki gönderildi.';
+
+  @override
+  String get authResetPasswordFailed =>
+      'Sıfırlama linki gönderilemedi. Tekrar dene.';
+
+  @override
+  String get authNewPasswordTitle => 'Yeni Şifre Belirle';
+
+  @override
+  String get authNewPasswordHint => 'Yeni şifre';
+
+  @override
+  String get authNewPasswordButton => 'Şifreyi Güncelle';
+
+  @override
+  String get authNewPasswordSuccess => 'Şifre güncellendi. Hazırsın.';
+
+  @override
   String authErrorSnackbar(String error) {
     return 'Bir şeyler ters gitti: $error';
   }
@@ -768,6 +801,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsPrivacyPolicy => 'Gizlilik Politikası';
 
   @override
+  String get settingsDeleteAccount => 'Hesabı Sil';
+
+  @override
+  String get settingsDeleteAccountConfirmTitle =>
+      'Hesabını silmek istiyor musun?';
+
+  @override
+  String get settingsDeleteAccountConfirmMessage =>
+      'Bu işlem hesabını ve tüm verilerini (antrenmanlar, beslenme kayıtları, ilerleme, her şey) kalıcı olarak siler. Geri alınamaz.';
+
+  @override
+  String get settingsDeleteAccountConfirmButton => 'Kalıcı Olarak Sil';
+
+  @override
+  String get settingsDeleteAccountFailed => 'Hesap silinemedi. Tekrar dene.';
+
+  @override
   String settingsSecondsFormat(int seconds) {
     return '$seconds sn';
   }
@@ -815,7 +865,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get weightLogButton => 'Kilo Kaydet';
 
   @override
-  String get weightFieldHint => 'Kilo (kg)';
+  String get weightFieldHint => 'Kilo';
 
   @override
   String get navHome => 'Ana Sayfa';

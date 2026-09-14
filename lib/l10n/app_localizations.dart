@@ -188,6 +188,66 @@ abstract class AppLocalizations {
   /// **'Don\'t have an account? Sign Up'**
   String get authSwitchToSignUp;
 
+  /// No description provided for @authForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get authForgotPassword;
+
+  /// No description provided for @authResetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get authResetPasswordTitle;
+
+  /// No description provided for @authResetPasswordMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we\'ll send you a reset link.'**
+  String get authResetPasswordMessage;
+
+  /// No description provided for @authResetPasswordSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Link'**
+  String get authResetPasswordSend;
+
+  /// No description provided for @authResetPasswordSent.
+  ///
+  /// In en, this message translates to:
+  /// **'If that email exists, a reset link has been sent.'**
+  String get authResetPasswordSent;
+
+  /// No description provided for @authResetPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send the reset link. Please try again.'**
+  String get authResetPasswordFailed;
+
+  /// No description provided for @authNewPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a New Password'**
+  String get authNewPasswordTitle;
+
+  /// No description provided for @authNewPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get authNewPasswordHint;
+
+  /// No description provided for @authNewPasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Password'**
+  String get authNewPasswordButton;
+
+  /// No description provided for @authNewPasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated. You\'re all set.'**
+  String get authNewPasswordSuccess;
+
   /// No description provided for @authErrorSnackbar.
   ///
   /// In en, this message translates to:
@@ -1487,6 +1547,36 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get settingsPrivacyPolicy;
 
+  /// No description provided for @settingsDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get settingsDeleteAccount;
+
+  /// No description provided for @settingsDeleteAccountConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get settingsDeleteAccountConfirmTitle;
+
+  /// No description provided for @settingsDeleteAccountConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your account and all your data — workouts, nutrition logs, progress, everything. This cannot be undone.'**
+  String get settingsDeleteAccountConfirmMessage;
+
+  /// No description provided for @settingsDeleteAccountConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Permanently'**
+  String get settingsDeleteAccountConfirmButton;
+
+  /// No description provided for @settingsDeleteAccountFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t delete your account. Please try again.'**
+  String get settingsDeleteAccountFailed;
+
   /// No description provided for @settingsSecondsFormat.
   ///
   /// In en, this message translates to:
@@ -1568,7 +1658,7 @@ abstract class AppLocalizations {
   /// No description provided for @weightFieldHint.
   ///
   /// In en, this message translates to:
-  /// **'Weight (kg)'**
+  /// **'Weight'**
   String get weightFieldHint;
 
   /// No description provided for @navHome.

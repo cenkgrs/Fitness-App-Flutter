@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
+import '../../features/settings/presentation/controllers/settings_controller.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
-class ExerciseCard extends StatelessWidget {
+class ExerciseCard extends ConsumerWidget {
   final Exercise exercise;
   final String? previousBest;
   final VoidCallback? onTap;
@@ -14,8 +16,9 @@ class ExerciseCard extends StatelessWidget {
   const ExerciseCard({super.key, required this.exercise, this.previousBest, this.onTap});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final formatter = ref.watch(weightFormatterProvider);
     final workingSets = exercise.sets.where((s) => !s.isWarmup).toList();
     final targetReps = workingSets.isNotEmpty ? workingSets.first.targetReps : 0;
     final targetWeight = workingSets.isNotEmpty ? workingSets.first.targetWeightKg : 0.0;
@@ -52,7 +55,7 @@ class ExerciseCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('${targetWeight.toStringAsFixed(1)} kg', style: AppTypography.bodyMd
+                Text(formatter.format(targetWeight), style: AppTypography.bodyMd
                     .copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600)),
                 if (previousBest != null)
                   Text(l10n.exerciseCardLastBest(previousBest!), style: AppTypography.caption),
