@@ -238,6 +238,10 @@ class HomeScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: AppSpacing.xl),
+            // Real gating (hide for subscribers) lands once RevenueCat is
+            // wired in — see subscriptionStatusProvider.
+            const Center(child: AdBanner()),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),

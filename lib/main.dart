@@ -1,7 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/config/revenuecat_config.dart';
 import 'core/config/supabase_config.dart';
 import 'core/providers/remote_sync.dart';
 import 'core/routing/app_router.dart';
@@ -14,6 +20,11 @@ import 'shared/services/local_storage_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageService.init();
+  unawaited(MobileAds.instance.initialize());
+  if (RevenueCatConfig.isConfigured) {
+    final apiKey = Platform.isIOS ? RevenueCatConfig.apiKeyIOS : RevenueCatConfig.apiKeyAndroid;
+    await Purchases.configure(PurchasesConfiguration(apiKey));
+  }
   // Guarded so the app still runs (against local/mock repositories) before
   // Supabase credentials are provided via --dart-define.
   if (SupabaseConfig.isConfigured) {

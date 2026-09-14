@@ -29,6 +29,10 @@ dependencies:
   supabase_flutter: ^2.5.6
   http: ^1.2.0
 
+  # Monetization
+  google_mobile_ads: ^9.1.0
+  purchases_flutter: ^8.2.3
+
   # Charts
   fl_chart: ^1.2.0
 
