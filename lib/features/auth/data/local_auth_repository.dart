@@ -101,4 +101,20 @@ class LocalAuthRepository implements AuthRepository {
     await _storage.userBox.delete(_sessionKey);
     _emitCurrent();
   }
+
+  @override
+  Future<void> resetPasswordForEmail(String email) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+  }
+
+  @override
+  Future<void> updatePassword(String newPassword) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+  }
+
+  @override
+  Stream<bool> passwordRecoveryEvents() => const Stream.empty();
+
+  @override
+  Future<void> deleteAccount() => signOut();
 }

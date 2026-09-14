@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
+import '../../features/auth/presentation/screens/reset_password_screen.dart';
 import '../../features/goals/presentation/screens/goals_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/nutrition/presentation/screens/food_logger_screen.dart';
@@ -12,6 +13,7 @@ import '../../features/onboarding/presentation/controllers/onboarding_controller
 import '../../features/onboarding/presentation/screens/onboarding_flow_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/progress/presentation/screens/progress_screen.dart';
+import '../../features/settings/presentation/screens/privacy_policy_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/workouts/presentation/screens/active_workout_screen.dart';
 import '../../features/workouts/presentation/screens/workout_detail_screen.dart';
@@ -30,6 +32,7 @@ class _RouterRefreshNotifier extends ChangeNotifier {
   _RouterRefreshNotifier(Ref ref) {
     ref.listen(authStateProvider, (_, __) => notifyListeners());
     ref.listen(onboardingCompleteProvider, (_, __) => notifyListeners());
+    ref.listen(passwordRecoveryProvider, (_, __) => notifyListeners());
   }
 }
 
@@ -43,6 +46,12 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final loc = state.matchedLocation;
       if (loc == '/splash') return null;
+
+      // A password-recovery deep link takes over regardless of onboarding
+      // state — the user must set a new password before doing anything else.
+      final isRecovering = ref.read(passwordRecoveryProvider).valueOrNull == true;
+      if (isRecovering && loc != '/reset-password') return '/reset-password';
+      if (!isRecovering && loc == '/reset-password') return '/home';
 
       final authState = ref.read(authStateProvider);
       if (authState.isLoading) return null;
@@ -63,6 +72,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
       GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingFlowScreen()),
       GoRoute(path: '/auth', builder: (context, state) => const AuthScreen()),
+      GoRoute(path: '/reset-password', builder: (context, state) => const ResetPasswordScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => MainShell(navigationShell: navigationShell),
         branches: [
@@ -103,7 +113,13 @@ final routerProvider = Provider<GoRouter>((ref) {
               path: '/profile',
               builder: (context, state) => const ProfileScreen(),
               routes: [
-                GoRoute(path: 'settings', builder: (context, state) => const SettingsScreen()),
+                GoRoute(
+                  path: 'settings',
+                  builder: (context, state) => const SettingsScreen(),
+                  routes: [
+                    GoRoute(path: 'privacy-policy', builder: (context, state) => const PrivacyPolicyScreen()),
+                  ],
+                ),
               ],
             ),
           ]),

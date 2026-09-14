@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/enums.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../controllers/settings_controller.dart';
 
@@ -113,11 +115,47 @@ class SettingsScreen extends ConsumerWidget {
           _SectionHeader(l10n.settingsAccountSection),
           ListTile(title: Text(l10n.settingsSubscription), trailing: const Icon(Icons.chevron_right)),
           ListTile(title: Text(l10n.settingsSendFeedback), trailing: const Icon(Icons.chevron_right)),
-          ListTile(title: Text(l10n.settingsPrivacyPolicy), trailing: const Icon(Icons.chevron_right)),
+          ListTile(
+            title: Text(l10n.settingsPrivacyPolicy),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/profile/settings/privacy-policy'),
+          ),
+          ListTile(
+            title: Text(l10n.settingsDeleteAccount, style: const TextStyle(color: AppColors.error)),
+            trailing: const Icon(Icons.chevron_right, color: AppColors.error),
+            onTap: () => _confirmDeleteAccount(context, ref),
+          ),
         ],
       ),
     );
   }
+}
+
+Future<void> _confirmDeleteAccount(BuildContext context, WidgetRef ref) async {
+  final l10n = AppLocalizations.of(context)!;
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      title: Text(l10n.settingsDeleteAccountConfirmTitle),
+      content: Text(l10n.settingsDeleteAccountConfirmMessage),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: Text(l10n.commonCancel)),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext, true),
+          child: Text(l10n.settingsDeleteAccountConfirmButton, style: const TextStyle(color: AppColors.error)),
+        ),
+      ],
+    ),
+  );
+  if (confirmed != true || !context.mounted) return;
+
+  final ok = await ref.read(authControllerProvider.notifier).deleteAccount();
+  if (!context.mounted) return;
+  if (!ok) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsDeleteAccountFailed)));
+  }
+  // On success, authStateProvider emits null and the router redirects to
+  // /auth on its own — no manual navigation needed here.
 }
 
 class _SectionHeader extends StatelessWidget {

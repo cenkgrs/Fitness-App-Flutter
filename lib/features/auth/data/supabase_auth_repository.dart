@@ -81,4 +81,32 @@ class SupabaseAuthRepository implements AuthRepository {
   Future<void> signOut() async {
     await _client.auth.signOut();
   }
+
+  @override
+  Future<void> resetPasswordForEmail(String email) async {
+    // Reuses the same registered redirect URL as OAuth — Supabase
+    // distinguishes the flow from the recovery token in the link itself,
+    // not from which redirect URL was used to request it.
+    await _client.auth.resetPasswordForEmail(email, redirectTo: _oauthRedirectUrl);
+  }
+
+  @override
+  Future<void> updatePassword(String newPassword) async {
+    await _client.auth.updateUser(sb.UserAttributes(password: newPassword));
+  }
+
+  @override
+  Stream<bool> passwordRecoveryEvents() {
+    return _client.auth.onAuthStateChange
+        .where((event) => event.event == sb.AuthChangeEvent.passwordRecovery)
+        .map((_) => true);
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    final res = await _client.functions.invoke('delete-account');
+    final error = (res.data as Map?)?['error'];
+    if (error != null) throw StateError(error.toString());
+    await _client.auth.signOut();
+  }
 }

@@ -27,6 +27,50 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     super.dispose();
   }
 
+  Future<void> _showForgotPasswordDialog() async {
+    final l10n = AppLocalizations.of(context)!;
+    final emailController = TextEditingController(text: _emailController.text.trim());
+    final sent = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.authResetPasswordTitle),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.authResetPasswordMessage),
+            const SizedBox(height: AppSpacing.md),
+            TextField(
+              controller: emailController,
+              autofocus: true,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(hintText: l10n.authEmailHint),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(l10n.commonCancel),
+          ),
+          TextButton(
+            onPressed: () async {
+              final email = emailController.text.trim();
+              if (email.isEmpty) return;
+              final ok = await ref.read(authControllerProvider.notifier).requestPasswordReset(email);
+              if (dialogContext.mounted) Navigator.pop(dialogContext, ok);
+            },
+            child: Text(l10n.authResetPasswordSend),
+          ),
+        ],
+      ),
+    );
+    if (!mounted || sent == null) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(sent ? l10n.authResetPasswordSent : l10n.authResetPasswordFailed)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -117,6 +161,15 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   }
                 },
               ),
+              if (!_isSignUp) ...[
+                const SizedBox(height: AppSpacing.sm),
+                Center(
+                  child: TextButton(
+                    onPressed: isLoading ? null : _showForgotPasswordDialog,
+                    child: Text(l10n.authForgotPassword),
+                  ),
+                ),
+              ],
               const SizedBox(height: AppSpacing.lg),
               Center(
                 child: TextButton(

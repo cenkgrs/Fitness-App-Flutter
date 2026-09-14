@@ -21,6 +21,12 @@ final authStateProvider = StreamProvider<AppUser?>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges();
 });
 
+/// Emits true once the app is opened via a password-recovery link, so the
+/// router can force navigation to the reset-password screen.
+final passwordRecoveryProvider = StreamProvider<bool>((ref) {
+  return ref.watch(authRepositoryProvider).passwordRecoveryEvents();
+});
+
 /// Best-effort profile/settings sync from Supabase whenever the
 /// authenticated user changes — covers every sign-in path uniformly,
 /// including the OAuth redirect flow (which completes asynchronously via
@@ -90,6 +96,26 @@ class AuthController extends AsyncNotifier<void> {
   Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _repo.signOut());
+  }
+
+  Future<bool> requestPasswordReset(String email) async {
+    try {
+      await _repo.resetPasswordForEmail(email);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<void> updatePassword(String newPassword) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => _repo.updatePassword(newPassword));
+  }
+
+  Future<bool> deleteAccount() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => _repo.deleteAccount());
+    return !state.hasError;
   }
 }
 
