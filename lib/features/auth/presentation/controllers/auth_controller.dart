@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/config/revenuecat_config.dart';
 import '../../../../core/config/supabase_config.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/providers/remote_sync.dart';
@@ -35,16 +37,27 @@ final passwordRecoveryProvider = StreamProvider<bool>((ref) {
 /// for the app's lifetime; `main.dart` separately awaits the same sync
 /// before `runApp` for an already-persisted session, so a returning user
 /// never sees a one-frame flash of empty/default data.
+/// RevenueCat identity calls are best-effort — a failure here shouldn't
+/// surface as an app error, since ads/subscription status simply falls
+/// back to "free" until the next successful sync.
+Future<void> _safeRevenueCat(Future<void> Function() call) async {
+  try {
+    await call();
+  } catch (_) {}
+}
+
 final authSyncProvider = Provider<void>((ref) {
   String? lastSyncedUserId;
   ref.listen<AsyncValue<AppUser?>>(authStateProvider, (previous, next) {
     final user = next.valueOrNull;
     if (user == null) {
       lastSyncedUserId = null;
+      if (RevenueCatConfig.isConfigured) _safeRevenueCat(() => Purchases.logOut());
       return;
     }
     if (user.id == lastSyncedUserId || !SupabaseConfig.isConfigured) return;
     lastSyncedUserId = user.id;
+    if (RevenueCatConfig.isConfigured) _safeRevenueCat(() => Purchases.logIn(user.id));
     syncProfileAndSettingsFromRemote(
       client: Supabase.instance.client,
       storage: ref.read(localStorageServiceProvider),

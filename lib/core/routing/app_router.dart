@@ -15,6 +15,7 @@ import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/progress/presentation/screens/progress_screen.dart';
 import '../../features/settings/presentation/screens/privacy_policy_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/subscription/presentation/screens/paywall_screen.dart';
 import '../../features/workouts/presentation/screens/active_workout_screen.dart';
 import '../../features/workouts/presentation/screens/workout_detail_screen.dart';
 import '../../features/workouts/presentation/screens/workout_summary_screen.dart';
@@ -118,6 +119,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                   builder: (context, state) => const SettingsScreen(),
                   routes: [
                     GoRoute(path: 'privacy-policy', builder: (context, state) => const PrivacyPolicyScreen()),
+                    GoRoute(path: 'subscription', builder: (context, state) => const PaywallScreen()),
                   ],
                 ),
               ],

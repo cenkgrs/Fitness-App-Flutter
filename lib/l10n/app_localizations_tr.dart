@@ -795,6 +795,45 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsSubscription => 'Abonelik';
 
   @override
+  String get paywallTitle => 'THRIVE+ Premium';
+
+  @override
+  String get paywallSubtitle => 'Reklamları kaldır, AI koçluğunun kilidini aç.';
+
+  @override
+  String get paywallFeatureNoAds => 'Reklamsız';
+
+  @override
+  String get paywallFeatureAiWorkouts =>
+      'AI ile oluşturulan antrenman programları';
+
+  @override
+  String get paywallFeatureAiMeals => 'AI ile öğün metni kaydı';
+
+  @override
+  String get paywallSubscribeButton => 'Abone Ol';
+
+  @override
+  String get paywallRestoreButton => 'Satın Alımları Geri Yükle';
+
+  @override
+  String get paywallUnavailable =>
+      'Abonelikler henüz aktif değil — yakında tekrar bak.';
+
+  @override
+  String get paywallAlreadySubscribed => 'Zaten Premium üyesin. Teşekkürler!';
+
+  @override
+  String get paywallPurchaseFailed => 'Satın alma tamamlanamadı. Tekrar dene.';
+
+  @override
+  String get paywallRestoreSuccess => 'Satın alımlar geri yüklendi.';
+
+  @override
+  String get paywallRestoreNone =>
+      'Bu hesap için önceki bir satın alma bulunamadı.';
+
+  @override
   String get settingsSendFeedback => 'Geri Bildirim Gönder';
 
   @override

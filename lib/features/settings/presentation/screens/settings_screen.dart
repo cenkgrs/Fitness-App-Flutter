@@ -113,7 +113,11 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           _SectionHeader(l10n.settingsAccountSection),
-          ListTile(title: Text(l10n.settingsSubscription), trailing: const Icon(Icons.chevron_right)),
+          ListTile(
+            title: Text(l10n.settingsSubscription),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/profile/settings/subscription'),
+          ),
           ListTile(title: Text(l10n.settingsSendFeedback), trailing: const Icon(Icons.chevron_right)),
           ListTile(
             title: Text(l10n.settingsPrivacyPolicy),

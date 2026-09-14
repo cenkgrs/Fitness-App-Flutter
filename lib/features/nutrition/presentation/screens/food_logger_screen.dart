@@ -13,6 +13,7 @@ import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
+import '../../../subscription/presentation/controllers/subscription_gate.dart';
 import '../controllers/nutrition_providers.dart';
 
 class FoodLoggerScreen extends ConsumerStatefulWidget {
@@ -300,6 +301,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
     final l10n = AppLocalizations.of(context)!;
     final parser = ref.read(aiFoodParserProvider);
     if (parser == null || _aiText.text.trim().isEmpty) return;
+    if (!await requirePremium(context, ref)) return;
     setState(() => _aiLoading = true);
     try {
       final entries = await parser.parseMealText(_aiText.text.trim());

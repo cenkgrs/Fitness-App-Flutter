@@ -796,6 +796,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsSubscription => 'Subscription';
 
   @override
+  String get paywallTitle => 'THRIVE+ Premium';
+
+  @override
+  String get paywallSubtitle => 'Remove ads and unlock AI coaching.';
+
+  @override
+  String get paywallFeatureNoAds => 'No ads';
+
+  @override
+  String get paywallFeatureAiWorkouts => 'AI-generated workout plans';
+
+  @override
+  String get paywallFeatureAiMeals => 'AI meal-text logging';
+
+  @override
+  String get paywallSubscribeButton => 'Subscribe';
+
+  @override
+  String get paywallRestoreButton => 'Restore Purchases';
+
+  @override
+  String get paywallUnavailable =>
+      'Subscriptions aren\'t available yet — check back soon.';
+
+  @override
+  String get paywallAlreadySubscribed => 'You\'re already Premium. Thank you!';
+
+  @override
+  String get paywallPurchaseFailed =>
+      'Purchase couldn\'t be completed. Please try again.';
+
+  @override
+  String get paywallRestoreSuccess => 'Purchases restored.';
+
+  @override
+  String get paywallRestoreNone =>
+      'No previous purchases found for this account.';
+
+  @override
   String get settingsSendFeedback => 'Send Feedback';
 
   @override

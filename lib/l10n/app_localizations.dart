@@ -1535,6 +1535,78 @@ abstract class AppLocalizations {
   /// **'Subscription'**
   String get settingsSubscription;
 
+  /// No description provided for @paywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'THRIVE+ Premium'**
+  String get paywallTitle;
+
+  /// No description provided for @paywallSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove ads and unlock AI coaching.'**
+  String get paywallSubtitle;
+
+  /// No description provided for @paywallFeatureNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'No ads'**
+  String get paywallFeatureNoAds;
+
+  /// No description provided for @paywallFeatureAiWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-generated workout plans'**
+  String get paywallFeatureAiWorkouts;
+
+  /// No description provided for @paywallFeatureAiMeals.
+  ///
+  /// In en, this message translates to:
+  /// **'AI meal-text logging'**
+  String get paywallFeatureAiMeals;
+
+  /// No description provided for @paywallSubscribeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get paywallSubscribeButton;
+
+  /// No description provided for @paywallRestoreButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get paywallRestoreButton;
+
+  /// No description provided for @paywallUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions aren\'t available yet — check back soon.'**
+  String get paywallUnavailable;
+
+  /// No description provided for @paywallAlreadySubscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re already Premium. Thank you!'**
+  String get paywallAlreadySubscribed;
+
+  /// No description provided for @paywallPurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase couldn\'t be completed. Please try again.'**
+  String get paywallPurchaseFailed;
+
+  /// No description provided for @paywallRestoreSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored.'**
+  String get paywallRestoreSuccess;
+
+  /// No description provided for @paywallRestoreNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchases found for this account.'**
+  String get paywallRestoreNone;
+
   /// No description provided for @settingsSendFeedback.
   ///
   /// In en, this message translates to:

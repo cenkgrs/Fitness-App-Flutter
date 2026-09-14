@@ -5,6 +5,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../subscription/presentation/controllers/subscription_gate.dart';
 import '../controllers/workout_providers.dart';
 
 class WorkoutsScreen extends ConsumerWidget {
@@ -49,7 +50,10 @@ class WorkoutsScreen extends ConsumerWidget {
             tooltip: l10n.workoutsAiUpdateTooltip,
             onPressed: aiRegenState.isLoading
                 ? null
-                : () => ref.read(aiProgramRegenerationControllerProvider.notifier).regenerate(),
+                : () async {
+                    if (!await requirePremium(context, ref)) return;
+                    ref.read(aiProgramRegenerationControllerProvider.notifier).regenerate();
+                  },
           ),
         ],
       ),
