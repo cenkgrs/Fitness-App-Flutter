@@ -25,12 +25,17 @@ class OpenFoodFactsClient {
       'json': '1',
       'page_size': '20',
       'lc': 'tr',
+      // Without an explicit sort, OFF's relevance ranking surfaces a lot of
+      // obscure/mislabeled entries (wrong-language names, junk brands) above
+      // well-known products — sorting by scan popularity pushes the products
+      // people actually recognize to the top instead.
+      'sort_by': 'unique_scans_n',
       if (country.isNotEmpty) ...{
         'tagtype_0': 'countries',
         'tag_contains_0': 'contains',
         'tag_0': country,
       },
-      'fields': 'code,product_name,product_name_tr,brands,nutriments',
+      'fields': 'code,product_name,product_name_tr,brands,nutriments,unique_scans_n',
     });
 
     final response = await http.get(uri, headers: {'User-Agent': _userAgent});
@@ -53,8 +58,15 @@ class OpenFoodFactsClient {
         : product['product_name'] as String?;
     final nutriments = product['nutriments'] as Map<String, dynamic>?;
     final calories = (nutriments?['energy-kcal_100g'] as num?)?.toDouble();
+    // Entries nobody has ever scanned are disproportionately the
+    // mislabeled/junk ones (wrong product, wrong language, placeholder
+    // names) — filtering them out is a stronger quality signal than
+    // anything in the name/brand fields themselves.
+    final scans = (product['unique_scans_n'] as num?)?.toInt() ?? 0;
 
-    if (code == null || name == null || name.isEmpty || calories == null) return null;
+    if (code == null || name == null || name.isEmpty || calories == null || scans < 1) {
+      return null;
+    }
 
     return Food(
       id: code,
