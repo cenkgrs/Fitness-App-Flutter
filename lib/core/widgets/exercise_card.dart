@@ -7,6 +7,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+import 'exercise_visual.dart';
 import 'muscle_group_visuals.dart';
 
 class ExerciseCard extends ConsumerWidget {
@@ -31,18 +32,11 @@ class ExerciseCard extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
         child: Row(
           children: [
-            ClipRRect(
+            ExerciseVisual(
+              exerciseName: exercise.name,
+              muscleGroup: exercise.muscleGroup,
+              size: 48,
               borderRadius: BorderRadius.circular(AppRadius.sm),
-              child: Container(
-                width: 48,
-                height: 48,
-                color: muscleGroupColor(exercise.muscleGroup).withValues(alpha: 0.16),
-                child: Icon(
-                  muscleGroupIcon(exercise.muscleGroup),
-                  color: muscleGroupColor(exercise.muscleGroup),
-                  size: 22,
-                ),
-              ),
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
