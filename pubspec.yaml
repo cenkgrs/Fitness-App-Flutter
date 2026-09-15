@@ -44,6 +44,9 @@ dependencies:
   # Barcode scanning
   mobile_scanner: ^5.2.3
 
+  # Health data (steps, active calories) via Health Connect / HealthKit
+  health: ^13.3.1
+
   # Charts
   fl_chart: ^1.2.0
 

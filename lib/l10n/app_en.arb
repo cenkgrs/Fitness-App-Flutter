@@ -221,6 +221,9 @@
     "placeholders": {"count": {"type": "int"}}
   },
   "aiChatLimitReached": "You've reached today's chat limit — come back tomorrow.",
+  "healthConnectPrompt": "Connect Health Connect to see steps & calories burned",
+  "healthStepsLabel": "Steps",
+  "healthCaloriesBurnedLabel": "Cal Burned",
   "achievementsTitle": "Achievements",
   "achievementsUnlockedCount": "{unlocked}/{total} unlocked",
   "@achievementsUnlockedCount": {

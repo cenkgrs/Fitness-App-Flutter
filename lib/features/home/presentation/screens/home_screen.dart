@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/providers/health_providers.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/services/health_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
@@ -75,6 +77,8 @@ class HomeScreen extends ConsumerWidget {
               error: (e, st) => const SizedBox.shrink(),
               data: (c) => StreakTrackerCard(consistency: c),
             ),
+            const SizedBox(height: AppSpacing.xl),
+            const _HealthStatsCard(),
             const SizedBox(height: AppSpacing.xl),
             nutritionAsync.when(
               loading: () => const LoadingShimmer(height: 160),
@@ -245,6 +249,84 @@ class HomeScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Steps + active calories burned, pulled from Health Connect (Android) /
+/// HealthKit (iOS) via the `health` plugin. Renders nothing until the user
+/// has actually granted access — a "connect" prompt lives here instead,
+/// rather than showing a permanently-empty stat card to everyone who hasn't
+/// opted in.
+class _HealthStatsCard extends ConsumerWidget {
+  const _HealthStatsCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final statsAsync = ref.watch(dailyHealthStatsProvider);
+
+    return statsAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (e, st) => const SizedBox.shrink(),
+      data: (stats) {
+        if (stats == null) {
+          return AppCard(
+            onTap: () async {
+              final granted = await HealthService.requestPermissions();
+              if (granted) ref.invalidate(dailyHealthStatsProvider);
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.favorite_border, color: AppColors.primary, size: 20),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(child: Text(l10n.healthConnectPrompt, style: AppTypography.bodyMd)),
+                const Icon(Icons.chevron_right, color: AppColors.textTertiary),
+              ],
+            ),
+          );
+        }
+        return AppCard(
+          child: Row(
+            children: [
+              Expanded(
+                child: _HealthStat(
+                  icon: Icons.directions_walk,
+                  value: '${stats.steps}',
+                  label: l10n.healthStepsLabel,
+                ),
+              ),
+              Container(width: 1, height: 32, color: AppColors.surfaceBorder),
+              Expanded(
+                child: _HealthStat(
+                  icon: Icons.local_fire_department,
+                  value: stats.activeCaloriesBurned.round().toString(),
+                  label: l10n.healthCaloriesBurnedLabel,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _HealthStat extends StatelessWidget {
+  final IconData icon;
+  final String value;
+  final String label;
+  const _HealthStat({required this.icon, required this.value, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(icon, color: AppColors.primary, size: 20),
+        const SizedBox(height: AppSpacing.xs),
+        Text(value, style: AppTypography.headingSm),
+        Text(label, style: AppTypography.caption),
+      ],
     );
   }
 }

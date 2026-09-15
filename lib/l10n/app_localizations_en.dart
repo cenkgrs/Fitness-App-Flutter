@@ -532,6 +532,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'You\'ve reached today\'s chat limit — come back tomorrow.';
 
   @override
+  String get healthConnectPrompt =>
+      'Connect Health Connect to see steps & calories burned';
+
+  @override
+  String get healthStepsLabel => 'Steps';
+
+  @override
+  String get healthCaloriesBurnedLabel => 'Cal Burned';
+
+  @override
   String get achievementsTitle => 'Achievements';
 
   @override

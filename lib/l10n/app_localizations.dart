@@ -1046,6 +1046,24 @@ abstract class AppLocalizations {
   /// **'You\'ve reached today\'s chat limit — come back tomorrow.'**
   String get aiChatLimitReached;
 
+  /// No description provided for @healthConnectPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Health Connect to see steps & calories burned'**
+  String get healthConnectPrompt;
+
+  /// No description provided for @healthStepsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get healthStepsLabel;
+
+  /// No description provided for @healthCaloriesBurnedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cal Burned'**
+  String get healthCaloriesBurnedLabel;
+
   /// No description provided for @achievementsTitle.
   ///
   /// In en, this message translates to:

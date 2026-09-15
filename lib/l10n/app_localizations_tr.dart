@@ -530,6 +530,16 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bugünkü sohbet limitine ulaştın — yarın tekrar gel.';
 
   @override
+  String get healthConnectPrompt =>
+      'Adım ve yakılan kaloriyi görmek için Health Connect\'e bağlan';
+
+  @override
+  String get healthStepsLabel => 'Adım';
+
+  @override
+  String get healthCaloriesBurnedLabel => 'Yakılan Kalori';
+
+  @override
   String get achievementsTitle => 'Başarılar';
 
   @override
