@@ -85,3 +85,14 @@ flutter {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
+
+// AdMob (com.google.android.gms:play-services-ads-api) pulls in
+// androidx.work:work-runtime:2.7.0 — a 2019-era WorkManager/Room version
+// whose SQLite schema handling crashes on startup against newer Android
+// system images ("Failed to create an instance of
+// androidx.work.impl.WorkDatabase"). Forcing a current version fixes it.
+configurations.all {
+    resolutionStrategy {
+        force("androidx.work:work-runtime:2.9.1")
+    }
+}
