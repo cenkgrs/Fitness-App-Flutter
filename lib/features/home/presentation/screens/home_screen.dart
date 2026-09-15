@@ -50,6 +50,11 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            IconButton(
+              icon: const Icon(Icons.chat_bubble_outline),
+              tooltip: l10n.aiChatTitle,
+              onPressed: () => context.push('/coach'),
+            ),
             const CircleAvatar(radius: 22, backgroundColor: AppColors.surface2, child: Icon(Icons.person)),
           ],
         ),

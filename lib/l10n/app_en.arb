@@ -213,6 +213,14 @@
   "barcodeScannerTitle": "Scan Barcode",
   "barcodeScannerHint": "Point the camera at a product barcode",
   "barcodeScannerNotFound": "No product found for that barcode.",
+  "aiChatTitle": "AI Coach",
+  "aiChatInputHint": "Ask your coach anything...",
+  "aiChatEmptyState": "Ask me anything about training, nutrition, or recovery.",
+  "aiChatRemainingToday": "{count} messages left today",
+  "@aiChatRemainingToday": {
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "aiChatLimitReached": "You've reached today's chat limit — come back tomorrow.",
   "waterCardTitle": "Water",
   "waterCardAmount": "{consumed}/{goal} ml",
   "@waterCardAmount": {

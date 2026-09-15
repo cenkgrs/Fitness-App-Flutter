@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/config/supabase_config.dart';
 import 'ai_food_parser.dart';
 import 'ai_workout_coach.dart';
+import 'supabase_ai_chat_service.dart';
 import 'supabase_ai_food_parser.dart';
 import 'supabase_ai_workout_coach.dart';
 
@@ -17,4 +18,9 @@ final aiWorkoutCoachProvider = Provider<AIWorkoutCoach?>((ref) {
 final aiFoodParserProvider = Provider<AIFoodParser?>((ref) {
   if (!SupabaseConfig.isConfigured) return null;
   return SupabaseAIFoodParser(Supabase.instance.client);
+});
+
+final aiChatServiceProvider = Provider<SupabaseAiChatService?>((ref) {
+  if (!SupabaseConfig.isConfigured) return null;
+  return SupabaseAiChatService(Supabase.instance.client);
 });

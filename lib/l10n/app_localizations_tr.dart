@@ -511,6 +511,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get barcodeScannerNotFound => 'Bu barkoda ait ürün bulunamadı.';
 
   @override
+  String get aiChatTitle => 'AI Koç';
+
+  @override
+  String get aiChatInputHint => 'Koçuna her şeyi sorabilirsin...';
+
+  @override
+  String get aiChatEmptyState =>
+      'Antrenman, beslenme veya toparlanma hakkında istediğini sor.';
+
+  @override
+  String aiChatRemainingToday(int count) {
+    return 'Bugün $count mesaj hakkın kaldı';
+  }
+
+  @override
+  String get aiChatLimitReached =>
+      'Bugünkü sohbet limitine ulaştın — yarın tekrar gel.';
+
+  @override
   String get waterCardTitle => 'Su';
 
   @override

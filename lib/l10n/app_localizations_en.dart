@@ -513,6 +513,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get barcodeScannerNotFound => 'No product found for that barcode.';
 
   @override
+  String get aiChatTitle => 'AI Coach';
+
+  @override
+  String get aiChatInputHint => 'Ask your coach anything...';
+
+  @override
+  String get aiChatEmptyState =>
+      'Ask me anything about training, nutrition, or recovery.';
+
+  @override
+  String aiChatRemainingToday(int count) {
+    return '$count messages left today';
+  }
+
+  @override
+  String get aiChatLimitReached =>
+      'You\'ve reached today\'s chat limit — come back tomorrow.';
+
+  @override
   String get waterCardTitle => 'Water';
 
   @override

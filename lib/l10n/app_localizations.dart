@@ -1016,6 +1016,36 @@ abstract class AppLocalizations {
   /// **'No product found for that barcode.'**
   String get barcodeScannerNotFound;
 
+  /// No description provided for @aiChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Coach'**
+  String get aiChatTitle;
+
+  /// No description provided for @aiChatInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your coach anything...'**
+  String get aiChatInputHint;
+
+  /// No description provided for @aiChatEmptyState.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask me anything about training, nutrition, or recovery.'**
+  String get aiChatEmptyState;
+
+  /// No description provided for @aiChatRemainingToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} messages left today'**
+  String aiChatRemainingToday(int count);
+
+  /// No description provided for @aiChatLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached today\'s chat limit — come back tomorrow.'**
+  String get aiChatLimitReached;
+
   /// No description provided for @waterCardTitle.
   ///
   /// In en, this message translates to:

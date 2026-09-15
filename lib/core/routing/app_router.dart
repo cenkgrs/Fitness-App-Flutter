@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/auth/presentation/screens/auth_screen.dart';
 import '../../features/auth/presentation/screens/reset_password_screen.dart';
+import '../../features/coach/presentation/screens/ai_chat_screen.dart';
 import '../../features/goals/presentation/screens/goals_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/nutrition/presentation/screens/food_logger_screen.dart';
@@ -130,6 +131,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/goals',
         builder: (context, state) => const GoalsScreen(),
+      ),
+      GoRoute(
+        path: '/coach',
+        builder: (context, state) => const AiChatScreen(),
       ),
       GoRoute(
         path: '/workout/active/:dayId',

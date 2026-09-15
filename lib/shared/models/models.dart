@@ -12,3 +12,4 @@ export 'daily_nutrition.dart';
 export 'weight_entry.dart';
 export 'progress_metric.dart';
 export 'app_settings.dart';
+export 'chat_message.dart';

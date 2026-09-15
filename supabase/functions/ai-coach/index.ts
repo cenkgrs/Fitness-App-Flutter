@@ -176,7 +176,76 @@ function languageInstruction(payload: Record<string, unknown>): string {
   return `Respond in ${locale === "tr" ? "Turkish" : "English"}.`;
 }
 
-async function handleAction(action: string, payload: Record<string, unknown>) {
+const CHAT_DAILY_LIMIT = 15;
+
+/** Free-form AI chat coach. Unlike the other actions (which just call
+ * Gemini and return), this one owns its own persistence: it reads/writes
+ * ai_chat_messages directly via the service role, so the daily limit and
+ * conversation history are both enforced server-side and can't be spoofed
+ * by the client. */
+async function handleChat(userId: string, payload: Record<string, unknown>) {
+  const message = String(payload.message ?? "").trim();
+  if (!message) throw new Error("Empty message");
+
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const dbHeaders = {
+    apikey: serviceRoleKey!,
+    Authorization: `Bearer ${serviceRoleKey}`,
+    "Content-Type": "application/json",
+  };
+
+  const todayStart = new Date();
+  todayStart.setUTCHours(0, 0, 0, 0);
+  const countRes = await fetch(
+    `${supabaseUrl}/rest/v1/ai_chat_messages?user_id=eq.${userId}&role=eq.user&created_at=gte.${todayStart.toISOString()}&select=id`,
+    { headers: { ...dbHeaders, Prefer: "count=exact" } },
+  );
+  const countHeader = countRes.headers.get("content-range"); // "0-4/5"
+  const usedToday = countHeader ? Number(countHeader.split("/")[1] ?? 0) : 0;
+  if (usedToday >= CHAT_DAILY_LIMIT) {
+    return { reply: null, limitReached: true, remainingToday: 0 };
+  }
+
+  const historyRes = await fetch(
+    `${supabaseUrl}/rest/v1/ai_chat_messages?user_id=eq.${userId}&select=role,content&order=created_at.desc&limit=10`,
+    { headers: dbHeaders },
+  );
+  const recentHistory = ((await historyRes.json()) as { role: string; content: string }[]).reverse();
+
+  const conversation = recentHistory
+    .map((m) => `${m.role === "user" ? "User" : "Coach"}: ${m.content}`)
+    .join("\n");
+  const prompt =
+    `You are a friendly, knowledgeable fitness and nutrition coach chatting ` +
+    `with an app user. Keep replies conversational and concise (2-4 ` +
+    `sentences unless the question genuinely needs more). Only answer ` +
+    `fitness/nutrition/health questions — for anything unrelated, briefly ` +
+    `redirect back to coaching topics.\n\n` +
+    (conversation ? `Conversation so far:\n${conversation}\n\n` : "") +
+    `User: ${message}\n\n${languageInstruction(payload)}`;
+
+  const result = await callGemini(prompt, TEXT_SCHEMA);
+  const reply = result.text as string;
+
+  await fetch(`${supabaseUrl}/rest/v1/ai_chat_messages`, {
+    method: "POST",
+    headers: dbHeaders,
+    body: JSON.stringify([
+      { user_id: userId, role: "user", content: message },
+      { user_id: userId, role: "assistant", content: reply },
+    ]),
+  });
+
+  return { reply, limitReached: false, remainingToday: CHAT_DAILY_LIMIT - usedToday - 1 };
+}
+
+async function handleAction(action: string, payload: Record<string, unknown>, userId: string | null) {
+  if (action === "chat") {
+    if (!userId) throw new Error("Not authenticated");
+    return await handleChat(userId, payload);
+  }
+
   switch (action) {
     case "generate_workout_plan": {
       const prompt =
@@ -252,7 +321,7 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: "Subscription required" }, 403);
     }
 
-    const result = await handleAction(action, payload);
+    const result = await handleAction(action, payload, userId);
     return jsonResponse(result);
   } catch (err) {
     return jsonResponse({ error: String(err) }, 500);
