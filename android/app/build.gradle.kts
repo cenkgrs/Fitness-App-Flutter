@@ -24,6 +24,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // flutter_local_notifications' scheduling APIs need this.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     defaultConfig {
@@ -69,6 +71,17 @@ kotlin {
     }
 }
 
+// Crashlytics/Firebase needs google-services.json (from the Firebase
+// Console) to initialize — apply the plugin only when it's actually
+// present so a checkout without it still builds.
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

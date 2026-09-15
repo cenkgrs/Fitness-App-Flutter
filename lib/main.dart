@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -9,8 +12,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/config/revenuecat_config.dart';
 import 'core/config/supabase_config.dart';
+import 'core/providers/notification_scheduler.dart';
 import 'core/providers/remote_sync.dart';
 import 'core/routing/app_router.dart';
+import 'core/services/notification_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/presentation/controllers/auth_controller.dart';
 import 'features/settings/presentation/controllers/settings_controller.dart';
@@ -20,7 +25,27 @@ import 'shared/services/local_storage_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageService.init();
+
+  // No-op (throws, caught below) until google-services.json is added —
+  // see android/app/build.gradle.kts's conditional plugin application.
+  var crashlyticsReady = false;
+  try {
+    await Firebase.initializeApp();
+    crashlyticsReady = true;
+  } catch (_) {
+    // Firebase not configured yet — run without crash reporting.
+  }
+  if (crashlyticsReady) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
+
   unawaited(MobileAds.instance.initialize());
+  await NotificationService.init();
+  unawaited(NotificationService.requestPermission());
   if (RevenueCatConfig.isConfigured) {
     final apiKey = Platform.isIOS ? RevenueCatConfig.apiKeyIOS : RevenueCatConfig.apiKeyAndroid;
     await Purchases.configure(PurchasesConfiguration(apiKey));
@@ -54,6 +79,7 @@ class RepwiseApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(authSyncProvider);
+    ref.watch(notificationSchedulerProvider);
     final router = ref.watch(routerProvider);
     final languageCode = ref.watch(settingsControllerProvider).languageCode;
 

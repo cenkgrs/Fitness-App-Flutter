@@ -6,6 +6,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/enums.dart';
+import '../../../../core/services/notification_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../controllers/settings_controller.dart';
@@ -101,7 +102,13 @@ class SettingsScreen extends ConsumerWidget {
           _SwitchTile(
             label: l10n.settingsEnableNotifications,
             value: settings.notificationsEnabled,
-            onChanged: controller.setNotificationsEnabled,
+            onChanged: (value) {
+              controller.setNotificationsEnabled(value);
+              // Covers the case where the user denied the initial app-launch
+              // prompt (or is on a fresh install) and only decides they want
+              // reminders after finding this toggle.
+              if (value) NotificationService.requestPermission();
+            },
           ),
           const SizedBox(height: AppSpacing.lg),
           _SectionHeader(l10n.settingsAppearanceSection),
