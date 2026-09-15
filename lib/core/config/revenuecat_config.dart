@@ -10,7 +10,7 @@ class RevenueCatConfig {
   /// The RevenueCat entitlement identifier that unlocks premium (ad-free +
   /// AI features). Must match the entitlement created in the RevenueCat
   /// dashboard once the project exists there.
-  static const premiumEntitlementId = 'premium';
+  static const premiumEntitlementId = 'thrive_premium';
 
   static bool get isConfigured => apiKeyAndroid.isNotEmpty || apiKeyIOS.isNotEmpty;
 }
