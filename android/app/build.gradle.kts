@@ -61,6 +61,15 @@ android {
             // `flutter run --release` still works; Play Console uploads
             // require the real signingConfigs["release"] above.
             signingConfig = if (hasReleaseSigning) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
+            // R8 (on by default for release under this AGP version) was
+            // stripping/renaming classes androidx.work/Room instantiate via
+            // reflection at runtime, crashing the app on launch with
+            // "Failed to create an instance of class
+            // androidx.work.impl.WorkDatabase" — reproduced consistently,
+            // fixed by disabling minification. Revisit with proper R8 keep
+            // rules later if APK size becomes a real concern.
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 }
