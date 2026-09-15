@@ -8,6 +8,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../controllers/nutrition_providers.dart';
 
 class NutritionScreen extends ConsumerWidget {
@@ -125,6 +126,8 @@ class NutritionScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: AppSpacing.lg),
+                const _WaterCard(),
                 const SizedBox(height: AppSpacing.xl),
                 for (final type in MealType.values) ...[
                   MealCard(
@@ -156,4 +159,67 @@ class NutritionScreen extends ConsumerWidget {
 
 extension _FirstOrNull<T> on Iterable<T> {
   T? get firstOrNull => isEmpty ? null : first;
+}
+
+class _WaterCard extends ConsumerWidget {
+  const _WaterCard();
+
+  Future<void> _addWater(WidgetRef ref, int ml) async {
+    final userId = ref.read(authStateProvider).valueOrNull?.id ?? 'local';
+    final date = ref.read(selectedNutritionDateProvider);
+    await ref.read(nutritionRepositoryProvider).addWater(userId, date, ml);
+    ref.invalidate(dailyWaterProvider);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final waterAsync = ref.watch(dailyWaterProvider);
+    final consumed = waterAsync.valueOrNull ?? 0;
+    final progress = (consumed / waterGoalMl).clamp(0.0, 1.0);
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.water_drop, color: AppColors.protein, size: 18),
+                  const SizedBox(width: AppSpacing.xs),
+                  Text(l10n.waterCardTitle, style: AppTypography.bodyLg),
+                ],
+              ),
+              Text(l10n.waterCardAmount(consumed, waterGoalMl), style: AppTypography.caption),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(99),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 6,
+              backgroundColor: AppColors.surface2,
+              valueColor: const AlwaysStoppedAnimation(AppColors.protein),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: [
+              for (final ml in const [250, 500])
+                Padding(
+                  padding: const EdgeInsets.only(right: AppSpacing.sm),
+                  child: OutlinedButton(
+                    onPressed: () => _addWater(ref, ml),
+                    child: Text('+${ml}ml'),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

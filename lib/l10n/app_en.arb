@@ -213,6 +213,14 @@
   "barcodeScannerTitle": "Scan Barcode",
   "barcodeScannerHint": "Point the camera at a product barcode",
   "barcodeScannerNotFound": "No product found for that barcode.",
+  "waterCardTitle": "Water",
+  "waterCardAmount": "{consumed}/{goal} ml",
+  "@waterCardAmount": {
+    "placeholders": {
+      "consumed": {"type": "int"},
+      "goal": {"type": "int"}
+    }
+  },
   "foodLoggerNoResultsTitle": "No results",
   "foodLoggerNoResultsMessage": "Try a different search term.",
   "foodLoggerNutritionSummary": "{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g",

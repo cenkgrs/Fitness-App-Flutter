@@ -12,4 +12,9 @@ abstract class NutritionRepository {
 
   Future<List<WeightEntry>> getWeightEntries(String userId);
   Future<void> addWeightEntry(WeightEntry entry);
+
+  /// Running total for the day, in ml. 0 if nothing logged yet.
+  Future<int> getWaterIntake(String userId, DateTime date);
+  /// Adds [amountMl] to the day's running total (not a replace).
+  Future<void> addWater(String userId, DateTime date, int amountMl);
 }

@@ -92,6 +92,21 @@ class LocalNutritionRepository implements NutritionRepository {
   Future<void> addWeightEntry(WeightEntry entry) async {
     await _storage.weightBox.put(entry.id, entry.toJson());
   }
+
+  String _waterKey(String userId, DateTime date) =>
+      '$userId:${date.year}-${date.month}-${date.day}';
+
+  @override
+  Future<int> getWaterIntake(String userId, DateTime date) async {
+    return _storage.waterIntakeBox.get(_waterKey(userId, date)) as int? ?? 0;
+  }
+
+  @override
+  Future<void> addWater(String userId, DateTime date, int amountMl) async {
+    final key = _waterKey(userId, date);
+    final current = _storage.waterIntakeBox.get(key) as int? ?? 0;
+    await _storage.waterIntakeBox.put(key, current + amountMl);
+  }
 }
 
 // Re-export a fresh id helper for callers building new entries.

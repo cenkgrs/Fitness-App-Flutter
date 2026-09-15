@@ -42,3 +42,14 @@ final weightEntriesProvider = FutureProvider<List<WeightEntry>>((ref) async {
   final user = ref.watch(authStateProvider).valueOrNull;
   return ref.watch(nutritionRepositoryProvider).getWeightEntries(user?.id ?? 'local');
 });
+
+/// Simple fixed default — a bodyweight-based target (~35ml/kg) would be
+/// more precise, but a flat daily goal is what most water-tracking apps
+/// actually use and needs no extra profile plumbing to get right.
+const waterGoalMl = 2500;
+
+final dailyWaterProvider = FutureProvider<int>((ref) async {
+  final user = ref.watch(authStateProvider).valueOrNull;
+  final date = ref.watch(selectedNutritionDateProvider);
+  return ref.watch(nutritionRepositoryProvider).getWaterIntake(user?.id ?? 'local', date);
+});

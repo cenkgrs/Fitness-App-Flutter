@@ -188,4 +188,27 @@ class SupabaseNutritionRepository implements NutritionRepository {
       'note': entry.note,
     });
   }
+
+  @override
+  Future<int> getWaterIntake(String userId, DateTime date) async {
+    final rows = await _client
+        .from('water_intake')
+        .select()
+        .eq('user_id', userId)
+        .eq('date', _dateOnly(date))
+        .limit(1);
+    final list = (rows as List).cast<Map<String, dynamic>>();
+    if (list.isEmpty) return 0;
+    return (list.first['amount_ml'] as num).toInt();
+  }
+
+  @override
+  Future<void> addWater(String userId, DateTime date, int amountMl) async {
+    final current = await getWaterIntake(userId, date);
+    await _client.from('water_intake').upsert({
+      'user_id': userId,
+      'date': _dateOnly(date),
+      'amount_ml': current + amountMl,
+    }, onConflict: 'user_id,date');
+  }
 }

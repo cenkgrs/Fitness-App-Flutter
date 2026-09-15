@@ -513,6 +513,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get barcodeScannerNotFound => 'No product found for that barcode.';
 
   @override
+  String get waterCardTitle => 'Water';
+
+  @override
+  String waterCardAmount(int consumed, int goal) {
+    return '$consumed/$goal ml';
+  }
+
+  @override
   String get foodLoggerNoResultsTitle => 'No results';
 
   @override

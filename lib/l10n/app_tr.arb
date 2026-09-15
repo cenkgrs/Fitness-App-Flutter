@@ -165,6 +165,8 @@
   "barcodeScannerTitle": "Barkod Tara",
   "barcodeScannerHint": "Kamerayı ürün barkoduna doğrult",
   "barcodeScannerNotFound": "Bu barkoda ait ürün bulunamadı.",
+  "waterCardTitle": "Su",
+  "waterCardAmount": "{consumed}/{goal} ml",
   "foodLoggerNoResultsTitle": "Sonuç yok",
   "foodLoggerNoResultsMessage": "Farklı bir arama terimi dene.",
   "foodLoggerNutritionSummary": "{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g",

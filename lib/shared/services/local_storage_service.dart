@@ -17,6 +17,7 @@ class LocalStorageService {
   static const _settingsBox = 'repwise_settings';
   static const _foodsBox = 'repwise_foods';
   static const _exerciseImagesBox = 'repwise_exercise_images';
+  static const _waterIntakeBox = 'repwise_water_intake';
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -32,6 +33,7 @@ class LocalStorageService {
       Hive.openBox(_settingsBox),
       Hive.openBox(_foodsBox),
       Hive.openBox(_exerciseImagesBox),
+      Hive.openBox(_waterIntakeBox),
     ]);
   }
 
@@ -46,4 +48,5 @@ class LocalStorageService {
   Box get settingsBox => Hive.box(_settingsBox);
   Box get foodsBox => Hive.box(_foodsBox);
   Box get exerciseImagesBox => Hive.box(_exerciseImagesBox);
+  Box get waterIntakeBox => Hive.box(_waterIntakeBox);
 }

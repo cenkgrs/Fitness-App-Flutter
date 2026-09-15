@@ -1016,6 +1016,18 @@ abstract class AppLocalizations {
   /// **'No product found for that barcode.'**
   String get barcodeScannerNotFound;
 
+  /// No description provided for @waterCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get waterCardTitle;
+
+  /// No description provided for @waterCardAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'{consumed}/{goal} ml'**
+  String waterCardAmount(int consumed, int goal);
+
   /// No description provided for @foodLoggerNoResultsTitle.
   ///
   /// In en, this message translates to:
