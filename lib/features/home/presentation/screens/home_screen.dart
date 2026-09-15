@@ -79,16 +79,11 @@ class HomeScreen extends ConsumerWidget {
                   children: [
                     ProgressRing(
                       size: 100,
-                      strokeWidth: 8,
+                      strokeWidth: 10,
                       centerValue: nutrition.consumedCalories.round().toString(),
                       centerLabel: l10n.homeCaloriesLeft(nutrition.remainingCalories.round()),
                       rings: [
                         RingData(progress: nutrition.calorieProgress, color: AppColors.calories),
-                        RingData(
-                            progress: nutrition.proteinGoal == 0
-                                ? 0
-                                : nutrition.consumedProteinG / nutrition.proteinGoal,
-                            color: AppColors.protein),
                       ],
                     ),
                     const SizedBox(width: AppSpacing.lg),
