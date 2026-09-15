@@ -7,6 +7,7 @@ abstract class NutritionRepository {
   /// [country] is an Open Food Facts country tag used to restrict results
   /// (e.g. 'Turkey'); empty means no filter.
   Future<List<Food>> searchFoods(String query, {String country = ''});
+  Future<Food?> getFoodByBarcode(String barcode);
   Future<void> addCustomFood(Food food);
 
   Future<List<WeightEntry>> getWeightEntries(String userId);

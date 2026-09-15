@@ -110,6 +110,37 @@ class SupabaseNutritionRepository implements NutritionRepository {
   }
 
   @override
+  Future<Food?> getFoodByBarcode(String barcode) async {
+    final trimmed = barcode.trim();
+    if (trimmed.isEmpty) return null;
+
+    final rows = await _client.from('foods').select().eq('barcode', trimmed).limit(1);
+    final cached = (rows as List).cast<Map<String, dynamic>>();
+    if (cached.isNotEmpty) return _foodFromRow(cached.first);
+
+    Food? found;
+    try {
+      found = await _openFoodFacts.getByBarcode(trimmed);
+    } catch (_) {
+      return null;
+    }
+    if (found == null) return null;
+
+    try {
+      final upserted = await _client
+          .from('foods')
+          .upsert(_foodToRow(found, barcode: trimmed, source: 'openfoodfacts'), onConflict: 'barcode')
+          .select()
+          .limit(1);
+      final list = (upserted as List).cast<Map<String, dynamic>>();
+      if (list.isNotEmpty) return _foodFromRow(list.first);
+    } catch (_) {
+      // Caching failed — still return the live lookup result.
+    }
+    return found;
+  }
+
+  @override
   Future<void> addCustomFood(Food food) async {
     await _client.from('foods').insert(_foodToRow(food, source: 'user'));
   }

@@ -7,6 +7,7 @@ import '../../../shared/models/models.dart';
 /// search with real product data instead of a hardcoded list.
 class OpenFoodFactsClient {
   static const _baseUrl = 'https://world.openfoodfacts.org/cgi/search.pl';
+  static const _productUrl = 'https://world.openfoodfacts.org/api/v2/product';
 
   // Open Food Facts asks API consumers to identify themselves so they can
   // reach out about abuse: https://openfoodfacts.github.io/openfoodfacts-server/api/#requests
@@ -50,7 +51,28 @@ class OpenFoodFactsClient {
         .toList();
   }
 
-  Food? _mapProduct(dynamic raw) {
+  /// Looks up a single product by its scanned barcode — a direct hit from a
+  /// camera scan, so (unlike [search]) there's no ambiguity to rank/filter:
+  /// any product OFF returns for this exact code is the one the user meant.
+  Future<Food?> getByBarcode(String barcode) async {
+    final code = barcode.trim();
+    if (code.isEmpty) return null;
+
+    final uri = Uri.parse('$_productUrl/$code.json').replace(queryParameters: {
+      'fields': 'code,product_name,product_name_tr,brands,nutriments',
+    });
+    final response = await http.get(uri, headers: {'User-Agent': _userAgent});
+    if (response.statusCode != 200) return null;
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    if (body['status'] != 1) return null; // OFF's "not found" signal
+    final product = body['product'] as Map<String, dynamic>?;
+    if (product == null) return null;
+
+    return _mapProduct(product, requireScans: false);
+  }
+
+  Food? _mapProduct(dynamic raw, {bool requireScans = true}) {
     final product = raw as Map<String, dynamic>;
     final code = product['code'] as String?;
     final name = (product['product_name_tr'] as String?)?.trim().isNotEmpty == true
@@ -64,9 +86,10 @@ class OpenFoodFactsClient {
     // anything in the name/brand fields themselves.
     final scans = (product['unique_scans_n'] as num?)?.toInt() ?? 0;
 
-    if (code == null || name == null || name.isEmpty || calories == null || scans < 1) {
+    if (code == null || name == null || name.isEmpty || calories == null) {
       return null;
     }
+    if (requireScans && scans < 1) return null;
 
     return Food(
       id: code,

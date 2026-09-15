@@ -15,6 +15,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../subscription/presentation/controllers/subscription_gate.dart';
 import '../controllers/nutrition_providers.dart';
+import 'barcode_scanner_screen.dart';
 
 class FoodLoggerScreen extends ConsumerStatefulWidget {
   final String mealType;
@@ -94,6 +95,13 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.foodLoggerTitle(_mealTypeLabel(l10n, _type))),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.qr_code_scanner),
+            tooltip: l10n.barcodeScannerTitle,
+            onPressed: _scanBarcode,
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           labelColor: AppColors.primary,
@@ -114,6 +122,32 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
         ],
       ),
     );
+  }
+
+  Future<void> _scanBarcode() async {
+    final l10n = AppLocalizations.of(context)!;
+    final barcode = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (_) => const BarcodeScannerScreen()),
+    );
+    if (barcode == null || !mounted) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+    );
+    final food = await ref.read(nutritionRepositoryProvider).getFoodByBarcode(barcode);
+    if (!mounted) return;
+    Navigator.pop(context); // close loading dialog
+
+    if (food == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.barcodeScannerNotFound)),
+      );
+      return;
+    }
+    _showQuantitySheet(food);
   }
 
   void _showQuantitySheet(Food food) {

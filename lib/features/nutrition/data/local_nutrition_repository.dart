@@ -3,6 +3,7 @@ import '../../../shared/models/models.dart';
 import '../../../shared/services/local_storage_service.dart';
 import '../domain/nutrition_repository.dart';
 import 'food_seed_data.dart';
+import 'open_food_facts_client.dart';
 
 class LocalNutritionRepository implements NutritionRepository {
   final LocalStorageService _storage;
@@ -57,6 +58,20 @@ class LocalNutritionRepository implements NutritionRepository {
     if (query.trim().isEmpty) return all;
     final lower = query.toLowerCase();
     return all.where((f) => f.name.toLowerCase().contains(lower)).toList();
+  }
+
+  @override
+  Future<Food?> getFoodByBarcode(String barcode) async {
+    final trimmed = barcode.trim();
+    if (trimmed.isEmpty) return null;
+    for (final raw in _storage.foodsBox.values) {
+      final food = Food.fromJson(Map<String, dynamic>.from(raw as Map));
+      if (food.id == trimmed) return food;
+    }
+    final client = OpenFoodFactsClient();
+    final found = await client.getByBarcode(trimmed);
+    if (found != null) await _storage.foodsBox.put(found.id, found.toJson());
+    return found;
   }
 
   @override

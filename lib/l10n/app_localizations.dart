@@ -998,6 +998,24 @@ abstract class AppLocalizations {
   /// **'Search for food or brand...'**
   String get foodLoggerSearchHint;
 
+  /// No description provided for @barcodeScannerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Barcode'**
+  String get barcodeScannerTitle;
+
+  /// No description provided for @barcodeScannerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Point the camera at a product barcode'**
+  String get barcodeScannerHint;
+
+  /// No description provided for @barcodeScannerNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No product found for that barcode.'**
+  String get barcodeScannerNotFound;
+
   /// No description provided for @foodLoggerNoResultsTitle.
   ///
   /// In en, this message translates to:

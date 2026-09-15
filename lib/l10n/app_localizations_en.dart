@@ -504,6 +504,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get foodLoggerSearchHint => 'Search for food or brand...';
 
   @override
+  String get barcodeScannerTitle => 'Scan Barcode';
+
+  @override
+  String get barcodeScannerHint => 'Point the camera at a product barcode';
+
+  @override
+  String get barcodeScannerNotFound => 'No product found for that barcode.';
+
+  @override
   String get foodLoggerNoResultsTitle => 'No results';
 
   @override

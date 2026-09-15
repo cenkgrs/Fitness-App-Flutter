@@ -502,6 +502,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get foodLoggerSearchHint => 'Yemek veya marka ara...';
 
   @override
+  String get barcodeScannerTitle => 'Barkod Tara';
+
+  @override
+  String get barcodeScannerHint => 'Kamerayı ürün barkoduna doğrult';
+
+  @override
+  String get barcodeScannerNotFound => 'Bu barkoda ait ürün bulunamadı.';
+
+  @override
   String get foodLoggerNoResultsTitle => 'Sonuç yok';
 
   @override
