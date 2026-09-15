@@ -16,6 +16,10 @@ class WgerExerciseImageClient {
   static const _baseUrl = 'https://wger.de/api/v2';
   static const _english = 2; // wger's language id for English
   static const _catalogCacheKey = '_catalog_v1';
+  // Bump this when the matching/probing logic changes, so previously
+  // cached "no image found" misses (from a weaker version of this logic)
+  // don't shadow a match the improved version would now find.
+  static const _lookupCacheVersion = 'v2';
 
   final http.Client _http;
   final LocalStorageService _storage;
@@ -38,8 +42,9 @@ class WgerExerciseImageClient {
   /// means "looked it up, found nothing" (so we don't keep re-querying
   /// misses every time a card rebuilds).
   Future<String?> findImageUrl(String exerciseName) async {
-    final key = exerciseName.trim().toLowerCase();
-    if (key.isEmpty) return null;
+    final trimmed = exerciseName.trim().toLowerCase();
+    if (trimmed.isEmpty) return null;
+    final key = '$_lookupCacheVersion:$trimmed';
 
     final cached = _storage.exerciseImagesBox.get(key) as String?;
     if (cached != null) return cached.isEmpty ? null : cached;
@@ -57,38 +62,52 @@ class WgerExerciseImageClient {
       final catalog = await _catalog();
       if (catalog.isEmpty) return null;
 
-      int? bestExerciseId;
-      double bestScore = 0;
+      // Require at least half the query's meaningful words to match —
+      // otherwise this is more likely to attach a misleading photo than a
+      // useful one. Many exercise name variants tie on word-overlap score
+      // (e.g. "Triceps Pushdown", "Tricep Pushdown on Cable", "Triceps
+      // Pushdown Isometric" for a "Triceps Cable Pushdown" query) and not
+      // every wger entry actually has a photo — so this ranks ALL
+      // qualifying candidates and tries them best-first instead of
+      // committing to a single top match that might turn out to be a dud.
+      final scored = <MapEntry<double, int>>[];
       for (final entry in catalog) {
         final candidateWords = entry['words'] as Set<String>;
         if (candidateWords.isEmpty) continue;
         final overlap = queryWords.intersection(candidateWords).length;
         final score = overlap / queryWords.length;
-        if (score > bestScore) {
-          bestScore = score;
-          bestExerciseId = entry['exercise'] as int;
+        if (score >= 0.5) {
+          scored.add(MapEntry(score, entry['exercise'] as int));
         }
       }
-      // Require at least half the query's meaningful words to match —
-      // otherwise this is more likely to attach a misleading photo than a
-      // useful one.
-      if (bestExerciseId == null || bestScore < 0.5) return null;
+      if (scored.isEmpty) return null;
+      scored.sort((a, b) => b.key.compareTo(a.key));
 
-      final imagesUri = Uri.parse('$_baseUrl/exerciseimage/').replace(queryParameters: {
-        'exercise': '$bestExerciseId',
-        'format': 'json',
-      });
-      final imagesRes = await _http.get(imagesUri).timeout(const Duration(seconds: 6));
-      if (imagesRes.statusCode != 200) return null;
-      final images = (jsonDecode(imagesRes.body) as Map<String, dynamic>)['results'] as List?;
-      if (images == null || images.isEmpty) return null;
+      // Cap how many candidates we'll probe — bounds worst-case network
+      // calls for an exercise name with many tied, imageless matches.
+      // Ties are common (multiple close-enough name variants) and most
+      // wger entries have zero photos, so this needs real headroom — 5 was
+      // too tight and missed valid photographed matches sitting just past
+      // the cutoff.
+      for (final candidate in scored.take(20)) {
+        final imagesUri = Uri.parse('$_baseUrl/exerciseimage/').replace(queryParameters: {
+          'exercise': '${candidate.value}',
+          'format': 'json',
+        });
+        final imagesRes = await _http.get(imagesUri).timeout(const Duration(seconds: 6));
+        if (imagesRes.statusCode != 200) continue;
+        final images = (jsonDecode(imagesRes.body) as Map<String, dynamic>)['results'] as List?;
+        if (images == null || images.isEmpty) continue;
 
-      final main = images.cast<Map<String, dynamic>>().firstWhere(
-            (i) => i['is_main'] == true,
-            orElse: () => images.first as Map<String, dynamic>,
-          );
-      final thumbnails = main['thumbnails'] as Map<String, dynamic>?;
-      return (thumbnails?['medium'] as String?) ?? (main['image'] as String?);
+        final main = images.cast<Map<String, dynamic>>().firstWhere(
+              (i) => i['is_main'] == true,
+              orElse: () => images.first as Map<String, dynamic>,
+            );
+        final thumbnails = main['thumbnails'] as Map<String, dynamic>?;
+        final url = (thumbnails?['medium'] as String?) ?? (main['image'] as String?);
+        if (url != null) return url;
+      }
+      return null;
     } catch (_) {
       return null;
     }
