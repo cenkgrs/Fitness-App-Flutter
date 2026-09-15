@@ -88,6 +88,15 @@ class ProfileScreen extends ConsumerWidget {
               ListTile(
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                leading: const Icon(Icons.emoji_events_outlined),
+                title: Text(l10n.achievementsTitle),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/achievements'),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              ListTile(
+                tileColor: AppColors.surface1,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 leading: const Icon(Icons.logout, color: AppColors.error),
                 title: Text(l10n.profileSignOut, style: const TextStyle(color: AppColors.error)),
                 onTap: () => ref.read(authControllerProvider.notifier).signOut(),

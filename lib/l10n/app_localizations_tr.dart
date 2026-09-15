@@ -530,6 +530,74 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bugünkü sohbet limitine ulaştın — yarın tekrar gel.';
 
   @override
+  String get achievementsTitle => 'Başarılar';
+
+  @override
+  String achievementsUnlockedCount(int unlocked, int total) {
+    return '$unlocked/$total açıldı';
+  }
+
+  @override
+  String get achievementFirstWorkoutTitle => 'İlk Adım';
+
+  @override
+  String get achievementFirstWorkoutDesc => 'İlk antrenmanını tamamla';
+
+  @override
+  String get achievementWorkout5Title => 'Başlangıç';
+
+  @override
+  String get achievementWorkout5Desc => '5 antrenman tamamla';
+
+  @override
+  String get achievementWorkout25Title => 'Kararlı';
+
+  @override
+  String get achievementWorkout25Desc => '25 antrenman tamamla';
+
+  @override
+  String get achievementWorkout100Title => 'Yüzler Kulübü';
+
+  @override
+  String get achievementWorkout100Desc => '100 antrenman tamamla';
+
+  @override
+  String get achievementFirstPrTitle => 'Yeni Rekor';
+
+  @override
+  String get achievementFirstPrDesc => 'İlk kişisel rekorunu kır';
+
+  @override
+  String get achievementStreak3Title => 'Tempoda';
+
+  @override
+  String get achievementStreak3Desc => '3 günlük antrenman serisi';
+
+  @override
+  String get achievementStreak7Title => 'Bir Hafta Güçlü';
+
+  @override
+  String get achievementStreak7Desc => '7 günlük antrenman serisi';
+
+  @override
+  String get achievementStreak30Title => 'Durdurulamaz';
+
+  @override
+  String get achievementStreak30Desc => '30 günlük antrenman serisi';
+
+  @override
+  String get achievementWeightLogged5Title => 'Takipte';
+
+  @override
+  String get achievementWeightLogged5Desc => 'Kilonu 5 kez kaydet';
+
+  @override
+  String get achievementWeightLogged30Title => 'Veri Odaklı';
+
+  @override
+  String get achievementWeightLogged30Desc => 'Kilonu 30 kez kaydet';
+
+  @override
   String get waterCardTitle => 'Su';
 
   @override

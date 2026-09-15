@@ -1046,6 +1046,138 @@ abstract class AppLocalizations {
   /// **'You\'ve reached today\'s chat limit — come back tomorrow.'**
   String get aiChatLimitReached;
 
+  /// No description provided for @achievementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievementsTitle;
+
+  /// No description provided for @achievementsUnlockedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{unlocked}/{total} unlocked'**
+  String achievementsUnlockedCount(int unlocked, int total);
+
+  /// No description provided for @achievementFirstWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First Step'**
+  String get achievementFirstWorkoutTitle;
+
+  /// No description provided for @achievementFirstWorkoutDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your first workout'**
+  String get achievementFirstWorkoutDesc;
+
+  /// No description provided for @achievementWorkout5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting Started'**
+  String get achievementWorkout5Title;
+
+  /// No description provided for @achievementWorkout5Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 5 workouts'**
+  String get achievementWorkout5Desc;
+
+  /// No description provided for @achievementWorkout25Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Committed'**
+  String get achievementWorkout25Title;
+
+  /// No description provided for @achievementWorkout25Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 25 workouts'**
+  String get achievementWorkout25Desc;
+
+  /// No description provided for @achievementWorkout100Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Century Club'**
+  String get achievementWorkout100Title;
+
+  /// No description provided for @achievementWorkout100Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 100 workouts'**
+  String get achievementWorkout100Desc;
+
+  /// No description provided for @achievementFirstPrTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Record'**
+  String get achievementFirstPrTitle;
+
+  /// No description provided for @achievementFirstPrDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit your first personal record'**
+  String get achievementFirstPrDesc;
+
+  /// No description provided for @achievementStreak3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'On a Roll'**
+  String get achievementStreak3Title;
+
+  /// No description provided for @achievementStreak3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'3-day workout streak'**
+  String get achievementStreak3Desc;
+
+  /// No description provided for @achievementStreak7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One Week Strong'**
+  String get achievementStreak7Title;
+
+  /// No description provided for @achievementStreak7Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day workout streak'**
+  String get achievementStreak7Desc;
+
+  /// No description provided for @achievementStreak30Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Unstoppable'**
+  String get achievementStreak30Title;
+
+  /// No description provided for @achievementStreak30Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'30-day workout streak'**
+  String get achievementStreak30Desc;
+
+  /// No description provided for @achievementWeightLogged5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking It'**
+  String get achievementWeightLogged5Title;
+
+  /// No description provided for @achievementWeightLogged5Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your weight 5 times'**
+  String get achievementWeightLogged5Desc;
+
+  /// No description provided for @achievementWeightLogged30Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Driven'**
+  String get achievementWeightLogged30Title;
+
+  /// No description provided for @achievementWeightLogged30Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your weight 30 times'**
+  String get achievementWeightLogged30Desc;
+
   /// No description provided for @waterCardTitle.
   ///
   /// In en, this message translates to:

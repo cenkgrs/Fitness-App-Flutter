@@ -532,6 +532,74 @@ class AppLocalizationsEn extends AppLocalizations {
       'You\'ve reached today\'s chat limit — come back tomorrow.';
 
   @override
+  String get achievementsTitle => 'Achievements';
+
+  @override
+  String achievementsUnlockedCount(int unlocked, int total) {
+    return '$unlocked/$total unlocked';
+  }
+
+  @override
+  String get achievementFirstWorkoutTitle => 'First Step';
+
+  @override
+  String get achievementFirstWorkoutDesc => 'Complete your first workout';
+
+  @override
+  String get achievementWorkout5Title => 'Getting Started';
+
+  @override
+  String get achievementWorkout5Desc => 'Complete 5 workouts';
+
+  @override
+  String get achievementWorkout25Title => 'Committed';
+
+  @override
+  String get achievementWorkout25Desc => 'Complete 25 workouts';
+
+  @override
+  String get achievementWorkout100Title => 'Century Club';
+
+  @override
+  String get achievementWorkout100Desc => 'Complete 100 workouts';
+
+  @override
+  String get achievementFirstPrTitle => 'New Record';
+
+  @override
+  String get achievementFirstPrDesc => 'Hit your first personal record';
+
+  @override
+  String get achievementStreak3Title => 'On a Roll';
+
+  @override
+  String get achievementStreak3Desc => '3-day workout streak';
+
+  @override
+  String get achievementStreak7Title => 'One Week Strong';
+
+  @override
+  String get achievementStreak7Desc => '7-day workout streak';
+
+  @override
+  String get achievementStreak30Title => 'Unstoppable';
+
+  @override
+  String get achievementStreak30Desc => '30-day workout streak';
+
+  @override
+  String get achievementWeightLogged5Title => 'Tracking It';
+
+  @override
+  String get achievementWeightLogged5Desc => 'Log your weight 5 times';
+
+  @override
+  String get achievementWeightLogged30Title => 'Data Driven';
+
+  @override
+  String get achievementWeightLogged30Desc => 'Log your weight 30 times';
+
+  @override
   String get waterCardTitle => 'Water';
 
   @override
