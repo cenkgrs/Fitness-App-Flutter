@@ -7,6 +7,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+import 'muscle_group_visuals.dart';
 
 class ExerciseCard extends ConsumerWidget {
   final Exercise exercise;
@@ -35,8 +36,12 @@ class ExerciseCard extends ConsumerWidget {
               child: Container(
                 width: 48,
                 height: 48,
-                color: AppColors.surface2,
-                child: const Icon(Icons.fitness_center, color: AppColors.textTertiary, size: 22),
+                color: muscleGroupColor(exercise.muscleGroup).withValues(alpha: 0.16),
+                child: Icon(
+                  muscleGroupIcon(exercise.muscleGroup),
+                  color: muscleGroupColor(exercise.muscleGroup),
+                  size: 22,
+                ),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
@@ -46,7 +51,7 @@ class ExerciseCard extends ConsumerWidget {
                 children: [
                   Text(exercise.name, style: AppTypography.bodyLg),
                   Text(
-                    l10n.exerciseCardSetsReps(workingSets.length, targetReps),
+                    '${muscleGroupLabel(l10n, exercise.muscleGroup)} · ${l10n.exerciseCardSetsReps(workingSets.length, targetReps)}',
                     style: AppTypography.caption,
                   ),
                 ],

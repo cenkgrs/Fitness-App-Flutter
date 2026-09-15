@@ -7,6 +7,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
+import '../../../../core/widgets/muscle_group_visuals.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../domain/workout_runner_state.dart';
 import '../controllers/workout_providers.dart';
@@ -99,8 +100,21 @@ class _RunnerView extends ConsumerWidget {
                   Container(
                     height: 140,
                     width: double.infinity,
-                    decoration: BoxDecoration(color: AppColors.surface1, borderRadius: BorderRadius.circular(20)),
-                    child: const Center(child: Icon(Icons.fitness_center, size: 56, color: AppColors.surfaceBorder)),
+                    decoration: BoxDecoration(
+                      color: muscleGroupColor(exercise.muscleGroup).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(muscleGroupIcon(exercise.muscleGroup),
+                              size: 48, color: muscleGroupColor(exercise.muscleGroup)),
+                          const SizedBox(height: AppSpacing.xs),
+                          Text(muscleGroupLabel(l10n, exercise.muscleGroup), style: AppTypography.caption),
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   Text(l10n.activeWorkoutSetCounter(setNumber, totalSets), style: AppTypography.headingSm),

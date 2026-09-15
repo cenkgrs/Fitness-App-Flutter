@@ -792,6 +792,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsAccountSection => 'Hesap ve Destek';
 
   @override
+  String get muscleGroupChest => 'Göğüs';
+
+  @override
+  String get muscleGroupBack => 'Sırt';
+
+  @override
+  String get muscleGroupShoulders => 'Omuz';
+
+  @override
+  String get muscleGroupBiceps => 'Biceps';
+
+  @override
+  String get muscleGroupTriceps => 'Triceps';
+
+  @override
+  String get muscleGroupLegs => 'Bacak';
+
+  @override
+  String get muscleGroupGlutes => 'Kalça';
+
+  @override
+  String get muscleGroupCore => 'Karın';
+
+  @override
+  String get muscleGroupCardio => 'Kardiyo';
+
+  @override
+  String get muscleGroupFullBody => 'Tüm Vücut';
+
+  @override
   String get settingsSubscription => 'Abonelik';
 
   @override

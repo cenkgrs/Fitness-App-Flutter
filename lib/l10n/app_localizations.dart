@@ -1529,6 +1529,66 @@ abstract class AppLocalizations {
   /// **'Account & Support'**
   String get settingsAccountSection;
 
+  /// No description provided for @muscleGroupChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get muscleGroupChest;
+
+  /// No description provided for @muscleGroupBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get muscleGroupBack;
+
+  /// No description provided for @muscleGroupShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get muscleGroupShoulders;
+
+  /// No description provided for @muscleGroupBiceps.
+  ///
+  /// In en, this message translates to:
+  /// **'Biceps'**
+  String get muscleGroupBiceps;
+
+  /// No description provided for @muscleGroupTriceps.
+  ///
+  /// In en, this message translates to:
+  /// **'Triceps'**
+  String get muscleGroupTriceps;
+
+  /// No description provided for @muscleGroupLegs.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
+  String get muscleGroupLegs;
+
+  /// No description provided for @muscleGroupGlutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Glutes'**
+  String get muscleGroupGlutes;
+
+  /// No description provided for @muscleGroupCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get muscleGroupCore;
+
+  /// No description provided for @muscleGroupCardio.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardio'**
+  String get muscleGroupCardio;
+
+  /// No description provided for @muscleGroupFullBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Body'**
+  String get muscleGroupFullBody;
+
   /// No description provided for @settingsSubscription.
   ///
   /// In en, this message translates to:

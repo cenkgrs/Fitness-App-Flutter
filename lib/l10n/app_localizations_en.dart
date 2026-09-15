@@ -793,6 +793,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAccountSection => 'Account & Support';
 
   @override
+  String get muscleGroupChest => 'Chest';
+
+  @override
+  String get muscleGroupBack => 'Back';
+
+  @override
+  String get muscleGroupShoulders => 'Shoulders';
+
+  @override
+  String get muscleGroupBiceps => 'Biceps';
+
+  @override
+  String get muscleGroupTriceps => 'Triceps';
+
+  @override
+  String get muscleGroupLegs => 'Legs';
+
+  @override
+  String get muscleGroupGlutes => 'Glutes';
+
+  @override
+  String get muscleGroupCore => 'Core';
+
+  @override
+  String get muscleGroupCardio => 'Cardio';
+
+  @override
+  String get muscleGroupFullBody => 'Full Body';
+
+  @override
   String get settingsSubscription => 'Subscription';
 
   @override
