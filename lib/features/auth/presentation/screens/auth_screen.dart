@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -100,14 +101,16 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 _isSignUp ? l10n.authSignUpSubtitle : l10n.authSignInSubtitle,
                 style: AppTypography.bodyMd,
               ),
-              /*
-              const SizedBox(height: AppSpacing.xxl),
-              SecondaryButton(
-                label: l10n.authContinueWithApple,
-                icon: Icons.apple,
-                onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithApple(),
-              ),
-              */
+              // Apple sign-in is only offered on iOS, where App Review requires
+              // it alongside Google; Android keeps Google + email.
+              if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+                const SizedBox(height: AppSpacing.xxl),
+                SecondaryButton(
+                  label: l10n.authContinueWithApple,
+                  icon: Icons.apple,
+                  onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithApple(),
+                ),
+              ],
               const SizedBox(height: AppSpacing.md),
               SecondaryButton(
                 label: l10n.authContinueWithGoogle,

@@ -98,10 +98,12 @@ class AuthController extends AsyncNotifier<void> {
   /// and completes asynchronously via authStateProvider — it doesn't return
   /// a user synchronously, so [SupabaseAuthRepository] surfaces that as a
   /// StateError. That's an expected transitional state, not a real failure,
-  /// so it shouldn't show as an error banner to the user.
+  /// so it shouldn't show as an error banner to the user. Neither should
+  /// the user closing the native Apple sheet.
   void _resetIfAwaitingOAuthRedirect() {
     final error = state.error;
-    if (error is StateError && error.message.contains('awaiting redirect')) {
+    if (error is StateError &&
+        (error.message.contains('awaiting redirect') || error.message.contains('cancelled'))) {
       state = const AsyncData(null);
     }
   }
