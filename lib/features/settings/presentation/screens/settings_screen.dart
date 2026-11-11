@@ -37,31 +37,14 @@ class SettingsScreen extends ConsumerWidget {
             },
             onChanged: (v) => controller.setDefaultRestTime(Duration(seconds: v)),
           ),
-          _SwitchTile(
-            label: l10n.settingsAutoStartNextSet,
-            value: settings.autoStartNextSet,
-            onChanged: controller.setAutoStartNextSet,
-          ),
           _DropdownTile<WeightUnit>(
             label: l10n.settingsWeightUnit,
             value: settings.weightUnit,
-            items: const {WeightUnit.kg: 'KG', WeightUnit.lbs: 'LBS'},
+            items: const {WeightUnit.kg: 'kg', WeightUnit.lbs: 'lb'},
             onChanged: controller.setWeightUnit,
           ),
-          _DropdownTile<DistanceUnit>(
-            label: l10n.settingsDistanceUnit,
-            value: settings.distanceUnit,
-            items: const {DistanceUnit.km: 'KM', DistanceUnit.miles: 'MILES'},
-            onChanged: controller.setDistanceUnit,
-          ),
-          _SwitchTile(label: l10n.settingsSound, value: settings.soundEnabled, onChanged: controller.setSoundEnabled),
           _SwitchTile(
               label: l10n.settingsHaptics, value: settings.hapticsEnabled, onChanged: controller.setHapticsEnabled),
-          _SwitchTile(
-            label: l10n.settingsCountdownBeep,
-            value: settings.countdownBeepEnabled,
-            onChanged: controller.setCountdownBeepEnabled,
-          ),
           const SizedBox(height: AppSpacing.lg),
           _SectionHeader(l10n.settingsNutritionSection),
           _SwitchTile(

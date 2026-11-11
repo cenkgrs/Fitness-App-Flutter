@@ -165,4 +165,52 @@ void main() {
     expect(next.currentExercise.sets.last.targetWeightKg, 60);
     expect(next.currentExercise.sets.last.targetReps, 8);
   });
+
+  test('goToExercise jumps to another exercise at its first unlogged set', () {
+    final state = initialState();
+    final next = WorkoutRunnerLogic.goToExercise(state, 1);
+    expect(next.exerciseIndex, 1);
+    expect(next.setIndex, 0);
+    expect(next.draftWeightKg, 22);
+    expect(next.phase, WorkoutRunnerPhase.exercising);
+  });
+
+  test('finishing a jumped-to exercise returns to the next unfinished one, not a done one', () {
+    var state = initialState();
+    state = WorkoutRunnerLogic.goToExercise(state, 1);
+    state = WorkoutRunnerLogic.completeSet(state, actualWeight: 22, actualReps: 10);
+    // ex2 was the last exercise; nothing unfinished after it, so the session ends
+    // even though ex1 was never started — same as skipping it.
+    expect(state.phase, WorkoutRunnerPhase.finished);
+
+    var other = initialState();
+    other = WorkoutRunnerLogic.completeSet(other, actualWeight: 60, actualReps: 8);
+    other = WorkoutRunnerLogic.goToExercise(other, 1);
+    other = WorkoutRunnerLogic.completeSet(other, actualWeight: 22, actualReps: 10);
+    expect(other.phase, WorkoutRunnerPhase.finished);
+    expect(WorkoutRunnerLogic.completedSetCount(other.session, 'ex1'), 1);
+  });
+
+  test('goToExercise ignores exercises whose sets are all logged', () {
+    var state = initialState();
+    state = WorkoutRunnerLogic.goToExercise(state, 1);
+    state = WorkoutRunnerLogic.addExtraSet(state); // keep ex2 open after its first set
+    state = WorkoutRunnerLogic.completeSet(state, actualWeight: 22, actualReps: 10);
+    state = WorkoutRunnerLogic.goToExercise(state, 0);
+    state = WorkoutRunnerLogic.completeSet(state, actualWeight: 60, actualReps: 8);
+    state = WorkoutRunnerLogic.completeSet(state, actualWeight: 60, actualReps: 8);
+    // ex1 done, next unfinished after it is ex2's extra set.
+    expect(state.exerciseIndex, 1);
+    expect(state.setIndex, 1);
+    expect(WorkoutRunnerLogic.goToExercise(state, 0).exerciseIndex, 1);
+  });
+
+  test('finishEarly completes the session with the sets logged so far', () {
+    var state = initialState();
+    state = WorkoutRunnerLogic.completeSet(state, actualWeight: 60, actualReps: 8);
+    state = WorkoutRunnerLogic.finishEarly(state);
+    expect(state.phase, WorkoutRunnerPhase.finished);
+    expect(state.session.status, WorkoutSessionStatus.completed);
+    expect(state.session.sets.length, 1);
+  });
 }

@@ -62,9 +62,8 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> with SingleTick
         title: Text(l10n.progressScreenTitle),
         bottom: TabBar(
           controller: _tabController,
-          labelColor: AppColors.primary,
-          indicatorColor: AppColors.primary,
           isScrollable: true,
+          tabAlignment: TabAlignment.start,
           tabs: [
             Tab(text: l10n.progressTabWeight),
             Tab(text: l10n.progressTabStrength),
@@ -107,13 +106,13 @@ class _WeightTab extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        PrimaryButton(
+        SecondaryButton(
           label: l10n.weightLogButton,
+          icon: AppIcons.plus,
           onPressed: () => showModalBottomSheet(
             context: context,
-            backgroundColor: AppColors.surface1,
             isScrollControlled: true,
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+            showDragHandle: true,
             builder: (_) => const _LogWeightSheet(),
           ),
         ),
@@ -229,14 +228,27 @@ class _StrengthTab extends ConsumerWidget {
         return ListView(
           padding: const EdgeInsets.all(AppSpacing.screenMargin),
           children: [
-            DropdownButtonFormField<String>(
-              initialValue: activeId,
-              dropdownColor: AppColors.surface2,
-              decoration: const InputDecoration(),
-              items: ids
-                  .map((id) => DropdownMenuItem(value: id, child: Text(exerciseName(l10n, names[id] ?? id))))
-                  .toList(),
-              onChanged: (v) => ref.read(selectedStrengthExerciseProvider.notifier).state = v,
+            SizedBox(
+              height: 40,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: ids.length,
+                separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
+                itemBuilder: (context, i) {
+                  final id = ids[i];
+                  final selected = id == activeId;
+                  return ChoiceChip(
+                    label: Text(
+                      exerciseName(l10n, names[id] ?? id),
+                      style: AppTypography.bodyMd.copyWith(
+                        color: selected ? AppColors.background : AppColors.textPrimary,
+                      ),
+                    ),
+                    selected: selected,
+                    onSelected: (_) => ref.read(selectedStrengthExerciseProvider.notifier).state = id,
+                  );
+                },
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
             LineChartCard(
@@ -244,7 +256,6 @@ class _StrengthTab extends ConsumerWidget {
               points: (progression[activeId] ?? const [])
                   .map((p) => ChartPoint(p.date, formatter.fromKg(p.value)))
                   .toList(),
-              lineColor: AppColors.protein,
               unit: ' ${formatter.suffix}',
             ),
           ],
@@ -327,7 +338,11 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
                   ),
                 ),
         ),
-        PrimaryButton(label: l10n.measurementsAddButton, onPressed: () => _showAddSheet(context)),
+        SecondaryButton(
+          label: l10n.measurementsAddButton,
+          icon: AppIcons.plus,
+          onPressed: () => _showAddSheet(context),
+        ),
         const SizedBox(height: AppSpacing.lg),
         metricsAsync.when(
           loading: () => const LoadingShimmer(height: 220),
@@ -349,22 +364,27 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
             }
             return Column(
               children: [
-                DropdownButtonFormField<String>(
-                  initialValue: _selectedKey,
-                  dropdownColor: AppColors.surface2,
-                  decoration: const InputDecoration(),
-                  items: measurementKeys
-                      .map((k) => DropdownMenuItem(value: k, child: Text(_measurementLabel(l10n, k))))
-                      .toList(),
-                  onChanged: (v) {
-                    if (v != null) setState(() => _selectedKey = v);
-                  },
+                Wrap(
+                  spacing: AppSpacing.sm,
+                  runSpacing: AppSpacing.sm,
+                  children: [
+                    for (final k in measurementKeys)
+                      ChoiceChip(
+                        label: Text(
+                          _measurementLabel(l10n, k),
+                          style: AppTypography.bodyMd.copyWith(
+                            color: k == _selectedKey ? AppColors.background : AppColors.textPrimary,
+                          ),
+                        ),
+                        selected: k == _selectedKey,
+                        onSelected: (_) => setState(() => _selectedKey = k),
+                      ),
+                  ],
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 LineChartCard(
                   title: l10n.measurementsChartTitle(_measurementLabel(l10n, _selectedKey)),
                   points: byKey[_selectedKey] ?? const [],
-                  lineColor: AppColors.carbs,
                   unit: ' cm',
                 ),
               ],
@@ -378,9 +398,8 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
   void _showAddSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.surface1,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      showDragHandle: true,
       builder: (_) => const _AddMeasurementSheet(),
     );
   }

@@ -2332,6 +2332,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dumbbell Row'**
   String get exDumbbellRow;
+
+  /// No description provided for @activeWorkoutLastTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Last time: {value}'**
+  String activeWorkoutLastTime(String value);
+
+  /// No description provided for @activeWorkoutSetHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'SET'**
+  String get activeWorkoutSetHeader;
+
+  /// No description provided for @activeWorkoutPreviousHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'PREVIOUS'**
+  String get activeWorkoutPreviousHeader;
+
+  /// No description provided for @activeWorkoutExercisesHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'EXERCISES'**
+  String get activeWorkoutExercisesHeader;
+
+  /// No description provided for @activeWorkoutCurrentSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {number}'**
+  String activeWorkoutCurrentSet(int number);
+
+  /// No description provided for @activeWorkoutRestNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {label}'**
+  String activeWorkoutRestNext(String label);
+
+  /// No description provided for @activeWorkoutFinishContent.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Your 1 completed set will be saved.} other{Your {count} completed sets will be saved.}}'**
+  String activeWorkoutFinishContent(int count);
+
+  /// No description provided for @activeWorkoutFinishSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish and save'**
+  String get activeWorkoutFinishSave;
+
+  /// No description provided for @activeWorkoutDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard workout'**
+  String get activeWorkoutDiscard;
+
+  /// No description provided for @activeWorkoutKeepGoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get activeWorkoutKeepGoing;
+
+  /// No description provided for @activeWorkoutFinishNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get activeWorkoutFinishNow;
+
+  /// No description provided for @activeWorkoutSetsDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} sets'**
+  String activeWorkoutSetsDone(int done, int total);
+
+  /// No description provided for @workoutSummaryExerciseLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets, plural, =1{1 set} other{{sets} sets}} · best {best}'**
+  String workoutSummaryExerciseLine(int sets, String best);
+
+  /// No description provided for @workoutDetailMuscles.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscles'**
+  String get workoutDetailMuscles;
+
+  /// No description provided for @workoutDetailRest.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds}s rest'**
+  String workoutDetailRest(int seconds);
+
+  /// No description provided for @equipmentBarbell.
+  ///
+  /// In en, this message translates to:
+  /// **'Barbell'**
+  String get equipmentBarbell;
+
+  /// No description provided for @equipmentDumbbell.
+  ///
+  /// In en, this message translates to:
+  /// **'Dumbbells'**
+  String get equipmentDumbbell;
+
+  /// No description provided for @equipmentBench.
+  ///
+  /// In en, this message translates to:
+  /// **'Bench'**
+  String get equipmentBench;
+
+  /// No description provided for @equipmentCable.
+  ///
+  /// In en, this message translates to:
+  /// **'Cable'**
+  String get equipmentCable;
+
+  /// No description provided for @equipmentMachine.
+  ///
+  /// In en, this message translates to:
+  /// **'Machines'**
+  String get equipmentMachine;
+
+  /// No description provided for @equipmentResistanceBand.
+  ///
+  /// In en, this message translates to:
+  /// **'Resistance band'**
+  String get equipmentResistanceBand;
+
+  /// No description provided for @equipmentBodyweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Bodyweight'**
+  String get equipmentBodyweight;
+
+  /// No description provided for @equipmentKettlebell.
+  ///
+  /// In en, this message translates to:
+  /// **'Kettlebell'**
+  String get equipmentKettlebell;
+
+  /// No description provided for @aiChatSuggestion1.
+  ///
+  /// In en, this message translates to:
+  /// **'How much protein do I need a day?'**
+  String get aiChatSuggestion1;
+
+  /// No description provided for @aiChatSuggestion2.
+  ///
+  /// In en, this message translates to:
+  /// **'What should I eat before training?'**
+  String get aiChatSuggestion2;
+
+  /// No description provided for @aiChatSuggestion3.
+  ///
+  /// In en, this message translates to:
+  /// **'My bench press has stalled. What should I change?'**
+  String get aiChatSuggestion3;
+
+  /// No description provided for @paywallAutoRenewNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Renews automatically until cancelled. You can cancel anytime in your App Store or Google Play settings.'**
+  String get paywallAutoRenewNote;
+
+  /// No description provided for @paywallTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get paywallTerms;
 }
 
 class _AppLocalizationsDelegate

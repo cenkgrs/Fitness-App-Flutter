@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:health/health.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DailyHealthStats {
   final int steps;
@@ -16,12 +19,29 @@ class HealthService {
   static const _types = [HealthDataType.STEPS, HealthDataType.ACTIVE_ENERGY_BURNED];
   static const _permissions = [HealthDataAccess.READ, HealthDataAccess.READ];
 
+  // HealthKit never reveals whether *read* access was granted (hasPermissions
+  // always answers null on iOS), so there we remember that the user has been
+  // through the permission sheet and just read — a denial reads as zeros.
+  static const _iosAskedKey = 'healthkit_authorization_requested';
+
+  static Future<bool> _hasAccess() async {
+    if (Platform.isIOS) {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(_iosAskedKey) ?? false;
+    }
+    return await _health.hasPermissions(_types, permissions: _permissions) ?? false;
+  }
+
   static Future<bool> requestPermissions() async {
     try {
       _health.configure();
-      final granted = await _health.hasPermissions(_types, permissions: _permissions) ?? false;
-      if (granted) return true;
-      return await _health.requestAuthorization(_types, permissions: _permissions);
+      if (!Platform.isIOS && await _hasAccess()) return true;
+      final granted = await _health.requestAuthorization(_types, permissions: _permissions);
+      if (Platform.isIOS && granted) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool(_iosAskedKey, true);
+      }
+      return granted;
     } catch (_) {
       return false;
     }
@@ -32,8 +52,7 @@ class HealthService {
   static Future<DailyHealthStats?> getTodayStats() async {
     try {
       _health.configure();
-      final hasPermission = await _health.hasPermissions(_types, permissions: _permissions) ?? false;
-      if (!hasPermission) return null;
+      if (!await _hasAccess()) return null;
 
       final now = DateTime.now();
       final midnight = DateTime(now.year, now.month, now.day);

@@ -1,10 +1,15 @@
 import 'dart:ui' as ui;
 
-/// Resolves an [AppSettings.languageCode] value ('system' | 'en' | 'tr') to
-/// a concrete 'en'/'tr' code — used where a `BuildContext` (and therefore
+import '../../l10n/app_localizations.dart';
+
+/// Resolves an [AppSettings.languageCode] value ('system' or a language
+/// code) to one the app actually ships — the same choice MaterialApp makes,
+/// falling back to English. Used where a `BuildContext` (and therefore
 /// `Localizations.localeOf`) isn't available, e.g. server request payloads
-/// built from a plain Dart class.
+/// and scheduled notifications.
 String resolveLanguageCode(String settingLanguageCode) {
-  if (settingLanguageCode == 'en' || settingLanguageCode == 'tr') return settingLanguageCode;
-  return ui.PlatformDispatcher.instance.locale.languageCode == 'tr' ? 'tr' : 'en';
+  final requested =
+      settingLanguageCode == 'system' ? ui.PlatformDispatcher.instance.locale.languageCode : settingLanguageCode;
+  final supported = AppLocalizations.supportedLocales.map((l) => l.languageCode);
+  return supported.contains(requested) ? requested : 'en';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 import 'app_card.dart';
@@ -33,28 +34,26 @@ class MealCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final hasEntries = meal != null && meal!.entries.isNotEmpty;
     return AppCard(
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(_title(l10n), style: AppTypography.headingSm),
-              Text(
-                hasEntries ? '${meal!.totalCalories.round()} kcal' : '—',
-                style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
+            child: Row(
+              children: [
+                Expanded(child: Text(_title(l10n), style: AppTypography.headingSm)),
+                Text(
+                  hasEntries ? '${meal!.totalCalories.round()} kcal' : '',
+                  style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: AppSpacing.sm),
           if (!hasEntries)
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.surfaceBorder, style: BorderStyle.solid),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(l10n.mealCardNoItems, style: AppTypography.caption),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+              child: Text(l10n.mealCardNoItems, style: AppTypography.bodyMd.copyWith(color: AppColors.textTertiary)),
             )
           else
             ...meal!.entries.map(
@@ -64,30 +63,45 @@ class MealCard extends StatelessWidget {
                 onDismissed: (_) => onRemoveEntry?.call(e),
                 background: Container(
                   alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                   color: AppColors.error,
                   child: const Icon(AppIcons.trash, color: AppColors.textPrimary),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        child: Text('${e.name} (${e.quantityGrams.round()}g)',
-                            style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(e.name, style: AppTypography.bodyLg, maxLines: 1, overflow: TextOverflow.ellipsis),
+                            if (e.quantityGrams > 0)
+                              Text('${e.quantityGrams.round()} g', style: AppTypography.caption),
+                          ],
+                        ),
                       ),
-                      Text('${e.calories.round()} kcal', style: AppTypography.caption),
+                      Text('${e.calories.round()} kcal', style: AppTypography.bodyMd),
                     ],
                   ),
                 ),
               ),
             ),
           const SizedBox(height: AppSpacing.sm),
-          TextButton.icon(
-            onPressed: onAddFood,
-            icon: const Icon(AppIcons.plus, size: 18),
-            label: Text(l10n.mealCardAddFood),
+          const Divider(),
+          InkWell(
+            onTap: onAddFood,
+            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(AppRadius.lg)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+              child: Row(
+                children: [
+                  const Icon(AppIcons.plus, size: 16, color: AppColors.primary),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(l10n.mealCardAddFood, style: AppTypography.bodyMd.copyWith(color: AppColors.primary)),
+                ],
+              ),
+            ),
           ),
         ],
       ),

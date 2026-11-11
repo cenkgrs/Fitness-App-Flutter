@@ -1236,4 +1236,116 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exDumbbellRow => 'Remo con mancuerna';
+
+  @override
+  String activeWorkoutLastTime(String value) {
+    return 'La última vez: $value';
+  }
+
+  @override
+  String get activeWorkoutSetHeader => 'SERIE';
+
+  @override
+  String get activeWorkoutPreviousHeader => 'ANTERIOR';
+
+  @override
+  String get activeWorkoutExercisesHeader => 'EJERCICIOS';
+
+  @override
+  String activeWorkoutCurrentSet(int number) {
+    return 'Serie $number';
+  }
+
+  @override
+  String activeWorkoutRestNext(String label) {
+    return 'A continuación: $label';
+  }
+
+  @override
+  String activeWorkoutFinishContent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Se guardarán las $count series que completaste.',
+      one: 'Se guardará la serie que completaste.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get activeWorkoutFinishSave => 'Terminar y guardar';
+
+  @override
+  String get activeWorkoutDiscard => 'Descartar entrenamiento';
+
+  @override
+  String get activeWorkoutKeepGoing => 'Seguir';
+
+  @override
+  String get activeWorkoutFinishNow => 'Terminar';
+
+  @override
+  String activeWorkoutSetsDone(int done, int total) {
+    return '$done/$total series';
+  }
+
+  @override
+  String workoutSummaryExerciseLine(int sets, String best) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets series',
+      one: '1 serie',
+    );
+    return '$_temp0 · mejor $best';
+  }
+
+  @override
+  String get workoutDetailMuscles => 'Músculos';
+
+  @override
+  String workoutDetailRest(int seconds) {
+    return '$seconds s de descanso';
+  }
+
+  @override
+  String get equipmentBarbell => 'Barra';
+
+  @override
+  String get equipmentDumbbell => 'Mancuernas';
+
+  @override
+  String get equipmentBench => 'Banco';
+
+  @override
+  String get equipmentCable => 'Polea';
+
+  @override
+  String get equipmentMachine => 'Máquinas';
+
+  @override
+  String get equipmentResistanceBand => 'Banda elástica';
+
+  @override
+  String get equipmentBodyweight => 'Peso corporal';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get aiChatSuggestion1 => '¿Cuánta proteína necesito al día?';
+
+  @override
+  String get aiChatSuggestion2 => '¿Qué debería comer antes de entrenar?';
+
+  @override
+  String get aiChatSuggestion3 =>
+      'Mi press de banca se ha estancado. ¿Qué cambio?';
+
+  @override
+  String get paywallAutoRenewNote =>
+      'Se renueva automáticamente hasta que la canceles. Puedes cancelarla cuando quieras en los ajustes de App Store o Google Play.';
+
+  @override
+  String get paywallTerms => 'Términos de uso';
 }

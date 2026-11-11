@@ -13,9 +13,9 @@ class AppColors {
   static const Color surfaceBorder = Color(0xFF332E29);
 
   // Accent & Brand
-  static const Color primary = Color(0xFFE8572A);
-  static const Color primaryDark = Color(0xFFC4441D);
-  static const Color primarySoft = Color(0x24E8572A);
+  static const Color primary = Color(0xFFD06643);
+  static const Color primaryDark = Color(0xFFB0532F);
+  static const Color primarySoft = Color(0x24D06643);
 
   // Text
   static const Color textPrimary = Color(0xFFF3EEE7);
@@ -28,6 +28,7 @@ class AppColors {
   static const Color carbs = Color(0xFFD6A65C);
   static const Color fat = Color(0xFF8C9F8A);
   static const Color calories = primary;
+  static const Color water = Color(0xFF7FA3B8);
 
   // Status
   static const Color success = Color(0xFF7FA77A);

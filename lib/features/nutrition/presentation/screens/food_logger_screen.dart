@@ -105,8 +105,6 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
         ],
         bottom: TabBar(
           controller: _tabController,
-          labelColor: AppColors.primary,
-          indicatorColor: AppColors.primary,
           tabs: [Tab(text: l10n.foodLoggerSearchTab), Tab(text: l10n.foodLoggerQuickAddTab)],
         ),
       ),
@@ -243,6 +241,13 @@ class _QuantitySheet extends StatefulWidget {
 
 class _QuantitySheetState extends State<_QuantitySheet> {
   double _grams = 100;
+  final _gramsController = TextEditingController(text: '100');
+
+  @override
+  void dispose() {
+    _gramsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -267,17 +272,37 @@ class _QuantitySheetState extends State<_QuantitySheet> {
         children: [
           Text(f.name, style: AppTypography.headingMd),
           const SizedBox(height: AppSpacing.lg),
-          Text('${_grams.round()} g', style: AppTypography.displayMd, textAlign: TextAlign.center)
-              .let((w) => Center(child: w)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 140,
+                child: TextField(
+                  controller: _gramsController,
+                  textAlign: TextAlign.center,
+                  style: AppTypography.displayMd,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: const InputDecoration(suffixText: 'g', filled: false, border: InputBorder.none,
+                      enabledBorder: InputBorder.none, focusedBorder: InputBorder.none),
+                  onChanged: (v) {
+                    final g = double.tryParse(v.replaceAll(',', '.'));
+                    if (g != null) setState(() => _grams = g);
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
           Wrap(
             spacing: AppSpacing.sm,
             children: [50, 100, 150, 200].map((g) {
               return ChoiceChip(
                 label: Text('${g}g'),
                 selected: _grams == g,
-                onSelected: (_) => setState(() => _grams = g.toDouble()),
-                selectedColor: AppColors.primarySoft,
-                backgroundColor: AppColors.surface2,
+                onSelected: (_) => setState(() {
+                  _grams = g.toDouble();
+                  _gramsController.text = '$g';
+                }),
               );
             }).toList(),
           ),
@@ -426,11 +451,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
     return TextField(
       controller: controller,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(hintText: label),
+      decoration: InputDecoration(labelText: label),
     );
   }
-}
-
-extension _Let<T> on T {
-  R let<R>(R Function(T) block) => block(this);
 }

@@ -1217,4 +1217,116 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exDumbbellRow => 'Dumbbell Row';
+
+  @override
+  String activeWorkoutLastTime(String value) {
+    return 'Last time: $value';
+  }
+
+  @override
+  String get activeWorkoutSetHeader => 'SET';
+
+  @override
+  String get activeWorkoutPreviousHeader => 'PREVIOUS';
+
+  @override
+  String get activeWorkoutExercisesHeader => 'EXERCISES';
+
+  @override
+  String activeWorkoutCurrentSet(int number) {
+    return 'Set $number';
+  }
+
+  @override
+  String activeWorkoutRestNext(String label) {
+    return 'Next: $label';
+  }
+
+  @override
+  String activeWorkoutFinishContent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Your $count completed sets will be saved.',
+      one: 'Your 1 completed set will be saved.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get activeWorkoutFinishSave => 'Finish and save';
+
+  @override
+  String get activeWorkoutDiscard => 'Discard workout';
+
+  @override
+  String get activeWorkoutKeepGoing => 'Keep going';
+
+  @override
+  String get activeWorkoutFinishNow => 'Finish';
+
+  @override
+  String activeWorkoutSetsDone(int done, int total) {
+    return '$done/$total sets';
+  }
+
+  @override
+  String workoutSummaryExerciseLine(int sets, String best) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets sets',
+      one: '1 set',
+    );
+    return '$_temp0 · best $best';
+  }
+
+  @override
+  String get workoutDetailMuscles => 'Muscles';
+
+  @override
+  String workoutDetailRest(int seconds) {
+    return '${seconds}s rest';
+  }
+
+  @override
+  String get equipmentBarbell => 'Barbell';
+
+  @override
+  String get equipmentDumbbell => 'Dumbbells';
+
+  @override
+  String get equipmentBench => 'Bench';
+
+  @override
+  String get equipmentCable => 'Cable';
+
+  @override
+  String get equipmentMachine => 'Machines';
+
+  @override
+  String get equipmentResistanceBand => 'Resistance band';
+
+  @override
+  String get equipmentBodyweight => 'Bodyweight';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get aiChatSuggestion1 => 'How much protein do I need a day?';
+
+  @override
+  String get aiChatSuggestion2 => 'What should I eat before training?';
+
+  @override
+  String get aiChatSuggestion3 =>
+      'My bench press has stalled. What should I change?';
+
+  @override
+  String get paywallAutoRenewNote =>
+      'Renews automatically until cancelled. You can cancel anytime in your App Store or Google Play settings.';
+
+  @override
+  String get paywallTerms => 'Terms of Use';
 }

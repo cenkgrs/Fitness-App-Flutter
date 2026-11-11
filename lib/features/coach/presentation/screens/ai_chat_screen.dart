@@ -11,6 +11,8 @@ import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../../core/theme/app_icons.dart';
+import '../../../../core/utils/locale_resolver.dart';
+import '../../../../core/widgets/widgets.dart';
 
 class AiChatScreen extends ConsumerStatefulWidget {
   const AiChatScreen({super.key});
@@ -72,8 +74,7 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
     if (service == null) return;
 
     final l10n = AppLocalizations.of(context)!;
-    final languageCode = ref.read(settingsControllerProvider).languageCode;
-    final locale = languageCode == 'tr' ? 'tr' : 'en';
+    final locale = resolveLanguageCode(ref.read(settingsControllerProvider).languageCode);
 
     setState(() {
       _messages.add(ChatMessage(
@@ -147,11 +148,32 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
             child: _loadingHistory
                 ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
                 : _messages.isEmpty
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppSpacing.xl),
-                          child: Text(l10n.aiChatEmptyState, textAlign: TextAlign.center, style: AppTypography.bodyMd),
-                        ),
+                    ? ListView(
+                        padding: const EdgeInsets.all(AppSpacing.screenMargin),
+                        children: [
+                          const SizedBox(height: AppSpacing.xl),
+                          Text(l10n.aiChatEmptyState, style: AppTypography.headingMd),
+                          const SizedBox(height: AppSpacing.lg),
+                          for (final s in [l10n.aiChatSuggestion1, l10n.aiChatSuggestion2, l10n.aiChatSuggestion3])
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                              child: AppCard(
+                                onTap: _limitReached
+                                    ? null
+                                    : () {
+                                        _input.text = s;
+                                        _send();
+                                      },
+                                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Text(s, style: AppTypography.bodyLg)),
+                                    const Icon(AppIcons.caretRight, size: 16, color: AppColors.textTertiary),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
                       )
                     : ListView.builder(
                         controller: _scrollController,
@@ -163,29 +185,67 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
           if (_limitReached)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenMargin, vertical: AppSpacing.sm),
-              child: Text(l10n.aiChatLimitReached, style: AppTypography.caption.copyWith(color: AppColors.warning)),
+              child: Text(l10n.aiChatLimitReached, style: AppTypography.caption),
             ),
-          SafeArea(
-            top: false,
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.screenMargin),
+          DecoratedBox(
+            decoration: const BoxDecoration(border: Border(top: BorderSide(color: AppColors.surfaceBorder))),
+            child: SafeArea(
+              top: false,
+              minimum: const EdgeInsets.fromLTRB(
+                AppSpacing.screenMargin,
+                AppSpacing.sm,
+                AppSpacing.screenMargin,
+                AppSpacing.sm,
+              ),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: TextField(
                       controller: _input,
                       enabled: !_limitReached && !_sending,
-                      decoration: InputDecoration(hintText: l10n.aiChatInputHint),
+                      minLines: 1,
+                      maxLines: 4,
+                      textInputAction: TextInputAction.send,
+                      style: AppTypography.bodyLg,
+                      decoration: InputDecoration(
+                        hintText: l10n.aiChatInputHint,
+                        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppRadius.full),
+                          borderSide: const BorderSide(color: AppColors.surfaceBorder),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppRadius.full),
+                          borderSide: const BorderSide(color: AppColors.surfaceBorder),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(AppRadius.full),
+                          borderSide: const BorderSide(color: AppColors.textSecondary),
+                        ),
+                      ),
                       onSubmitted: (_) => _send(),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
-                  IconButton.filled(
-                    onPressed: _limitReached || _sending ? null : _send,
-                    icon: _sending
-                        ? const SizedBox(
-                            width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                        : const Icon(AppIcons.paperPlaneRightFill),
+                  SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: IconButton.filled(
+                      style: IconButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: AppColors.onPrimary,
+                        disabledBackgroundColor: AppColors.surface2,
+                      ),
+                      onPressed: _limitReached || _sending ? null : _send,
+                      icon: _sending
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.textSecondary),
+                            )
+                          : const Icon(AppIcons.paperPlaneRightFill, size: 20),
+                    ),
                   ),
                 ],
               ),
@@ -204,20 +264,25 @@ class _ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isUser = message.role == ChatRole.user;
+    // User turns sit in a bubble on the right; coach replies read as plain
+    // full-width text, which is easier to follow for longer answers.
+    if (!isUser) {
+      return Padding(
+        padding: const EdgeInsets.only(top: AppSpacing.sm, bottom: AppSpacing.lg, right: AppSpacing.xl),
+        child: SelectableText(message.content, style: AppTypography.bodyLg.copyWith(height: 1.5)),
+      );
+    }
     return Align(
-      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: Alignment.centerRight,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
         decoration: BoxDecoration(
-          color: isUser ? AppColors.primary : AppColors.surface2,
-          borderRadius: BorderRadius.circular(AppRadius.md),
+          color: AppColors.surface2,
+          borderRadius: BorderRadius.circular(AppRadius.lg),
         ),
-        child: Text(
-          message.content,
-          style: AppTypography.bodyMd.copyWith(color: isUser ? AppColors.onPrimary : AppColors.textPrimary),
-        ),
+        child: Text(message.content, style: AppTypography.bodyLg),
       ),
     );
   }

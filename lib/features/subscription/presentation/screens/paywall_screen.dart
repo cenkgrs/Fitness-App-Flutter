@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
@@ -60,7 +62,7 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
     final offeringsAsync = ref.watch(subscriptionOfferingsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.paywallTitle)),
+      appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.screenMargin),
@@ -76,40 +78,73 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l10n.paywallSubtitle, style: AppTypography.bodyLg),
+                  RichText(
+                    text: const TextSpan(
+                      style: TextStyle(
+                        fontFamily: AppTypography.fontFamily,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -1,
+                      ),
+                      children: [
+                        TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.textPrimary)),
+                        TextSpan(text: '+ ', style: TextStyle(color: AppColors.primary)),
+                        TextSpan(text: 'Premium', style: TextStyle(color: AppColors.textPrimary)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(l10n.paywallSubtitle, style: AppTypography.bodyLg.copyWith(color: AppColors.textSecondary)),
                   const SizedBox(height: AppSpacing.xl),
                   _FeatureRow(icon: AppIcons.prohibit, label: l10n.paywallFeatureNoAds),
                   _FeatureRow(icon: AppIcons.barbell, label: l10n.paywallFeatureAiWorkouts),
                   _FeatureRow(icon: AppIcons.forkKnife, label: l10n.paywallFeatureAiMeals),
-                  const SizedBox(height: AppSpacing.xl),
-                  Expanded(
-                    child: offeringsAsync.when(
-                      loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
-                      error: (e, st) => Center(child: Text(l10n.paywallUnavailable)),
-                      data: (packages) {
-                        if (packages.isEmpty) {
-                          return Center(child: Text(l10n.paywallUnavailable, textAlign: TextAlign.center));
-                        }
-                        return ListView.separated(
-                          itemCount: packages.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
-                          itemBuilder: (context, i) {
-                            final package = packages[i];
-                            return PrimaryButton(
-                              label: '${l10n.paywallSubscribeButton} — ${package.storeProduct.priceString}',
-                              isLoading: _busy,
-                              onPressed: () => _purchase(package),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                  _FeatureRow(icon: AppIcons.chatCircleText, label: l10n.aiChatTitle),
+                  const Spacer(),
+                  offeringsAsync.when(
+                    loading: () => const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                    error: (e, st) => Text(l10n.paywallUnavailable, style: AppTypography.bodyMd),
+                    data: (packages) {
+                      if (packages.isEmpty) {
+                        return Text(l10n.paywallUnavailable, style: AppTypography.bodyMd);
+                      }
+                      return Column(
+                        children: [
+                          for (final package in packages)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                              child: PrimaryButton(
+                                label: '${l10n.paywallSubscribeButton} · ${package.storeProduct.priceString}',
+                                isLoading: _busy,
+                                onPressed: () => _purchase(package),
+                              ),
+                            ),
+                        ],
+                      );
+                    },
                   ),
-                  Center(
-                    child: TextButton(
-                      onPressed: _busy ? null : _restore,
-                      child: Text(l10n.paywallRestoreButton),
-                    ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(l10n.paywallAutoRenewNote, style: AppTypography.caption, textAlign: TextAlign.center),
+                  const SizedBox(height: AppSpacing.xs),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: _busy ? null : _restore,
+                        child: Text(l10n.paywallRestoreButton, style: AppTypography.caption),
+                      ),
+                      TextButton(
+                        onPressed: () => launchUrl(
+                          Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'),
+                          mode: LaunchMode.inAppBrowserView,
+                        ),
+                        child: Text(l10n.paywallTerms, style: AppTypography.caption),
+                      ),
+                      TextButton(
+                        onPressed: () => context.push('/profile/settings/privacy-policy'),
+                        child: Text(l10n.settingsPrivacyPolicy, style: AppTypography.caption),
+                      ),
+                    ],
                   ),
                 ],
               );
@@ -129,12 +164,12 @@ class _FeatureRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
       child: Row(
         children: [
-          Icon(icon, color: AppColors.primary, size: 20),
-          const SizedBox(width: AppSpacing.sm),
-          Text(label, style: AppTypography.bodyMd),
+          Icon(icon, color: AppColors.primary, size: 22),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(child: Text(label, style: AppTypography.bodyLg)),
         ],
       ),
     );

@@ -171,9 +171,17 @@ const TEXT_SCHEMA = {
 /** All prompts take an explicit locale instead of asking Gemini to guess
  * from profile data (which has no language field) — that previously
  * defaulted to Turkish regardless of the app's actual display language. */
+const LANGUAGES: Record<string, string> = {
+  en: "English",
+  tr: "Turkish",
+  de: "German",
+  es: "Spanish",
+  fr: "French",
+};
+
 function languageInstruction(payload: Record<string, unknown>): string {
-  const locale = payload.locale === "tr" ? "tr" : "en";
-  return `Respond in ${locale === "tr" ? "Turkish" : "English"}.`;
+  const locale = typeof payload.locale === "string" ? payload.locale : "en";
+  return `Respond in ${LANGUAGES[locale] ?? "English"}.`;
 }
 
 const CHAT_DAILY_LIMIT = 15;

@@ -180,6 +180,28 @@ class AppTheme {
         thumbColor: AppColors.textPrimary,
         overlayColor: AppColors.primarySoft,
       ),
+      tabBarTheme: const TabBarThemeData(
+        labelColor: AppColors.textPrimary,
+        unselectedLabelColor: AppColors.textTertiary,
+        indicatorColor: AppColors.primary,
+        dividerColor: AppColors.surfaceBorder,
+        indicatorSize: TabBarIndicatorSize.label,
+        labelStyle: TextStyle(fontFamily: AppTypography.fontFamily, fontSize: 15, fontWeight: FontWeight.w700),
+        unselectedLabelStyle: TextStyle(fontFamily: AppTypography.fontFamily, fontSize: 15, fontWeight: FontWeight.w600),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.onPrimary,
+        elevation: 0,
+        highlightElevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.lg)),
+      ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: AppColors.surface2,
+        surfaceTintColor: Colors.transparent,
+        textStyle: AppTypography.bodyLg,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
+      ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: AppColors.primary,
         linearTrackColor: AppColors.surface2,

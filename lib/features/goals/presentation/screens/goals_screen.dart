@@ -10,6 +10,7 @@ import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../controllers/goal_providers.dart';
 import '../../../../core/theme/app_icons.dart';
+import '../../../../shared/models/models.dart';
 
 class GoalsScreen extends ConsumerWidget {
   const GoalsScreen({super.key});
@@ -21,6 +22,7 @@ class GoalsScreen extends ConsumerWidget {
     final consistencyAsync = ref.watch(consistencyProvider);
     final nutritionAsync = ref.watch(dailyNutritionProvider);
     final formatter = ref.watch(weightFormatterProvider);
+    final entries = ref.watch(weightEntriesProvider).valueOrNull ?? const <WeightEntry>[];
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileGoalsTile)),
@@ -36,6 +38,10 @@ class GoalsScreen extends ConsumerWidget {
                 icon: AppIcons.flag, title: l10n.goalsEmptyTitle, message: l10n.goalsEmptyMessage);
           }
           final weeklyCompleted = consistencyAsync.valueOrNull?.completedByDay.where((d) => d).length ?? 0;
+          // The goal stores the weight at onboarding; the latest log is "now".
+          final latestWeight = entries.isEmpty
+              ? (goal.currentWeightKg ?? 0)
+              : entries.reduce((a, b) => a.date.isAfter(b.date) ? a : b).weightKg;
 
           return ListView(
             padding: const EdgeInsets.all(AppSpacing.screenMargin),
@@ -45,16 +51,16 @@ class GoalsScreen extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.homeWeightGoalLabel, style: AppTypography.caption),
+                      Text(l10n.homeWeightGoalLabel, style: AppTypography.overline),
                       const SizedBox(height: AppSpacing.sm),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _Metric(label: l10n.goalsCurrentLabel, value: formatter.format(goal.currentWeightKg!)),
+                          _Metric(label: l10n.goalsCurrentLabel, value: formatter.format(latestWeight)),
                           _Metric(label: l10n.goalsTargetLabel, value: formatter.format(goal.targetWeightKg!)),
                           _Metric(
                               label: l10n.goalsRemainingLabel,
-                              value: formatter.format((goal.currentWeightKg! - goal.targetWeightKg!).abs())),
+                              value: formatter.format((latestWeight - goal.targetWeightKg!).abs())),
                         ],
                       ),
                     ],
@@ -68,7 +74,7 @@ class GoalsScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.goalsWeeklyWorkoutLabel, style: AppTypography.caption),
+                        Text(l10n.goalsWeeklyWorkoutLabel, style: AppTypography.overline),
                         Text('$weeklyCompleted / ${goal.weeklyWorkoutTarget}', style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                       ],
                     ),
@@ -96,7 +102,7 @@ class GoalsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.goalsDailyCalorieLabel, style: AppTypography.caption),
+                          Text(l10n.goalsDailyCalorieLabel, style: AppTypography.overline),
                           Text('${nutrition.consumedCalories.round()} / ${goal.dailyCalorieTarget}',
                               style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                         ],
@@ -115,7 +121,7 @@ class GoalsScreen extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.goalsProteinLabel, style: AppTypography.caption),
+                          Text(l10n.goalsProteinLabel, style: AppTypography.overline),
                           Text('${nutrition.consumedProteinG.round()}g / ${goal.dailyProteinTarget}g',
                               style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
                         ],
@@ -153,7 +159,7 @@ class _Metric extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(value, style: AppTypography.headingSm),
+        Text(value, style: AppTypography.headingMd),
         Text(label, style: AppTypography.caption),
       ],
     );

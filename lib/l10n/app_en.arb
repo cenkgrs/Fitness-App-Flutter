@@ -644,5 +644,88 @@
   "exPlank": "Plank",
   "exGobletSquat": "Goblet Squat",
   "exPushUp": "Push-Up",
-  "exDumbbellRow": "Dumbbell Row"
+  "exDumbbellRow": "Dumbbell Row",
+  "activeWorkoutLastTime": "Last time: {value}",
+  "@activeWorkoutLastTime": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "activeWorkoutSetHeader": "SET",
+  "activeWorkoutPreviousHeader": "PREVIOUS",
+  "activeWorkoutExercisesHeader": "EXERCISES",
+  "activeWorkoutCurrentSet": "Set {number}",
+  "@activeWorkoutCurrentSet": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "activeWorkoutRestNext": "Next: {label}",
+  "@activeWorkoutRestNext": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "activeWorkoutFinishContent": "{count, plural, =1{Your 1 completed set will be saved.} other{Your {count} completed sets will be saved.}}",
+  "@activeWorkoutFinishContent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "activeWorkoutFinishSave": "Finish and save",
+  "activeWorkoutDiscard": "Discard workout",
+  "activeWorkoutKeepGoing": "Keep going",
+  "activeWorkoutFinishNow": "Finish",
+  "activeWorkoutSetsDone": "{done}/{total} sets",
+  "@activeWorkoutSetsDone": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutSummaryExerciseLine": "{sets, plural, =1{1 set} other{{sets} sets}} · best {best}",
+  "@workoutSummaryExerciseLine": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "best": {
+        "type": "String"
+      }
+    }
+  },
+  "workoutDetailMuscles": "Muscles",
+  "workoutDetailRest": "{seconds}s rest",
+  "@workoutDetailRest": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "equipmentBarbell": "Barbell",
+  "equipmentDumbbell": "Dumbbells",
+  "equipmentBench": "Bench",
+  "equipmentCable": "Cable",
+  "equipmentMachine": "Machines",
+  "equipmentResistanceBand": "Resistance band",
+  "equipmentBodyweight": "Bodyweight",
+  "equipmentKettlebell": "Kettlebell",
+  "aiChatSuggestion1": "How much protein do I need a day?",
+  "aiChatSuggestion2": "What should I eat before training?",
+  "aiChatSuggestion3": "My bench press has stalled. What should I change?",
+  "paywallAutoRenewNote": "Renews automatically until cancelled. You can cancel anytime in your App Store or Google Play settings.",
+  "paywallTerms": "Terms of Use"
 }

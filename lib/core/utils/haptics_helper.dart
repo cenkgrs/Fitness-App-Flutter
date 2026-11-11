@@ -6,13 +6,23 @@ import 'package:flutter/services.dart';
 class HapticsHelper {
   HapticsHelper._();
 
-  static void buttonTap() => HapticFeedback.lightImpact();
+  /// Mirrors the user's Haptics setting; kept in sync by the app root.
+  static bool enabled = true;
 
-  static void setCompleted() => HapticFeedback.heavyImpact();
+  static void buttonTap() {
+    if (enabled) HapticFeedback.lightImpact();
+  }
 
-  static void restTimerTick() => HapticFeedback.selectionClick();
+  static void setCompleted() {
+    if (enabled) HapticFeedback.heavyImpact();
+  }
+
+  static void restTimerTick() {
+    if (enabled) HapticFeedback.selectionClick();
+  }
 
   static void restTimerFinished() {
+    if (!enabled) return;
     HapticFeedback.vibrate();
     Future.delayed(const Duration(milliseconds: 120), HapticFeedback.vibrate);
   }

@@ -11,6 +11,7 @@ import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../controllers/nutrition_providers.dart';
 import '../../../../core/theme/app_icons.dart';
+import '../widgets/nutrition_summary_card.dart';
 
 class NutritionScreen extends ConsumerWidget {
   const NutritionScreen({super.key});
@@ -44,8 +45,6 @@ class NutritionScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
         onPressed: () => context.push('/nutrition/log/${MealType.snack.name}'),
         child: const Icon(AppIcons.plus),
       ),
@@ -73,61 +72,8 @@ class NutritionScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.all(AppSpacing.screenMargin),
               children: [
-                AppCard(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              l10n.nutritionCaloriesProgress(
-                                  nutrition.consumedCalories.round(), nutrition.calorieGoal),
-                              style: AppTypography.headingMd),
-                          Text(l10n.homeCaloriesLeft(nutrition.remainingCalories.round()),
-                              style: AppTypography.caption),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(99),
-                        child: LinearProgressIndicator(
-                          value: nutrition.calorieProgress.clamp(0, 1),
-                          minHeight: 10,
-                          backgroundColor: AppColors.surface2,
-                          valueColor: const AlwaysStoppedAnimation(AppColors.calories),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                AppCard(
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: MacroProgress(
-                              label: l10n.macroProtein,
-                              consumed: nutrition.consumedProteinG,
-                              goal: nutrition.proteinGoal.toDouble(),
-                              color: AppColors.protein)),
-                      const SizedBox(width: AppSpacing.lg),
-                      Expanded(
-                          child: MacroProgress(
-                              label: l10n.macroCarbs,
-                              consumed: nutrition.consumedCarbsG,
-                              goal: nutrition.carbsGoal.toDouble(),
-                              color: AppColors.carbs)),
-                      const SizedBox(width: AppSpacing.lg),
-                      Expanded(
-                          child: MacroProgress(
-                              label: l10n.macroFat,
-                              consumed: nutrition.consumedFatG,
-                              goal: nutrition.fatGoal.toDouble(),
-                              color: AppColors.fat)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
+                NutritionSummaryCard(nutrition: nutrition),
+                const SizedBox(height: AppSpacing.md),
                 const _WaterCard(),
                 const SizedBox(height: AppSpacing.xl),
                 for (final type in MealType.values) ...[
@@ -144,9 +90,9 @@ class NutritionScreen extends ConsumerWidget {
                       }
                     },
                   ),
-                  const SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: AppSpacing.sm),
                 ],
-                const SizedBox(height: 60),
+                const SizedBox(height: 80),
               ],
             ),
           );
@@ -188,33 +134,29 @@ class _WaterCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(AppIcons.drop, color: AppColors.protein, size: 18),
-                  const SizedBox(width: AppSpacing.xs),
-                  Text(l10n.waterCardTitle, style: AppTypography.bodyLg),
+                  const Icon(AppIcons.drop, color: AppColors.water, size: 18),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(l10n.waterCardTitle, style: AppTypography.headingSm),
                 ],
               ),
-              Text(l10n.waterCardAmount(consumed, waterGoalMl), style: AppTypography.caption),
+              Text(
+                l10n.waterCardAmount(consumed, waterGoalMl),
+                style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(99),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 6,
-              backgroundColor: AppColors.surface2,
-              valueColor: const AlwaysStoppedAnimation(AppColors.protein),
-            ),
-          ),
+          ProgressBar(progress: progress, color: AppColors.water),
           const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               for (final ml in const [250, 500])
                 Padding(
                   padding: const EdgeInsets.only(right: AppSpacing.sm),
-                  child: OutlinedButton(
+                  child: ActionChip(
+                    avatar: const Icon(AppIcons.plus, size: 14, color: AppColors.textPrimary),
+                    label: Text('$ml ml'),
                     onPressed: () => _addWater(ref, ml),
-                    child: Text('+${ml}ml'),
                   ),
                 ),
             ],

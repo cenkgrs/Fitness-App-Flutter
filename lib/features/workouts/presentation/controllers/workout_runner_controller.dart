@@ -9,6 +9,7 @@ import '../../domain/personal_record_detector.dart';
 import '../../domain/workout_runner_logic.dart';
 import '../../domain/workout_runner_state.dart';
 import 'workout_providers.dart';
+import '../../../settings/presentation/controllers/settings_controller.dart';
 
 class WorkoutRunnerNotifier extends StateNotifier<WorkoutRunnerState> {
   final Ref _ref;
@@ -47,6 +48,11 @@ class WorkoutRunnerNotifier extends StateNotifier<WorkoutRunnerState> {
 
   void completeSet({required double actualWeight, required int actualReps, int? rpe}) {
     state = WorkoutRunnerLogic.completeSet(state, actualWeight: actualWeight, actualReps: actualReps, rpe: rpe);
+    if (state.phase == WorkoutRunnerPhase.resting) {
+      // The rest length the user picked in Settings applies to every set.
+      final rest = _ref.read(settingsControllerProvider).defaultRestTime;
+      state = state.copyWith(restRemaining: rest, restTotal: rest);
+    }
     HapticsHelper.setCompleted();
     if (state.phase == WorkoutRunnerPhase.finished) {
       _finish();
@@ -72,7 +78,22 @@ class WorkoutRunnerNotifier extends StateNotifier<WorkoutRunnerState> {
 
   void addExtraSet() => state = WorkoutRunnerLogic.addExtraSet(state);
 
+  void goToExercise(int index) => state = WorkoutRunnerLogic.goToExercise(state, index);
+
+  /// Saves the sets logged so far and ends the workout.
+  void finishEarly() {
+    if (state.phase == WorkoutRunnerPhase.finished) return;
+    state = WorkoutRunnerLogic.finishEarly(state);
+    _finish();
+  }
+
   Future<void> _finish() async {
+    WakelockPlus.disable();
+    // Nothing logged (every exercise skipped): there's no workout to keep.
+    if (!state.session.sets.any((s) => s.isCompleted)) {
+      state = state.copyWith(isSaved: true);
+      return;
+    }
     final priorSessions = await _ref.read(workoutRepositoryProvider).getSessions(state.session.userId);
     final prSetIds = detectPersonalRecordSetIds(
       priorSessions: priorSessions,
@@ -84,7 +105,8 @@ class WorkoutRunnerNotifier extends StateNotifier<WorkoutRunnerState> {
     await _ref.read(workoutRepositoryProvider).saveSession(finalSession);
     _ref.invalidate(workoutSessionsProvider);
     _ref.invalidate(consistencyProvider);
-    WakelockPlus.disable();
+    _ref.invalidate(sessionByIdProvider(finalSession.id));
+    if (mounted) state = state.copyWith(isSaved: true);
   }
 
   @override

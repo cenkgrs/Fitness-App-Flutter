@@ -8,7 +8,7 @@ import '../models/models.dart';
 /// app is fully usable before an AI backend exists.
 abstract class AIWorkoutCoach {
   /// Generates a full [WorkoutProgram] tailored to the user's profile.
-  /// [locale] ('en'/'tr') is the app's current display language — the
+  /// [locale] (e.g. 'en', 'tr', 'de') is the app's current display language — the
   /// model has no other way to know it, since [profile] carries no
   /// language field.
   Future<WorkoutProgram> generateWorkoutPlan(UserProfile profile, {String locale = 'en'});

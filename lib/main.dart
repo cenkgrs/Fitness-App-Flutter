@@ -20,6 +20,7 @@ import 'features/auth/presentation/controllers/auth_controller.dart';
 import 'features/settings/presentation/controllers/settings_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/services/local_storage_service.dart';
+import 'core/utils/haptics_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +80,9 @@ class RepwiseApp extends ConsumerWidget {
     ref.watch(authSyncProvider);
     ref.watch(notificationSchedulerProvider);
     final router = ref.watch(routerProvider);
-    final languageCode = ref.watch(settingsControllerProvider).languageCode;
+    final settings = ref.watch(settingsControllerProvider);
+    final languageCode = settings.languageCode;
+    HapticsHelper.enabled = settings.hapticsEnabled;
 
     return MaterialApp.router(
       title: 'THRIVE+',

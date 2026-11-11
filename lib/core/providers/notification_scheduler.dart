@@ -9,6 +9,7 @@ import '../../features/workouts/presentation/controllers/workout_providers.dart'
 import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
 import '../services/notification_service.dart';
+import '../utils/locale_resolver.dart';
 
 const _workoutReminderHour = 18;
 const _lunchReminderHour = 12;
@@ -28,11 +29,7 @@ Future<void> refreshDailyReminders(Ref ref) async {
   final settings = ref.read(settingsControllerProvider);
   // No BuildContext here, so resolve the same locale MaterialApp would and
   // look the strings up directly.
-  final requested = settings.languageCode == 'system'
-      ? PlatformDispatcher.instance.locale.languageCode
-      : settings.languageCode;
-  final supported = AppLocalizations.supportedLocales.map((l) => l.languageCode);
-  final t = lookupAppLocalizations(Locale(supported.contains(requested) ? requested : 'en'));
+  final t = lookupAppLocalizations(Locale(resolveLanguageCode(settings.languageCode)));
   if (!settings.notificationsEnabled) {
     await NotificationService.cancelAll();
     return;

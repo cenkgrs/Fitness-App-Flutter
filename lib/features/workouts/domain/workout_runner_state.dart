@@ -18,6 +18,11 @@ class WorkoutRunnerState {
   final Duration elapsed;
   final bool isPaused;
 
+  /// Set once a finished session has been written (or, with no sets
+  /// logged, deliberately not written) — the screen waits for this before
+  /// leaving, so the summary never looks the session up before it exists.
+  final bool isSaved;
+
   const WorkoutRunnerState({
     required this.day,
     required this.session,
@@ -30,6 +35,7 @@ class WorkoutRunnerState {
     required this.restTotal,
     required this.elapsed,
     this.isPaused = false,
+    this.isSaved = false,
   });
 
   Exercise get currentExercise => day.exercises[exerciseIndex];
@@ -56,6 +62,7 @@ class WorkoutRunnerState {
     Duration? restTotal,
     Duration? elapsed,
     bool? isPaused,
+    bool? isSaved,
   }) {
     return WorkoutRunnerState(
       day: day,
@@ -69,6 +76,7 @@ class WorkoutRunnerState {
       restTotal: restTotal ?? this.restTotal,
       elapsed: elapsed ?? this.elapsed,
       isPaused: isPaused ?? this.isPaused,
+      isSaved: isSaved ?? this.isSaved,
     );
   }
 

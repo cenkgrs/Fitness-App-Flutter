@@ -1231,4 +1231,116 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get exDumbbellRow => 'Kurzhantelrudern';
+
+  @override
+  String activeWorkoutLastTime(String value) {
+    return 'Letztes Mal: $value';
+  }
+
+  @override
+  String get activeWorkoutSetHeader => 'SATZ';
+
+  @override
+  String get activeWorkoutPreviousHeader => 'ZULETZT';
+
+  @override
+  String get activeWorkoutExercisesHeader => 'ÜBUNGEN';
+
+  @override
+  String activeWorkoutCurrentSet(int number) {
+    return 'Satz $number';
+  }
+
+  @override
+  String activeWorkoutRestNext(String label) {
+    return 'Als Nächstes: $label';
+  }
+
+  @override
+  String activeWorkoutFinishContent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Deine $count abgeschlossenen Sätze werden gespeichert.',
+      one: 'Dein abgeschlossener Satz wird gespeichert.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get activeWorkoutFinishSave => 'Beenden und speichern';
+
+  @override
+  String get activeWorkoutDiscard => 'Workout verwerfen';
+
+  @override
+  String get activeWorkoutKeepGoing => 'Weitermachen';
+
+  @override
+  String get activeWorkoutFinishNow => 'Beenden';
+
+  @override
+  String activeWorkoutSetsDone(int done, int total) {
+    return '$done/$total Sätze';
+  }
+
+  @override
+  String workoutSummaryExerciseLine(int sets, String best) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets Sätze',
+      one: '1 Satz',
+    );
+    return '$_temp0 · bester $best';
+  }
+
+  @override
+  String get workoutDetailMuscles => 'Muskeln';
+
+  @override
+  String workoutDetailRest(int seconds) {
+    return '$seconds s Pause';
+  }
+
+  @override
+  String get equipmentBarbell => 'Langhantel';
+
+  @override
+  String get equipmentDumbbell => 'Kurzhanteln';
+
+  @override
+  String get equipmentBench => 'Bank';
+
+  @override
+  String get equipmentCable => 'Kabelzug';
+
+  @override
+  String get equipmentMachine => 'Geräte';
+
+  @override
+  String get equipmentResistanceBand => 'Widerstandsband';
+
+  @override
+  String get equipmentBodyweight => 'Körpergewicht';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get aiChatSuggestion1 => 'Wie viel Protein brauche ich am Tag?';
+
+  @override
+  String get aiChatSuggestion2 => 'Was sollte ich vor dem Training essen?';
+
+  @override
+  String get aiChatSuggestion3 =>
+      'Mein Bankdrücken stagniert. Was sollte ich ändern?';
+
+  @override
+  String get paywallAutoRenewNote =>
+      'Verlängert sich automatisch bis zur Kündigung. Du kannst jederzeit in den Einstellungen von App Store oder Google Play kündigen.';
+
+  @override
+  String get paywallTerms => 'Nutzungsbedingungen';
 }

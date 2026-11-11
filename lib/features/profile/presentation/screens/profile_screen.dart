@@ -10,6 +10,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../controllers/profile_providers.dart';
 import '../../../../core/theme/app_icons.dart';
+import '../../../../shared/models/models.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -37,20 +38,34 @@ class ProfileScreen extends ConsumerWidget {
               message: l10n.profileEmptyMessage,
             );
           }
+          final name = profile.name.isEmpty ? (user?.displayName ?? l10n.homeDefaultAthleteName) : profile.name;
+          final level = switch (profile.fitnessLevel) {
+            FitnessLevel.beginner => l10n.fitnessBeginnerLabel,
+            FitnessLevel.intermediate => l10n.fitnessIntermediateLabel,
+            FitnessLevel.advanced => l10n.fitnessAdvancedLabel,
+          };
           return ListView(
             padding: const EdgeInsets.all(AppSpacing.screenMargin),
             children: [
               Row(
                 children: [
-                  const CircleAvatar(radius: 32, backgroundColor: AppColors.surface2, child: Icon(AppIcons.user, size: 32)),
+                  Container(
+                    width: 64,
+                    height: 64,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(color: AppColors.surface2, shape: BoxShape.circle),
+                    child: Text(
+                      name.trim().isEmpty ? '' : name.trim().characters.first.toUpperCase(),
+                      style: AppTypography.headingLg,
+                    ),
+                  ),
                   const SizedBox(width: AppSpacing.lg),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(profile.name.isEmpty ? (user?.displayName ?? l10n.homeDefaultAthleteName) : profile.name,
-                            style: AppTypography.headingMd),
-                        Text(user?.email ?? 'REPWISE', style: AppTypography.caption),
+                        Text(name, style: AppTypography.headingMd),
+                        if (user?.email != null) Text(user!.email!, style: AppTypography.bodyMd),
                       ],
                     ),
                   ),
@@ -58,53 +73,76 @@ class ProfileScreen extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.xl),
               AppCard(
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
                 child: Row(
                   children: [
                     _BioChip(label: l10n.bioAge, value: '${profile.age}'),
                     _BioChip(label: l10n.bioHeight, value: '${profile.heightCm.round()} cm'),
                     _BioChip(label: l10n.bioWeight, value: formatter.format(profile.weightKg)),
-                    _BioChip(label: l10n.bioLevel, value: profile.fitnessLevel.name),
+                    _BioChip(label: l10n.bioLevel, value: level),
                   ],
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
-              ListTile(
-                tileColor: AppColors.surface1,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(AppIcons.gear),
-                title: Text(l10n.settingsScreenTitle),
-                trailing: const Icon(AppIcons.caretRight),
-                onTap: () => context.push('/profile/settings'),
+              AppCard(
+                padding: EdgeInsets.zero,
+                child: Column(
+                  children: [
+                    _NavRow(icon: AppIcons.flag, label: l10n.profileGoalsTile, onTap: () => context.push('/goals')),
+                    const Divider(indent: 56),
+                    _NavRow(
+                      icon: AppIcons.trophy,
+                      label: l10n.achievementsTitle,
+                      onTap: () => context.push('/achievements'),
+                    ),
+                    const Divider(indent: 56),
+                    _NavRow(
+                      icon: AppIcons.gear,
+                      label: l10n.settingsScreenTitle,
+                      onTap: () => context.push('/profile/settings'),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: AppSpacing.md),
-              ListTile(
-                tileColor: AppColors.surface1,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(AppIcons.flag),
-                title: Text(l10n.profileGoalsTile),
-                trailing: const Icon(AppIcons.caretRight),
-                onTap: () => context.push('/goals'),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              ListTile(
-                tileColor: AppColors.surface1,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(AppIcons.trophy),
-                title: Text(l10n.achievementsTitle),
-                trailing: const Icon(AppIcons.caretRight),
-                onTap: () => context.push('/achievements'),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              ListTile(
-                tileColor: AppColors.surface1,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(AppIcons.signOut, color: AppColors.error),
-                title: Text(l10n.profileSignOut, style: const TextStyle(color: AppColors.error)),
-                onTap: () => ref.read(authControllerProvider.notifier).signOut(),
+              const SizedBox(height: AppSpacing.lg),
+              AppCard(
+                padding: EdgeInsets.zero,
+                child: _NavRow(
+                  icon: AppIcons.signOut,
+                  label: l10n.profileSignOut,
+                  color: AppColors.error,
+                  onTap: () => ref.read(authControllerProvider.notifier).signOut(),
+                ),
               ),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _NavRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+  final Color? color;
+  const _NavRow({required this.icon, required this.label, required this.onTap, this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.lg),
+        child: Row(
+          children: [
+            Icon(icon, size: 22, color: color ?? AppColors.textSecondary),
+            const SizedBox(width: AppSpacing.lg),
+            Expanded(child: Text(label, style: AppTypography.bodyLg.copyWith(color: color))),
+            if (color == null) const Icon(AppIcons.caretRight, size: 18, color: AppColors.textTertiary),
+          ],
+        ),
       ),
     );
   }
@@ -120,7 +158,7 @@ class _BioChip extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Text(value, style: AppTypography.bodyLg.copyWith(fontWeight: FontWeight.w600)),
+          Text(value, style: AppTypography.headingSm, maxLines: 1, overflow: TextOverflow.ellipsis),
           Text(label, style: AppTypography.caption),
         ],
       ),

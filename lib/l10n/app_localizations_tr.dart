@@ -1217,4 +1217,109 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get exDumbbellRow => 'Dambıl Row';
+
+  @override
+  String activeWorkoutLastTime(String value) {
+    return 'Geçen sefer: $value';
+  }
+
+  @override
+  String get activeWorkoutSetHeader => 'SET';
+
+  @override
+  String get activeWorkoutPreviousHeader => 'ÖNCEKİ';
+
+  @override
+  String get activeWorkoutExercisesHeader => 'EGZERSİZLER';
+
+  @override
+  String activeWorkoutCurrentSet(int number) {
+    return 'Set $number';
+  }
+
+  @override
+  String activeWorkoutRestNext(String label) {
+    return 'Sıradaki: $label';
+  }
+
+  @override
+  String activeWorkoutFinishContent(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tamamladığın $count set kaydedilecek.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get activeWorkoutFinishSave => 'Bitir ve kaydet';
+
+  @override
+  String get activeWorkoutDiscard => 'Kaydetmeden çık';
+
+  @override
+  String get activeWorkoutKeepGoing => 'Devam et';
+
+  @override
+  String get activeWorkoutFinishNow => 'Bitir';
+
+  @override
+  String activeWorkoutSetsDone(int done, int total) {
+    return '$done/$total set';
+  }
+
+  @override
+  String workoutSummaryExerciseLine(int sets, String best) {
+    return '$sets set · en iyi $best';
+  }
+
+  @override
+  String get workoutDetailMuscles => 'Kaslar';
+
+  @override
+  String workoutDetailRest(int seconds) {
+    return '$seconds sn dinlenme';
+  }
+
+  @override
+  String get equipmentBarbell => 'Halter';
+
+  @override
+  String get equipmentDumbbell => 'Dambıl';
+
+  @override
+  String get equipmentBench => 'Bench';
+
+  @override
+  String get equipmentCable => 'Kablo';
+
+  @override
+  String get equipmentMachine => 'Makineler';
+
+  @override
+  String get equipmentResistanceBand => 'Direnç bandı';
+
+  @override
+  String get equipmentBodyweight => 'Vücut ağırlığı';
+
+  @override
+  String get equipmentKettlebell => 'Kettlebell';
+
+  @override
+  String get aiChatSuggestion1 => 'Günde ne kadar protein almalıyım?';
+
+  @override
+  String get aiChatSuggestion2 => 'Antrenmandan önce ne yemeliyim?';
+
+  @override
+  String get aiChatSuggestion3 =>
+      'Bench press\'te ilerleyemiyorum. Neyi değiştirmeliyim?';
+
+  @override
+  String get paywallAutoRenewNote =>
+      'İptal edilene kadar otomatik yenilenir. App Store veya Google Play ayarlarından istediğin zaman iptal edebilirsin.';
+
+  @override
+  String get paywallTerms => 'Kullanım Koşulları';
 }

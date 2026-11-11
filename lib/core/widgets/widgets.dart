@@ -6,7 +6,6 @@ export 'app_card.dart';
 export 'progress_ring.dart';
 export 'macro_progress.dart';
 export 'workout_card.dart';
-export 'exercise_card.dart';
 export 'set_input.dart';
 export 'rest_timer.dart';
 export 'meal_card.dart';

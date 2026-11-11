@@ -15,13 +15,14 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      padding: const EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20, color: AppColors.textSecondary),
+          Icon(icon, size: 18, color: AppColors.textSecondary),
           const SizedBox(height: AppSpacing.sm),
-          Text(value, style: AppTypography.headingMd),
+          Text(value, style: AppTypography.headingLg),
           Text(label, style: AppTypography.caption),
           if (delta != null) ...[
             const SizedBox(height: AppSpacing.xs),

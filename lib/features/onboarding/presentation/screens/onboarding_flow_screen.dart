@@ -586,16 +586,18 @@ class _LocationEquipmentStep extends StatelessWidget {
               children: Equipment.values.map((eq) {
                 final selected = equipment.contains(eq);
                 return FilterChip(
-                  label: Text(eq.name),
+                  label: Text(
+                    _equipmentLabel(l10n, eq),
+                    style: AppTypography.bodyMd.copyWith(
+                      color: selected ? AppColors.background : AppColors.textPrimary,
+                    ),
+                  ),
                   selected: selected,
                   onSelected: (_) {
                     final next = List<Equipment>.from(equipment);
                     selected ? next.remove(eq) : next.add(eq);
                     onEquipmentChanged(next);
                   },
-                  selectedColor: AppColors.primarySoft,
-                  checkmarkColor: AppColors.primary,
-                  backgroundColor: AppColors.surface2,
                 );
               }).toList(),
             ),
@@ -826,3 +828,14 @@ class _ChoiceCard extends StatelessWidget {
     );
   }
 }
+
+String _equipmentLabel(AppLocalizations l10n, Equipment eq) => switch (eq) {
+      Equipment.barbell => l10n.equipmentBarbell,
+      Equipment.dumbbell => l10n.equipmentDumbbell,
+      Equipment.bench => l10n.equipmentBench,
+      Equipment.cable => l10n.equipmentCable,
+      Equipment.machine => l10n.equipmentMachine,
+      Equipment.resistanceBand => l10n.equipmentResistanceBand,
+      Equipment.bodyweight => l10n.equipmentBodyweight,
+      Equipment.kettlebell => l10n.equipmentKettlebell,
+    };

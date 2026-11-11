@@ -50,16 +50,20 @@ class WorkoutRunnerLogic {
       );
     }
 
-    if (!state.isLastExercise) {
-      final nextExercise = state.day.exercises[state.exerciseIndex + 1];
-      final firstSet = nextExercise.sets.isNotEmpty ? nextExercise.sets.first : null;
+    // Move on to the next exercise that still has sets left — exercises the
+    // user already finished out of order (via goToExercise) are passed over.
+    final nextIndex = _nextIncompleteExercise(state.day, updatedSession, after: state.exerciseIndex);
+    if (nextIndex != null) {
+      final nextExercise = state.day.exercises[nextIndex];
+      final nextSetIndex = completedSetCount(updatedSession, nextExercise.id);
+      final nextSet = nextExercise.sets[nextSetIndex];
       final restDuration = state.currentExercise.restDuration;
       return state.copyWith(
         session: updatedSession,
-        exerciseIndex: state.exerciseIndex + 1,
-        setIndex: 0,
-        draftWeightKg: firstSet?.targetWeightKg ?? 0,
-        draftReps: firstSet?.targetReps ?? 0,
+        exerciseIndex: nextIndex,
+        setIndex: nextSetIndex,
+        draftWeightKg: nextSet.targetWeightKg,
+        draftReps: nextSet.targetReps,
         phase: WorkoutRunnerPhase.resting,
         restRemaining: restDuration,
         restTotal: restDuration,
@@ -68,6 +72,54 @@ class WorkoutRunnerLogic {
 
     return state.copyWith(
       session: updatedSession.copyWith(
+        status: WorkoutSessionStatus.completed,
+        completedAt: DateTime.now(),
+      ),
+      phase: WorkoutRunnerPhase.finished,
+      restRemaining: Duration.zero,
+    );
+  }
+
+  /// Number of sets already logged for [exerciseId] in [session].
+  static int completedSetCount(WorkoutSession session, String exerciseId) =>
+      session.sets.where((s) => s.isCompleted && s.exerciseId == exerciseId).length;
+
+  /// Whether every planned set of the exercise at [index] has been logged.
+  static bool isExerciseDone(WorkoutRunnerState state, int index) {
+    final exercise = state.day.exercises[index];
+    return completedSetCount(state.session, exercise.id) >= exercise.sets.length;
+  }
+
+  static int? _nextIncompleteExercise(WorkoutDay day, WorkoutSession session, {required int after}) {
+    for (var i = after + 1; i < day.exercises.length; i++) {
+      final exercise = day.exercises[i];
+      if (completedSetCount(session, exercise.id) < exercise.sets.length) return i;
+    }
+    return null;
+  }
+
+  /// Jumps to another exercise (e.g. when its equipment frees up first),
+  /// resuming at its first unlogged set. Finished exercises are left alone.
+  static WorkoutRunnerState goToExercise(WorkoutRunnerState state, int index) {
+    if (index < 0 || index >= state.day.exercises.length) return state;
+    if (index == state.exerciseIndex || isExerciseDone(state, index)) return state;
+    final exercise = state.day.exercises[index];
+    final setIndex = completedSetCount(state.session, exercise.id);
+    final set = exercise.sets[setIndex];
+    return state.copyWith(
+      exerciseIndex: index,
+      setIndex: setIndex,
+      draftWeightKg: set.targetWeightKg,
+      draftReps: set.targetReps,
+      phase: WorkoutRunnerPhase.exercising,
+      restRemaining: Duration.zero,
+    );
+  }
+
+  /// Ends the workout now, keeping whatever sets were logged so far.
+  static WorkoutRunnerState finishEarly(WorkoutRunnerState state) {
+    return state.copyWith(
+      session: state.session.copyWith(
         status: WorkoutSessionStatus.completed,
         completedAt: DateTime.now(),
       ),
@@ -170,6 +222,7 @@ class WorkoutRunnerLogic {
       restTotal: state.restTotal,
       elapsed: state.elapsed,
       isPaused: state.isPaused,
+      isSaved: state.isSaved,
     );
   }
 }

@@ -12,7 +12,8 @@ class AppSettings extends Equatable {
   final bool hapticsEnabled;
   final bool countdownBeepEnabled;
   final bool notificationsEnabled;
-  /// 'system' (follow device locale, falling back to English) | 'en' | 'tr'.
+  /// 'system' (follow device locale, falling back to English) or a supported
+  /// language code ('en', 'tr', 'de', 'es', 'fr').
   final String languageCode;
   final bool useAutoNutritionCalculation;
   /// Open Food Facts country tag (e.g. 'Turkey', 'Germany') to restrict food

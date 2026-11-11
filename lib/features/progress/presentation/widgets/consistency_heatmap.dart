@@ -35,7 +35,7 @@ class ConsistencyHeatmap extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context)!.progressConsistencyLabel, style: AppTypography.headingSm),
+          Text(AppLocalizations.of(context)!.progressConsistencyLabel, style: AppTypography.bodyMd),
           const SizedBox(height: AppSpacing.md),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -55,7 +55,7 @@ class ConsistencyHeatmap extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: isFuture
                                 ? Colors.transparent
-                                : (done ? AppColors.success : AppColors.surface2),
+                                : (done ? AppColors.primary : AppColors.surface2),
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),

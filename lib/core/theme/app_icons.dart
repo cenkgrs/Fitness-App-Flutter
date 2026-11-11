@@ -18,6 +18,7 @@ class AppIcons {
   static const chatCircleText = IconData(0xe16e, fontFamily: 'PhosphorRegular');
   static const checkBold = IconData(0xe182, fontFamily: 'PhosphorBold');
   static const checkCircleFill = IconData(0xe184, fontFamily: 'PhosphorFill');
+  static const cornersOut = IconData(0xe1d0, fontFamily: 'PhosphorRegular');
   static const crown = IconData(0xe614, fontFamily: 'PhosphorRegular');
   static const drop = IconData(0xe210, fontFamily: 'PhosphorRegular');
   static const eye = IconData(0xe220, fontFamily: 'PhosphorRegular');
