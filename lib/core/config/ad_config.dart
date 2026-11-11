@@ -7,8 +7,16 @@ import 'dart:io';
 /// once the account is created. Real ad unit IDs should come from
 /// --dart-define, same as the Supabase config, never hardcoded.
 class AdConfig {
-  static const _envBannerId = String.fromEnvironment('ADMOB_BANNER_UNIT_ID');
-  static const _envInterstitialId = String.fromEnvironment('ADMOB_INTERSTITIAL_UNIT_ID');
+  // Ad units are per-platform in AdMob: the unsuffixed keys are Android's,
+  // the _IOS ones iOS's. A missing iOS unit falls back to the test ID below.
+  static const _envBannerIdAndroid = String.fromEnvironment('ADMOB_BANNER_UNIT_ID');
+  static const _envInterstitialIdAndroid = String.fromEnvironment('ADMOB_INTERSTITIAL_UNIT_ID');
+  static const _envBannerIdIOS = String.fromEnvironment('ADMOB_BANNER_UNIT_ID_IOS');
+  static const _envInterstitialIdIOS = String.fromEnvironment('ADMOB_INTERSTITIAL_UNIT_ID_IOS');
+
+  static String get _envBannerId => Platform.isIOS ? _envBannerIdIOS : _envBannerIdAndroid;
+  static String get _envInterstitialId =>
+      Platform.isIOS ? _envInterstitialIdIOS : _envInterstitialIdAndroid;
 
   static bool get isConfigured => _envBannerId.isNotEmpty;
 

@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
+import 'package:url_launcher/url_launcher.dart';
 import '../../../shared/models/models.dart';
 import '../domain/auth_repository.dart';
 
@@ -15,7 +18,8 @@ class SupabaseAuthRepository implements AuthRepository {
   final sb.SupabaseClient _client;
 
   // Must match: the Android intent-filter in
-  // android/app/src/main/AndroidManifest.xml, and be added to Supabase
+  // android/app/src/main/AndroidManifest.xml, CFBundleURLTypes in
+  // ios/Runner/Info.plist, and be added to Supabase
   // Dashboard > Authentication > URL Configuration > Redirect URLs.
   static const _oauthRedirectUrl = 'com.silveroaktech.thrive://login-callback';
 
@@ -36,7 +40,16 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Stream<AppUser?> authStateChanges() {
-    return _client.auth.onAuthStateChange.map((event) => _mapUser(event.session?.user));
+    return _client.auth.onAuthStateChange.map((event) {
+      // On iOS the OAuth page opens in an in-app Safari sheet, which stays
+      // on screen after the deep link hands the session back to the app.
+      if (event.event == sb.AuthChangeEvent.signedIn &&
+          !kIsWeb &&
+          defaultTargetPlatform == TargetPlatform.iOS) {
+        closeInAppWebView();
+      }
+      return _mapUser(event.session?.user);
+    });
   }
 
   @override
@@ -58,9 +71,23 @@ class SupabaseAuthRepository implements AuthRepository {
     return user;
   }
 
+  Future<void> _startOAuth(sb.OAuthProvider provider) async {
+    try {
+      await _client.auth.signInWithOAuth(provider, redirectTo: _oauthRedirectUrl);
+    } on PlatformException catch (e) {
+      // iOS reports "Error while launching" when the in-app Safari sheet
+      // never finishes loading a page — which is exactly what happens when
+      // the provider session is already signed in and redirects straight
+      // back to the app. The sign-in still completes via the deep link, and
+      // a real load failure is shown by Safari's own error page.
+      final isIOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+      if (!isIOS || !(e.message ?? '').startsWith('Error while launching')) rethrow;
+    }
+  }
+
   @override
   Future<AppUser> signInWithGoogle() async {
-    await _client.auth.signInWithOAuth(sb.OAuthProvider.google, redirectTo: _oauthRedirectUrl);
+    await _startOAuth(sb.OAuthProvider.google);
     // signInWithOAuth redirects out to the browser/native flow; the actual
     // session arrives asynchronously via authStateChanges(). Callers should
     // watch authStateProvider rather than this method's return value.
@@ -71,7 +98,7 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<AppUser> signInWithApple() async {
-    await _client.auth.signInWithOAuth(sb.OAuthProvider.apple, redirectTo: _oauthRedirectUrl);
+    await _startOAuth(sb.OAuthProvider.apple);
     final user = _mapUser(_client.auth.currentUser);
     if (user == null) throw StateError('OAuth flow started; awaiting redirect.');
     return user;

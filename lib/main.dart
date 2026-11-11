@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -47,8 +46,7 @@ Future<void> main() async {
   await NotificationService.init();
   unawaited(NotificationService.requestPermission());
   if (RevenueCatConfig.isConfigured) {
-    final apiKey = Platform.isIOS ? RevenueCatConfig.apiKeyIOS : RevenueCatConfig.apiKeyAndroid;
-    await Purchases.configure(PurchasesConfiguration(apiKey));
+    await Purchases.configure(PurchasesConfiguration(RevenueCatConfig.apiKey));
   }
   // Guarded so the app still runs (against local/mock repositories) before
   // Supabase credentials are provided via --dart-define.
