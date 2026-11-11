@@ -5,6 +5,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 import 'app_card.dart';
+import '../theme/app_icons.dart';
 
 class MealCard extends StatelessWidget {
   final MealType type;
@@ -65,7 +66,7 @@ class MealCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                   color: AppColors.error,
-                  child: const Icon(Icons.delete_outline, color: Colors.white),
+                  child: const Icon(AppIcons.trash, color: AppColors.textPrimary),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
@@ -85,7 +86,7 @@ class MealCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           TextButton.icon(
             onPressed: onAddFood,
-            icon: const Icon(Icons.add, size: 18),
+            icon: const Icon(AppIcons.plus, size: 18),
             label: Text(l10n.mealCardAddFood),
           ),
         ],

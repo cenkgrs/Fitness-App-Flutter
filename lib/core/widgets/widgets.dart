@@ -1,4 +1,5 @@
 /// Barrel export for reusable core widgets.
+library;
 export 'primary_button.dart';
 export 'secondary_button.dart';
 export 'app_card.dart';

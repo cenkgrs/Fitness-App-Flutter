@@ -41,7 +41,7 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: RepwiseApp()));
     await tester.pump();
 
-    expect(find.text('Train smarter. Get stronger.'), findsOneWidget);
+    expect(find.text('Training, food and progress in one place.'), findsOneWidget);
 
     await tester.pump(const Duration(milliseconds: 1300));
     await tester.pumpAndSettle();
@@ -49,6 +49,6 @@ void main() {
     // English: AppSettings.languageCode defaults to 'system', and the test
     // harness's locale resolves to English (not Turkish), so the auth
     // screen's sign-up title renders in English here.
-    expect(find.text('Create Account'), findsOneWidget);
+    expect(find.text('Create account'), findsOneWidget);
   });
 }

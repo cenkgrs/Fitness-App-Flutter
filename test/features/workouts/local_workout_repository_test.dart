@@ -24,7 +24,7 @@ void main() {
     if (await tempDir.exists()) await tempDir.delete(recursive: true);
   });
 
-  UserProfile buildProfile() => UserProfile(
+  UserProfile buildProfile() => const UserProfile(
         userId: 'u1',
         name: 'Test',
         age: 28,
@@ -37,7 +37,7 @@ void main() {
         workoutDaysPerWeek: 4,
         workoutDurationMinutes: 45,
         workoutLocation: WorkoutLocation.gym,
-        availableEquipment: const [Equipment.barbell, Equipment.dumbbell],
+        availableEquipment: [Equipment.barbell, Equipment.dumbbell],
         activityLevel: ActivityLevel.moderatelyActive,
         nutritionPreference: NutritionPreference.standard,
       );

@@ -13,7 +13,7 @@ void main() {
 
   test('bumps weight when every set beat the rep target', () {
     final previousSets = [
-      WorkoutSet(
+      const WorkoutSet(
         id: 's1',
         exerciseId: 'ex1',
         setNumber: 1,
@@ -23,7 +23,7 @@ void main() {
         actualReps: 10,
         isCompleted: true,
       ),
-      WorkoutSet(
+      const WorkoutSet(
         id: 's2',
         exerciseId: 'ex1',
         setNumber: 2,
@@ -42,7 +42,7 @@ void main() {
 
   test('repeats the best previous weight/reps when the target was not met', () {
     final previousSets = [
-      WorkoutSet(
+      const WorkoutSet(
         id: 's1',
         exerciseId: 'ex1',
         setNumber: 1,
@@ -52,7 +52,7 @@ void main() {
         actualReps: 6,
         isCompleted: true,
       ),
-      WorkoutSet(
+      const WorkoutSet(
         id: 's2',
         exerciseId: 'ex1',
         setNumber: 2,

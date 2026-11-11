@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -12,6 +13,8 @@ import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../domain/workout_runner_state.dart';
 import '../controllers/workout_providers.dart';
 import '../controllers/workout_runner_controller.dart';
+import '../workout_names.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class ActiveWorkoutScreen extends ConsumerWidget {
   final String dayId;
@@ -71,19 +74,19 @@ class _RunnerView extends ConsumerWidget {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.close, color: AppColors.textSecondary),
+                  icon: const Icon(AppIcons.x, color: AppColors.textSecondary),
                   onPressed: () => _confirmExit(context),
                 ),
                 Expanded(
                   child: Column(
                     children: [
-                      Text(_formatDuration(runnerState.elapsed), style: AppTypography.headingSm),
+                      Text(_formatDuration(runnerState.elapsed), style: AppTypography.headingMd),
                       Text(l10n.activeWorkoutExerciseCounter(exerciseNumber, totalExercises), style: AppTypography.caption),
                     ],
                   ),
                 ),
                 IconButton(
-                  icon: Icon(runnerState.isPaused ? Icons.play_arrow : Icons.pause, color: AppColors.textSecondary),
+                  icon: Icon(runnerState.isPaused ? AppIcons.playFill : AppIcons.pauseFill, color: AppColors.textSecondary),
                   onPressed: notifier.togglePause,
                 ),
               ],
@@ -95,14 +98,14 @@ class _RunnerView extends ConsumerWidget {
               child: Column(
                 children: [
                   const SizedBox(height: AppSpacing.md),
-                  Text(exercise.name.toUpperCase(), style: AppTypography.headingLg, textAlign: TextAlign.center),
+                  Text(exerciseName(l10n, exercise.name), style: AppTypography.headingLg, textAlign: TextAlign.center),
                   const SizedBox(height: AppSpacing.lg),
                   ExerciseVisual.banner(
                     exerciseName: exercise.name,
                     muscleGroup: exercise.muscleGroup,
                     width: double.infinity,
                     height: 140,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppRadius.lg),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   Text(l10n.activeWorkoutSetCounter(setNumber, totalSets), style: AppTypography.headingSm),
@@ -155,7 +158,7 @@ class _RunnerView extends ConsumerWidget {
                       TextButton(onPressed: notifier.addExtraSet, child: Text(l10n.activeWorkoutAddSet)),
                     ],
                   ),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: AppSpacing.xl),
                 ],
               ),
             ),
@@ -163,14 +166,18 @@ class _RunnerView extends ConsumerWidget {
         ],
       ),
       ),
-      bottomSheet: runnerState.phase == WorkoutRunnerPhase.resting
+      bottomNavigationBar: runnerState.phase == WorkoutRunnerPhase.resting
           ? null
-          : Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
+          : SafeArea(
+              minimum: const EdgeInsets.fromLTRB(
+                AppSpacing.screenMargin,
+                AppSpacing.sm,
+                AppSpacing.screenMargin,
+                AppSpacing.lg,
+              ),
               child: PrimaryButton(
                 label: l10n.activeWorkoutCompleteSet,
-                icon: Icons.check,
-                backgroundColor: AppColors.success,
+                icon: AppIcons.checkBold,
                 onPressed: () => notifier.completeSet(
                   actualWeight: runnerState.draftWeightKg,
                   actualReps: runnerState.draftReps,

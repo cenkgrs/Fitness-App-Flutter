@@ -17,6 +17,8 @@ import '../../domain/measurement_repository.dart';
 import '../controllers/measurement_providers.dart';
 import '../controllers/progress_providers.dart';
 import '../widgets/consistency_heatmap.dart';
+import '../../../workouts/presentation/workout_names.dart';
+import '../../../../core/theme/app_icons.dart';
 
 String _bodyFatCategoryLabel(AppLocalizations l10n, BodyFatCategory category) => switch (category) {
       BodyFatCategory.essential => l10n.bodyFatCategoryEssential,
@@ -204,7 +206,7 @@ class _StrengthTab extends ConsumerWidget {
       data: (progression) {
         if (progression.isEmpty) {
           return EmptyState(
-            icon: Icons.show_chart,
+            icon: AppIcons.chartLineUp,
             title: l10n.progressStrengthEmptyTitle,
             message: l10n.progressStrengthEmptyMessage,
           );
@@ -217,7 +219,7 @@ class _StrengthTab extends ConsumerWidget {
         final ids = progression.keys.where(names.containsKey).toList();
         if (ids.isEmpty) {
           return EmptyState(
-            icon: Icons.show_chart,
+            icon: AppIcons.chartLineUp,
             title: l10n.progressStrengthEmptyTitle,
             message: l10n.progressStrengthEmptyMessage,
           );
@@ -232,13 +234,13 @@ class _StrengthTab extends ConsumerWidget {
               dropdownColor: AppColors.surface2,
               decoration: const InputDecoration(),
               items: ids
-                  .map((id) => DropdownMenuItem(value: id, child: Text(names[id] ?? id)))
+                  .map((id) => DropdownMenuItem(value: id, child: Text(exerciseName(l10n, names[id] ?? id))))
                   .toList(),
               onChanged: (v) => ref.read(selectedStrengthExerciseProvider.notifier).state = v,
             ),
             const SizedBox(height: AppSpacing.lg),
             LineChartCard(
-              title: l10n.progressStrengthChartTitle(names[activeId] ?? activeId),
+              title: l10n.progressStrengthChartTitle(exerciseName(l10n, names[activeId] ?? activeId)),
               points: (progression[activeId] ?? const [])
                   .map((p) => ChartPoint(p.date, formatter.fromKg(p.value)))
                   .toList(),
@@ -275,9 +277,9 @@ class _ConsistencyTab extends ConsumerWidget {
           error: (e, st) => const SizedBox.shrink(),
           data: (c) => Row(
             children: [
-              Expanded(child: StatCard(icon: '🔥', value: '${c.currentStreak}', label: l10n.progressCurrentStreak)),
+              Expanded(child: StatCard(icon: AppIcons.fire, value: '${c.currentStreak}', label: l10n.progressCurrentStreak)),
               const SizedBox(width: AppSpacing.md),
-              Expanded(child: StatCard(icon: '🏆', value: '${c.longestStreak}', label: l10n.progressLongestStreak)),
+              Expanded(child: StatCard(icon: AppIcons.trophy, value: '${c.longestStreak}', label: l10n.progressLongestStreak)),
             ],
           ),
         ),
@@ -319,7 +321,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
               : Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: StatCard(
-                    icon: '📏',
+                    icon: AppIcons.ruler,
                     value: '%${result.percent.toStringAsFixed(1)}',
                     label: l10n.measurementsBodyFatLabel(_bodyFatCategoryLabel(l10n, result.category)),
                   ),
@@ -340,7 +342,7 @@ class _MeasurementsTabState extends ConsumerState<_MeasurementsTab> {
             }
             if (metrics.isEmpty) {
               return EmptyState(
-                icon: Icons.straighten,
+                icon: AppIcons.ruler,
                 title: l10n.measurementsEmptyTitle,
                 message: l10n.measurementsEmptyMessage,
               );

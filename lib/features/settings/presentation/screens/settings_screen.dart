@@ -10,6 +10,8 @@ import '../../../../core/services/notification_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
 import '../controllers/settings_controller.dart';
+import '../../../../shared/utils/text_case.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -115,25 +117,32 @@ class SettingsScreen extends ConsumerWidget {
           _DropdownTile<String>(
             label: l10n.settingsLanguage,
             value: settings.languageCode,
-            items: {'system': l10n.settingsLanguageSystem, 'en': 'English', 'tr': 'Türkçe'},
+            items: {
+              'system': l10n.settingsLanguageSystem,
+              'en': 'English',
+              'tr': 'Türkçe',
+              'de': 'Deutsch',
+              'es': 'Español',
+              'fr': 'Français',
+            },
             onChanged: controller.setLanguageCode,
           ),
           const SizedBox(height: AppSpacing.lg),
           _SectionHeader(l10n.settingsAccountSection),
           ListTile(
             title: Text(l10n.settingsSubscription),
-            trailing: const Icon(Icons.chevron_right),
+            trailing: const Icon(AppIcons.caretRight),
             onTap: () => context.push('/profile/settings/subscription'),
           ),
-          ListTile(title: Text(l10n.settingsSendFeedback), trailing: const Icon(Icons.chevron_right)),
+          ListTile(title: Text(l10n.settingsSendFeedback), trailing: const Icon(AppIcons.caretRight)),
           ListTile(
             title: Text(l10n.settingsPrivacyPolicy),
-            trailing: const Icon(Icons.chevron_right),
+            trailing: const Icon(AppIcons.caretRight),
             onTap: () => context.push('/profile/settings/privacy-policy'),
           ),
           ListTile(
             title: Text(l10n.settingsDeleteAccount, style: const TextStyle(color: AppColors.error)),
-            trailing: const Icon(Icons.chevron_right, color: AppColors.error),
+            trailing: const Icon(AppIcons.caretRight, color: AppColors.error),
             onTap: () => _confirmDeleteAccount(context, ref),
           ),
         ],
@@ -177,7 +186,10 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(AppSpacing.screenMargin, AppSpacing.lg, AppSpacing.screenMargin, AppSpacing.sm),
-      child: Text(title.toUpperCase(), style: AppTypography.caption.copyWith(color: AppColors.primary)),
+      child: Text(
+        upperForLocale(title, Localizations.localeOf(context).languageCode),
+        style: AppTypography.overline,
+      ),
     );
   }
 }
@@ -194,7 +206,6 @@ class _SwitchTile extends StatelessWidget {
       title: Text(label, style: AppTypography.bodyLg),
       value: value,
       onChanged: onChanged,
-      activeThumbColor: AppColors.primary,
     );
   }
 }

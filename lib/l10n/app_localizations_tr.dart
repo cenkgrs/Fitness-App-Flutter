@@ -15,23 +15,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsScreenTitle => 'Ayarlar';
 
   @override
-  String get authSignUpTitle => 'Hesap Oluştur';
+  String get authSignUpTitle => 'Hesap oluştur';
 
   @override
-  String get authSignInTitle => 'Tekrar Hoş Geldin';
+  String get authSignInTitle => 'Tekrar hoş geldin';
 
   @override
   String get authSignUpSubtitle =>
-      'Önce bir hesap oluştur, sonra sana özel planını birlikte hazırlayalım.';
+      'Hesabını oluştur, planını birlikte kuralım.';
 
   @override
   String get authSignInSubtitle => 'Giriş yap ve kaldığın yerden devam et.';
 
   @override
-  String get authContinueWithApple => 'Apple ile Devam Et';
+  String get authContinueWithApple => 'Apple ile devam et';
 
   @override
-  String get authContinueWithGoogle => 'Google ile Devam Et';
+  String get authContinueWithGoogle => 'Google ile devam et';
 
   @override
   String get authOrWithEmail => 'veya e-posta ile';
@@ -43,29 +43,29 @@ class AppLocalizationsTr extends AppLocalizations {
   String get authPasswordHint => 'Şifre';
 
   @override
-  String get authSignUpButton => 'Kayıt Ol';
+  String get authSignUpButton => 'Kayıt ol';
 
   @override
-  String get authSignInButton => 'Giriş Yap';
+  String get authSignInButton => 'Giriş yap';
 
   @override
-  String get authSwitchToSignIn => 'Zaten hesabın var mı? Giriş Yap';
+  String get authSwitchToSignIn => 'Zaten hesabın var mı? Giriş yap';
 
   @override
-  String get authSwitchToSignUp => 'Hesabın yok mu? Kayıt Ol';
+  String get authSwitchToSignUp => 'Hesabın yok mu? Kayıt ol';
 
   @override
   String get authForgotPassword => 'Şifremi unuttum';
 
   @override
-  String get authResetPasswordTitle => 'Şifreyi Sıfırla';
+  String get authResetPasswordTitle => 'Şifreyi sıfırla';
 
   @override
   String get authResetPasswordMessage =>
       'E-postanı gir, sana bir sıfırlama linki gönderelim.';
 
   @override
-  String get authResetPasswordSend => 'Sıfırlama Linki Gönder';
+  String get authResetPasswordSend => 'Sıfırlama linki gönder';
 
   @override
   String get authResetPasswordSent =>
@@ -76,34 +76,29 @@ class AppLocalizationsTr extends AppLocalizations {
       'Sıfırlama linki gönderilemedi. Tekrar dene.';
 
   @override
-  String get authNewPasswordTitle => 'Yeni Şifre Belirle';
+  String get authNewPasswordTitle => 'Yeni şifre belirle';
 
   @override
   String get authNewPasswordHint => 'Yeni şifre';
 
   @override
-  String get authNewPasswordButton => 'Şifreyi Güncelle';
+  String get authNewPasswordButton => 'Şifreyi güncelle';
 
   @override
-  String get authNewPasswordSuccess => 'Şifre güncellendi. Hazırsın.';
+  String get authNewPasswordSuccess => 'Şifre güncellendi.';
 
   @override
-  String authErrorSnackbar(String error) {
-    return 'Bir şeyler ters gitti: $error';
-  }
+  String get onboardingContinue => 'Devam et';
 
   @override
-  String get onboardingContinue => 'Devam Et';
-
-  @override
-  String get onboardingWelcomeHeadline => 'Zirve formuna ulaş';
+  String get onboardingWelcomeHeadline => 'Antrenman ve beslenme, tek planda.';
 
   @override
   String get onboardingWelcomeSubtitle =>
-      'Kişiselleştirilmiş antrenman ve beslenme planın için birkaç soru soracağız.';
+      'Birkaç kısa soru soralım, sonra sana uygun bir program ve kalori hedefi çıkaralım.';
 
   @override
-  String get onboardingGetStarted => 'Başla';
+  String get onboardingGetStarted => 'Başlayalım';
 
   @override
   String get onboardingNameTitle => 'Sana nasıl hitap edelim?';
@@ -121,7 +116,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get onboardingGenderFemale => 'Kadın';
 
   @override
-  String get onboardingGenderUnspecified => 'Belirtmek İstemiyorum';
+  String get onboardingGenderUnspecified => 'Belirtmek istemiyorum';
 
   @override
   String get onboardingAgeTitle => 'Yaşın kaç?';
@@ -145,13 +140,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get fitnessBeginnerSubtitle => 'Temel formları öğreniyorum (0-1 yıl)';
 
   @override
-  String get fitnessIntermediateLabel => 'Orta Seviye';
+  String get fitnessIntermediateLabel => 'Orta seviye';
 
   @override
   String get fitnessIntermediateSubtitle => 'Düzenli kaldırıyorum (1-3 yıl)';
 
   @override
-  String get fitnessAdvancedLabel => 'İleri Seviye';
+  String get fitnessAdvancedLabel => 'İleri seviye';
 
   @override
   String get fitnessAdvancedSubtitle =>
@@ -161,23 +156,23 @@ class AppLocalizationsTr extends AppLocalizations {
   String get onboardingPrimaryGoalTitle => 'Ana hedefin nedir?';
 
   @override
-  String get goalLoseWeight => 'Kilo Vermek';
+  String get goalLoseWeight => 'Kilo vermek';
 
   @override
-  String get goalBuildMuscle => 'Kas Kazanmak';
+  String get goalBuildMuscle => 'Kas kazanmak';
 
   @override
-  String get goalLoseFat => 'Yağ Oranını Azaltmak';
+  String get goalLoseFat => 'Yağ oranını azaltmak';
 
   @override
-  String get goalMaintainFitness => 'Formda Kalmak';
+  String get goalMaintainFitness => 'Formda kalmak';
 
   @override
   String get onboardingDaysPerWeekTitle =>
       'Haftada kaç gün antrenman yapmak istersin?';
 
   @override
-  String get onboardingMostPopular => 'En popüler';
+  String get onboardingMostPopular => 'En çok seçilen';
 
   @override
   String get onboardingDurationTitle => 'Antrenman süren ne kadar olsun?';
@@ -197,7 +192,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get locationHome => 'Ev';
 
   @override
-  String get locationBoth => 'Her İkisi';
+  String get locationBoth => 'Her ikisi';
 
   @override
   String get onboardingEquipmentLabel => 'Ekipman';
@@ -212,13 +207,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get activitySedentarySubtitle => 'Masa başı iş, az hareket';
 
   @override
-  String get activityModeratelyActiveLabel => 'Orta Aktif';
+  String get activityModeratelyActiveLabel => 'Orta aktif';
 
   @override
   String get activityModeratelyActiveSubtitle => 'Günde ~7.500 adım';
 
   @override
-  String get activityVeryActiveLabel => 'Çok Aktif';
+  String get activityVeryActiveLabel => 'Çok aktif';
 
   @override
   String get activityVeryActiveSubtitle => 'Günde 10.000+ adım, fiziksel iş';
@@ -230,7 +225,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get nutritionStandard => 'Standart';
 
   @override
-  String get nutritionHighProtein => 'Yüksek Protein';
+  String get nutritionHighProtein => 'Yüksek protein';
 
   @override
   String get nutritionKeto => 'Ketojenik';
@@ -242,23 +237,21 @@ class AppLocalizationsTr extends AppLocalizations {
   String get nutritionVegan => 'Vegan';
 
   @override
-  String get onboardingCalculatingLine1 =>
-      'Metabolizma hızınız hesaplanıyor...';
+  String get onboardingCalculatingLine1 => 'Kalori ihtiyacın hesaplanıyor…';
 
   @override
-  String get onboardingCalculatingLine2 =>
-      'Hipertrofi hacminiz optimize ediliyor...';
+  String get onboardingCalculatingLine2 => 'Haftalık programın hazırlanıyor…';
 
   @override
   String onboardingPlanReadyTitle(String name) {
-    return 'Planın Hazır, $name!';
+    return '$name, planın hazır';
   }
 
   @override
-  String get onboardingDefaultName => 'Şampiyon';
+  String get onboardingDefaultName => 'Sporcu';
 
   @override
-  String get onboardingDailyCalories => 'Günlük Kalori';
+  String get onboardingDailyCalories => 'Günlük kalori';
 
   @override
   String get macroProtein => 'Protein';
@@ -271,14 +264,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String onboardingDaysPerWeekProgram(int days) {
-    return 'Haftada $days Gün Program';
+    return 'Haftada $days gün';
   }
 
   @override
-  String get onboardingPlanTagline => 'Kas Gelişimi ve Yağ Kaybı';
+  String get onboardingPlanTagline => 'Kuvvet ve vücut kompozisyonu';
 
   @override
-  String get onboardingStartMyPlan => 'Planımı Başlat';
+  String get onboardingStartMyPlan => 'Planıma başla';
 
   @override
   String get homeGreetingMorning => 'Günaydın';
@@ -293,9 +286,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get homeDefaultAthleteName => 'Sporcu';
 
   @override
-  String get homeReadySubtitle => 'Güçlenmeye hazır mısın?';
-
-  @override
   String homeCaloriesLeft(int count) {
     return '$count kaldı';
   }
@@ -304,35 +294,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String get homeTodaysWorkoutLabel => 'BUGÜNÜN ANTRENMANI';
 
   @override
-  String get homeRestDayMessage => 'Bugün dinlenme günü. 🧘';
+  String get homeRestDayMessage =>
+      'Bugün dinlenme günü. Toparlanma da programın parçası.';
 
   @override
   String get homeNoWorkoutPlanned => 'Henüz planlanmış antrenman yok.';
 
   @override
   String homeWorkoutSummary(int minutes, int count) {
-    return '⏱ $minutes dk • 🏋️ $count egzersiz';
+    return '$minutes dk · $count egzersiz';
   }
 
   @override
-  String get homeStartWorkout => 'Antrenmana Başla';
+  String get homeStartWorkout => 'Antrenmana başla';
 
   @override
   String get homeWeightGoalLabel => 'KİLO HEDEFİ';
 
   @override
   String homeWeightRemaining(String kg) {
-    return 'Kalan: $kg kg';
+    return 'Hedefe $kg kg kaldı';
   }
 
   @override
-  String get homeQuickActionAddMeal => 'Öğün Ekle';
+  String get homeQuickActionAddMeal => 'Öğün ekle';
 
   @override
-  String get homeQuickActionLogWeight => 'Kilo Kaydet';
+  String get homeQuickActionLogWeight => 'Kilo gir';
 
   @override
-  String get homeQuickActionViewProgress => 'İlerlemeyi Gör';
+  String get homeQuickActionViewProgress => 'İlerleme';
 
   @override
   String genericError(String error) {
@@ -364,7 +355,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get weekdaySunday => 'Pazar';
 
   @override
-  String get workoutsScreenTitle => 'Haftalık Program';
+  String get workoutsScreenTitle => 'Bu hafta';
 
   @override
   String get workoutsAiUpdateTooltip => 'AI ile Güncelle';
@@ -381,10 +372,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get workoutsOnboardingCta =>
-      'Kişisel rutinini oluşturmak için onboarding\'i tamamla.';
+      'Haftalık programını oluşturmak için kurulumu tamamla.';
 
   @override
-  String get workoutsCreateMyPlan => 'Planımı Oluştur';
+  String get workoutsCreateMyPlan => 'Planımı oluştur';
 
   @override
   String get activeWorkoutNoExercises => 'Bu gün için egzersiz yok.';
@@ -396,7 +387,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String activeWorkoutSetCounter(int current, int total) {
-    return 'SET $current / $total';
+    return 'Set $current / $total';
   }
 
   @override
@@ -411,13 +402,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get activeWorkoutRepsLabel => 'TEKRAR';
 
   @override
-  String get activeWorkoutSkipExercise => 'Egzersizi Atla';
+  String get activeWorkoutSkipExercise => 'Egzersizi atla';
 
   @override
-  String get activeWorkoutAddSet => 'Set Ekle';
+  String get activeWorkoutAddSet => 'Set ekle';
 
   @override
-  String get activeWorkoutCompleteSet => 'SETİ TAMAMLA';
+  String get activeWorkoutCompleteSet => 'Seti tamamla';
 
   @override
   String get activeWorkoutEndTitle => 'Antrenmanı bitir?';
@@ -426,43 +417,43 @@ class AppLocalizationsTr extends AppLocalizations {
   String get activeWorkoutEndContent => 'Bu seanstaki ilerlemen kaybolacak.';
 
   @override
-  String get activeWorkoutEndConfirm => 'Antrenmanı Bitir';
+  String get activeWorkoutEndConfirm => 'Antrenmanı bitir';
 
   @override
   String get workoutDetailNotFound => 'Antrenman bulunamadı';
 
   @override
-  String get workoutDetailStartButton => 'ANTRENMANA BAŞLA';
+  String get workoutDetailStartButton => 'Antrenmana başla';
 
   @override
   String get workoutSummarySessionNotFound => 'Seans bulunamadı';
 
   @override
-  String get workoutSummaryComplete => 'ANTRENMAN TAMAMLANDI 🎉';
+  String get workoutSummaryComplete => 'Antrenman tamamlandı';
 
   @override
   String get workoutSummaryDuration => 'Süre';
 
   @override
-  String get workoutSummaryTotalVolume => 'Toplam Hacim';
+  String get workoutSummaryTotalVolume => 'Toplam hacim';
 
   @override
-  String get workoutSummarySetsCompleted => 'Tamamlanan Set';
+  String get workoutSummarySetsCompleted => 'Tamamlanan set';
 
   @override
-  String get workoutSummaryEstCalories => 'Tahmini Kalori';
+  String get workoutSummaryEstCalories => 'Tahmini kalori';
 
   @override
   String workoutSummaryNewPr(String weight, String reps) {
-    return 'YENİ REKOR! $weight kg × $reps tekrar';
+    return 'Yeni rekor: $weight kg × $reps';
   }
 
   @override
   String get workoutSummaryEncouragement =>
-      'Harika bir iş çıkardın! Kasların güçleniyor ve hedefine bir adım daha yaklaştın.';
+      'İyi seanstı. Kaydettiğin her set, gelecek haftanın planını daha isabetli yapıyor.';
 
   @override
-  String get workoutSummaryFinish => 'Bitir ve Ana Sayfaya Dön';
+  String get workoutSummaryFinish => 'Bitir';
 
   @override
   String get commonAdd => 'Ekle';
@@ -479,10 +470,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mealTypeBreakfast => 'Kahvaltı';
 
   @override
-  String get mealTypeLunch => 'Öğle Yemeği';
+  String get mealTypeLunch => 'Öğle yemeği';
 
   @override
-  String get mealTypeDinner => 'Akşam Yemeği';
+  String get mealTypeDinner => 'Akşam yemeği';
 
   @override
   String get mealTypeSnack => 'Atıştırmalık';
@@ -496,13 +487,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get foodLoggerSearchTab => 'Ara';
 
   @override
-  String get foodLoggerQuickAddTab => 'Hızlı Ekle';
+  String get foodLoggerQuickAddTab => 'Hızlı ekle';
 
   @override
   String get foodLoggerSearchHint => 'Yemek veya marka ara...';
 
   @override
-  String get barcodeScannerTitle => 'Barkod Tara';
+  String get barcodeScannerTitle => 'Barkod tara';
 
   @override
   String get barcodeScannerHint => 'Kamerayı ürün barkoduna doğrult';
@@ -514,7 +505,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get aiChatTitle => 'AI Koç';
 
   @override
-  String get aiChatInputHint => 'Koçuna her şeyi sorabilirsin...';
+  String get aiChatInputHint =>
+      'Antrenman, beslenme veya toparlanma hakkında sor';
 
   @override
   String get aiChatEmptyState =>
@@ -527,17 +519,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiChatLimitReached =>
-      'Bugünkü sohbet limitine ulaştın — yarın tekrar gel.';
+      'Bugünkü mesaj hakkın doldu. Yarın yenilenir.';
 
   @override
   String get healthConnectPrompt =>
-      'Adım ve yakılan kaloriyi görmek için Health Connect\'e bağlan';
+      'Adım ve yakılan kaloriyi görmek için Apple Sağlık veya Health Connect\'i bağla';
 
   @override
   String get healthStepsLabel => 'Adım';
 
   @override
-  String get healthCaloriesBurnedLabel => 'Yakılan Kalori';
+  String get healthCaloriesBurnedLabel => 'Aktif kcal';
 
   @override
   String get achievementsTitle => 'Başarılar';
@@ -637,13 +629,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get foodLoggerAiHint => 'Örn: 3 yumurta, 100g pirinç, bir avuç badem';
 
   @override
-  String get foodLoggerAiFillButton => 'AI ile Doldur';
+  String get foodLoggerAiFillButton => 'AI ile doldur';
 
   @override
   String get foodLoggerAiParsing => 'Ayrıştırılıyor...';
 
   @override
-  String get foodLoggerOrManualEntry => 'veya manuel gir';
+  String get foodLoggerOrManualEntry => 'veya elle gir';
 
   @override
   String foodLoggerAiParseFailedSnackbar(String error) {
@@ -663,7 +655,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quickAddFatLabel => 'Yağ (g)';
 
   @override
-  String get quickAddEntryDefaultName => 'Hızlı Ekle';
+  String get quickAddEntryDefaultName => 'Hızlı ekle';
 
   @override
   String get progressScreenTitle => 'İlerleme';
@@ -672,7 +664,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressTabWeight => 'Kilo';
 
   @override
-  String get progressTabStrength => 'Güç';
+  String get progressTabStrength => 'Kuvvet';
 
   @override
   String get progressTabConsistency => 'Süreklilik';
@@ -684,22 +676,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressWeightChartTitle => 'Kilo (kg)';
 
   @override
-  String get progressStrengthEmptyTitle => 'Henüz güç verisi yok';
+  String get progressStrengthEmptyTitle => 'Henüz kuvvet verisi yok';
 
   @override
   String get progressStrengthEmptyMessage =>
-      '1RM ilerlemeni takip etmeye başlamak için bir antrenman tamamla.';
+      'Tahmini 1RM\'ini takip etmeye başlamak için bir antrenman bitir.';
 
   @override
   String progressStrengthChartTitle(String exercise) {
-    return '$exercise İlerlemesi';
+    return '$exercise';
   }
 
   @override
-  String get progressCurrentStreak => 'Güncel Seri';
+  String get progressCurrentStreak => 'Güncel seri';
 
   @override
-  String get progressLongestStreak => 'En Uzun Seri';
+  String get progressLongestStreak => 'En uzun seri';
 
   @override
   String get progressConsistencyLabel => 'Süreklilik';
@@ -728,11 +720,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String measurementsBodyFatLabel(String category) {
-    return 'Vücut Yağı — $category';
+    return 'Vücut yağı · $category';
   }
 
   @override
-  String get bodyFatCategoryEssential => 'Temel Yağ';
+  String get bodyFatCategoryEssential => 'Temel yağ';
 
   @override
   String get bodyFatCategoryAthletic => 'Atletik';
@@ -747,7 +739,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get bodyFatCategoryHigh => 'Yüksek';
 
   @override
-  String get measurementsAddButton => 'Ölçü Ekle';
+  String get measurementsAddButton => 'Ölçü ekle';
 
   @override
   String get measurementsEmptyTitle => 'Henüz ölçü yok';
@@ -761,7 +753,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get measurementsSheetTitle => 'Ölçü Ekle';
+  String get measurementsSheetTitle => 'Ölçü ekle';
 
   @override
   String measurementsFieldHint(String measurement) {
@@ -784,7 +776,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profileEmptyMessage =>
-      'Profilini oluşturmak için onboarding\'i tamamla.';
+      'Profilini oluşturmak için kurulumu tamamla.';
 
   @override
   String get bioAge => 'Yaş';
@@ -802,17 +794,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileGoalsTile => 'Hedefler';
 
   @override
-  String get profileSignOut => 'Çıkış Yap';
+  String get profileSignOut => 'Çıkış yap';
 
   @override
   String get goalsEmptyTitle => 'Hedef belirlenmemiş';
 
   @override
   String get goalsEmptyMessage =>
-      'Hedeflerini belirlemek için onboarding\'i tamamla.';
+      'Hedeflerini belirlemek için kurulumu tamamla.';
 
   @override
-  String get goalsCurrentLabel => 'Şu An';
+  String get goalsCurrentLabel => 'Şu an';
 
   @override
   String get goalsTargetLabel => 'Hedef';
@@ -821,28 +813,28 @@ class AppLocalizationsTr extends AppLocalizations {
   String get goalsRemainingLabel => 'Kalan';
 
   @override
-  String get goalsWeeklyWorkoutLabel => 'HAFTALIK ANTRENMAN HEDEFİ';
+  String get goalsWeeklyWorkoutLabel => 'HAFTALIK ANTRENMAN';
 
   @override
-  String get goalsDailyCalorieLabel => 'GÜNLÜK KALORİ HEDEFİ';
+  String get goalsDailyCalorieLabel => 'GÜNLÜK KALORİ';
 
   @override
-  String get goalsProteinLabel => 'PROTEİN HEDEFİ';
+  String get goalsProteinLabel => 'GÜNLÜK PROTEİN';
 
   @override
-  String get settingsWorkoutSection => 'Antrenman Ayarları';
+  String get settingsWorkoutSection => 'Antrenman';
 
   @override
-  String get settingsDefaultRestTime => 'Varsayılan Dinlenme Süresi';
+  String get settingsDefaultRestTime => 'Varsayılan dinlenme süresi';
 
   @override
-  String get settingsAutoStartNextSet => 'Sonraki Seti Otomatik Başlat';
+  String get settingsAutoStartNextSet => 'Sonraki seti otomatik başlat';
 
   @override
-  String get settingsWeightUnit => 'Ağırlık Birimi';
+  String get settingsWeightUnit => 'Ağırlık birimi';
 
   @override
-  String get settingsDistanceUnit => 'Mesafe Birimi';
+  String get settingsDistanceUnit => 'Mesafe birimi';
 
   @override
   String get settingsSound => 'Ses';
@@ -851,17 +843,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsHaptics => 'Titreşim';
 
   @override
-  String get settingsCountdownBeep => 'Geri Sayım Sesi (3-2-1)';
+  String get settingsCountdownBeep => 'Geri sayım sesi (3-2-1)';
 
   @override
-  String get settingsNutritionSection => 'Beslenme Ayarları';
+  String get settingsNutritionSection => 'Beslenme';
 
   @override
   String get settingsAutoCalculateTargets =>
       'Hedefleri otomatik hesapla (TDEE)';
 
   @override
-  String get settingsFoodDatabase => 'Yemek Veritabanı';
+  String get settingsFoodDatabase => 'Yemek veritabanı';
 
   @override
   String get settingsFoodDbGlobal => 'Global (Tümü)';
@@ -891,10 +883,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsNotificationsSection => 'Bildirimler';
 
   @override
-  String get settingsEnableNotifications => 'Bildirimleri Etkinleştir';
+  String get settingsEnableNotifications => 'Hatırlatmalar';
 
   @override
-  String get settingsAppearanceSection => 'Görünüm ve Dil';
+  String get settingsAppearanceSection => 'Dil';
 
   @override
   String get settingsLanguage => 'Dil';
@@ -903,7 +895,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsLanguageSystem => 'Sistem';
 
   @override
-  String get settingsAccountSection => 'Hesap ve Destek';
+  String get settingsAccountSection => 'Hesap ve destek';
 
   @override
   String get muscleGroupChest => 'Göğüs';
@@ -933,7 +925,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get muscleGroupCardio => 'Kardiyo';
 
   @override
-  String get muscleGroupFullBody => 'Tüm Vücut';
+  String get muscleGroupFullBody => 'Tüm vücut';
 
   @override
   String get settingsSubscription => 'Abonelik';
@@ -942,30 +934,30 @@ class AppLocalizationsTr extends AppLocalizations {
   String get paywallTitle => 'THRIVE+ Premium';
 
   @override
-  String get paywallSubtitle => 'Reklamları kaldır, AI koçluğunun kilidini aç.';
+  String get paywallSubtitle => 'Reklamsız kullanım ve AI koç.';
 
   @override
   String get paywallFeatureNoAds => 'Reklamsız';
 
   @override
   String get paywallFeatureAiWorkouts =>
-      'AI ile oluşturulan antrenman programları';
+      'AI ile hazırlanan antrenman programları';
 
   @override
-  String get paywallFeatureAiMeals => 'AI ile öğün metni kaydı';
+  String get paywallFeatureAiMeals => 'Öğünleri yazarak kaydetme';
 
   @override
   String get paywallSubscribeButton => 'Abone Ol';
 
   @override
-  String get paywallRestoreButton => 'Satın Alımları Geri Yükle';
+  String get paywallRestoreButton => 'Satın alımları geri yükle';
 
   @override
-  String get paywallUnavailable =>
-      'Abonelikler henüz aktif değil — yakında tekrar bak.';
+  String get paywallUnavailable => 'Abonelikler henüz aktif değil.';
 
   @override
-  String get paywallAlreadySubscribed => 'Zaten Premium üyesin. Teşekkürler!';
+  String get paywallAlreadySubscribed =>
+      'Premium kullanıyorsun. Desteğin için teşekkürler.';
 
   @override
   String get paywallPurchaseFailed => 'Satın alma tamamlanamadı. Tekrar dene.';
@@ -978,13 +970,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu hesap için önceki bir satın alma bulunamadı.';
 
   @override
-  String get settingsSendFeedback => 'Geri Bildirim Gönder';
+  String get settingsSendFeedback => 'Geri bildirim gönder';
 
   @override
-  String get settingsPrivacyPolicy => 'Gizlilik Politikası';
+  String get settingsPrivacyPolicy => 'Gizlilik politikası';
 
   @override
-  String get settingsDeleteAccount => 'Hesabı Sil';
+  String get settingsDeleteAccount => 'Hesabı sil';
 
   @override
   String get settingsDeleteAccountConfirmTitle =>
@@ -995,7 +987,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu işlem hesabını ve tüm verilerini (antrenmanlar, beslenme kayıtları, ilerleme, her şey) kalıcı olarak siler. Geri alınamaz.';
 
   @override
-  String get settingsDeleteAccountConfirmButton => 'Kalıcı Olarak Sil';
+  String get settingsDeleteAccountConfirmButton => 'Kalıcı olarak sil';
 
   @override
   String get settingsDeleteAccountFailed => 'Hesap silinemedi. Tekrar dene.';
@@ -1009,16 +1001,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mealCardNoItems => 'Henüz bir şey eklenmedi';
 
   @override
-  String get mealCardAddFood => 'Yemek Ekle';
+  String get mealCardAddFood => 'Yemek ekle';
 
   @override
   String workoutCardSummary(int minutes, int count) {
-    return '$minutes dk • $count egzersiz';
+    return '$minutes dk · $count egzersiz';
   }
 
   @override
   String exerciseCardSetsReps(int sets, int reps) {
-    return '$sets Set × $reps Tekrar';
+    return '$sets × $reps';
   }
 
   @override
@@ -1027,25 +1019,25 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get restTimerLabel => 'DİNLENME';
+  String get restTimerLabel => 'Dinlenme';
 
   @override
   String get restTimerSubtract => '-15sn';
 
   @override
-  String get restTimerSkip => 'Dinlenmeyi Atla';
+  String get restTimerSkip => 'Dinlenmeyi atla';
 
   @override
   String get restTimerAdd => '+30sn';
 
   @override
-  String get splashTagline => 'Daha akıllı antrenman. Daha güçlü ol.';
+  String get splashTagline => 'Antrenman, beslenme ve ilerleme tek yerde.';
 
   @override
   String get lineChartNoData => 'Henüz veri yok';
 
   @override
-  String get weightLogButton => 'Kilo Kaydet';
+  String get weightLogButton => 'Kilo gir';
 
   @override
   String get weightFieldHint => 'Kilo';
@@ -1064,4 +1056,165 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get navProfile => 'Profil';
+
+  @override
+  String get weekdayInitials => 'Pt,Sa,Ça,Pe,Cu,Ct,Pz';
+
+  @override
+  String get streakLabel => 'gün seri';
+
+  @override
+  String get authErrorInvalidCredentials => 'E-posta veya şifre hatalı.';
+
+  @override
+  String get authErrorEmailNotConfirmed =>
+      'Önce e-postanı onayla. Gelen kutuna bak.';
+
+  @override
+  String get authErrorUserExists =>
+      'Bu e-postayla zaten bir hesap var. Giriş yapmayı dene.';
+
+  @override
+  String get authErrorWeakPassword =>
+      'Şifre çok zayıf. En az 6 karakter kullan.';
+
+  @override
+  String get authErrorInvalidEmail => 'Bu e-posta adresi geçerli görünmüyor.';
+
+  @override
+  String get authErrorRateLimited =>
+      'Çok fazla deneme yapıldı. Bir dakika bekleyip tekrar dene.';
+
+  @override
+  String get authErrorNetwork =>
+      'Bağlantı yok. İnternetini kontrol edip tekrar dene.';
+
+  @override
+  String get authErrorGeneric => 'Giriş yapılamadı. Lütfen tekrar dene.';
+
+  @override
+  String get authErrorMissingFields => 'E-posta ve şifreni gir.';
+
+  @override
+  String get authConfirmEmailSent =>
+      'E-postana bir onay linki gönderdik. Kaydı tamamlamak için linke dokun.';
+
+  @override
+  String get notifWorkoutTitle => 'Bugünkü antrenmanın seni bekliyor';
+
+  @override
+  String get notifWorkoutBody =>
+      'Bugün henüz antrenman kaydın yok. 20 dakikan var mı?';
+
+  @override
+  String get notifMealTitle => 'Öğününü kaydet';
+
+  @override
+  String get notifLunchBody => 'Öğle yemeği vakti. Unutmadan ne yediğini ekle.';
+
+  @override
+  String get notifDinnerBody =>
+      'Akşam yemeği vakti. Unutmadan ne yediğini ekle.';
+
+  @override
+  String get dayFullBodyA => 'Tüm Vücut A';
+
+  @override
+  String get dayFullBodyB => 'Tüm Vücut B';
+
+  @override
+  String get dayFullBodyC => 'Tüm Vücut C';
+
+  @override
+  String get dayFullBody => 'Tüm Vücut';
+
+  @override
+  String get dayUpperBodyPower => 'Üst Vücut · Kuvvet';
+
+  @override
+  String get dayUpperBodyHypertrophy => 'Üst Vücut · Hacim';
+
+  @override
+  String get dayUpperBody => 'Üst Vücut';
+
+  @override
+  String get dayLowerBodyFocus => 'Alt Vücut · Kuvvet';
+
+  @override
+  String get dayLowerBody => 'Alt Vücut';
+
+  @override
+  String get dayPush => 'İtiş';
+
+  @override
+  String get dayPull => 'Çekiş';
+
+  @override
+  String get dayLegsCore => 'Bacak ve Karın';
+
+  @override
+  String get dayActiveRecovery => 'Aktif toparlanma';
+
+  @override
+  String get dayRest => 'Dinlenme';
+
+  @override
+  String get programFullBody => 'Tüm Vücut Programı';
+
+  @override
+  String get programUpperLower => 'Üst/Alt Bölünmüş Program';
+
+  @override
+  String get exBenchPress => 'Bench Press';
+
+  @override
+  String get exInclineDumbbellPress => 'Eğimli Dambıl Press';
+
+  @override
+  String get exOverheadPress => 'Omuz Press';
+
+  @override
+  String get exTricepsPushdown => 'Triceps Pushdown';
+
+  @override
+  String get exLateralRaise => 'Yana Açış';
+
+  @override
+  String get exDeadlift => 'Deadlift';
+
+  @override
+  String get exPullUp => 'Barfiks';
+
+  @override
+  String get exBarbellRow => 'Barbell Row';
+
+  @override
+  String get exFacePull => 'Face Pull';
+
+  @override
+  String get exBicepCurl => 'Biceps Curl';
+
+  @override
+  String get exBackSquat => 'Squat';
+
+  @override
+  String get exRomanianDeadlift => 'Romanian Deadlift';
+
+  @override
+  String get exLegPress => 'Leg Press';
+
+  @override
+  String get exWalkingLunge => 'Yürüyerek Lunge';
+
+  @override
+  String get exPlank => 'Plank';
+
+  @override
+  String get exGobletSquat => 'Goblet Squat';
+
+  @override
+  String get exPushUp => 'Şınav';
+
+  @override
+  String get exDumbbellRow => 'Dambıl Row';
 }

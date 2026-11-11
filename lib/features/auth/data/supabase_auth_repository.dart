@@ -73,9 +73,14 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<AppUser> signUpWithEmail({required String email, required String password}) async {
-    final res = await _client.auth.signUp(email: email, password: password);
+    final res = await _client.auth.signUp(
+      email: email,
+      password: password,
+      emailRedirectTo: _oauthRedirectUrl,
+    );
     final user = _mapUser(res.user);
     if (user == null) throw StateError('Sign-up succeeded but returned no user.');
+    if (res.session == null) throw const EmailConfirmationRequired();
     return user;
   }
 

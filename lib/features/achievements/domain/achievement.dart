@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../core/theme/app_icons.dart';
 
 enum AchievementId {
   firstWorkout,
@@ -68,52 +69,52 @@ class AchievementStats {
 final achievements = <Achievement>[
   Achievement(
     id: AchievementId.firstWorkout,
-    icon: Icons.fitness_center,
+    icon: AppIcons.barbell,
     isUnlocked: (s) => s.completedWorkouts >= 1,
   ),
   Achievement(
     id: AchievementId.workout5,
-    icon: Icons.military_tech,
+    icon: AppIcons.medal,
     isUnlocked: (s) => s.completedWorkouts >= 5,
   ),
   Achievement(
     id: AchievementId.workout25,
-    icon: Icons.emoji_events,
+    icon: AppIcons.trophy,
     isUnlocked: (s) => s.completedWorkouts >= 25,
   ),
   Achievement(
     id: AchievementId.workout100,
-    icon: Icons.workspace_premium,
+    icon: AppIcons.crown,
     isUnlocked: (s) => s.completedWorkouts >= 100,
   ),
   Achievement(
     id: AchievementId.firstPr,
-    icon: Icons.trending_up,
+    icon: AppIcons.trendUp,
     isUnlocked: (s) => s.hasEverHitPr,
   ),
   Achievement(
     id: AchievementId.streak3,
-    icon: Icons.local_fire_department,
+    icon: AppIcons.fire,
     isUnlocked: (s) => s.longestStreak >= 3,
   ),
   Achievement(
     id: AchievementId.streak7,
-    icon: Icons.local_fire_department,
+    icon: AppIcons.fire,
     isUnlocked: (s) => s.longestStreak >= 7,
   ),
   Achievement(
     id: AchievementId.streak30,
-    icon: Icons.local_fire_department,
+    icon: AppIcons.fire,
     isUnlocked: (s) => s.longestStreak >= 30,
   ),
   Achievement(
     id: AchievementId.weightLogged5,
-    icon: Icons.monitor_weight,
+    icon: AppIcons.scales,
     isUnlocked: (s) => s.weightEntriesCount >= 5,
   ),
   Achievement(
     id: AchievementId.weightLogged30,
-    icon: Icons.monitor_weight,
+    icon: AppIcons.scales,
     isUnlocked: (s) => s.weightEntriesCount >= 30,
   ),
 ];

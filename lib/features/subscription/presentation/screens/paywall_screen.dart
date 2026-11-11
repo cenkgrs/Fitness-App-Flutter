@@ -7,6 +7,7 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../controllers/subscription_providers.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class PaywallScreen extends ConsumerStatefulWidget {
   const PaywallScreen({super.key});
@@ -77,9 +78,9 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
                 children: [
                   Text(l10n.paywallSubtitle, style: AppTypography.bodyLg),
                   const SizedBox(height: AppSpacing.xl),
-                  _FeatureRow(icon: Icons.block, label: l10n.paywallFeatureNoAds),
-                  _FeatureRow(icon: Icons.fitness_center, label: l10n.paywallFeatureAiWorkouts),
-                  _FeatureRow(icon: Icons.restaurant, label: l10n.paywallFeatureAiMeals),
+                  _FeatureRow(icon: AppIcons.prohibit, label: l10n.paywallFeatureNoAds),
+                  _FeatureRow(icon: AppIcons.barbell, label: l10n.paywallFeatureAiWorkouts),
+                  _FeatureRow(icon: AppIcons.forkKnife, label: l10n.paywallFeatureAiMeals),
                   const SizedBox(height: AppSpacing.xl),
                   Expanded(
                     child: offeringsAsync.when(

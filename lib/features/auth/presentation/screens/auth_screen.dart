@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../auth_error_message.dart';
 import '../controllers/auth_controller.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
@@ -81,7 +84,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     ref.listen(authControllerProvider, (prev, next) {
       if (next.hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.authErrorSnackbar(next.error.toString()))),
+          SnackBar(content: Text(authErrorMessage(l10n, next.error!))),
         );
       }
     });
@@ -94,9 +97,11 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: AppSpacing.xxl),
+              const _Wordmark(),
+              const SizedBox(height: AppSpacing.xxl),
               Text(_isSignUp ? l10n.authSignUpTitle : l10n.authSignInTitle,
                   style: AppTypography.headingLg),
-              const SizedBox(height: AppSpacing.xs),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 _isSignUp ? l10n.authSignUpSubtitle : l10n.authSignInSubtitle,
                 style: AppTypography.bodyMd,
@@ -107,14 +112,14 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 const SizedBox(height: AppSpacing.xxl),
                 SecondaryButton(
                   label: l10n.authContinueWithApple,
-                  icon: Icons.apple,
+                  icon: AppIcons.appleLogoFill,
                   onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithApple(),
                 ),
               ],
               const SizedBox(height: AppSpacing.md),
               SecondaryButton(
                 label: l10n.authContinueWithGoogle,
-                icon: Icons.g_mobiledata,
+                leading: SvgPicture.asset('assets/icons/google_g.svg', width: 18, height: 18),
                 onPressed: isLoading ? null : () => ref.read(authControllerProvider.notifier).signInWithGoogle(),
               ),
               const SizedBox(height: AppSpacing.xl),
@@ -143,7 +148,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 decoration: InputDecoration(
                   hintText: l10n.authPasswordHint,
                   suffixIcon: IconButton(
-                    icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility,
+                    icon: Icon(_obscure ? AppIcons.eyeSlash : AppIcons.eye,
                         color: AppColors.textTertiary),
                     onPressed: () => setState(() => _obscure = !_obscure),
                   ),
@@ -156,7 +161,12 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 onPressed: () {
                   final email = _emailController.text.trim();
                   final password = _passwordController.text;
-                  if (email.isEmpty || password.isEmpty) return;
+                  if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(l10n.authErrorMissingFields)),
+                    );
+                    return;
+                  }
                   if (_isSignUp) {
                     ref.read(authControllerProvider.notifier).signUpWithEmail(email, password);
                   } else {
@@ -183,6 +193,28 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Wordmark extends StatelessWidget {
+  const _Wordmark();
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: const TextSpan(
+        style: TextStyle(
+          fontFamily: AppTypography.fontFamily,
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          letterSpacing: -0.6,
+        ),
+        children: [
+          TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.textPrimary)),
+          TextSpan(text: '+', style: TextStyle(color: AppColors.primary)),
+        ],
       ),
     );
   }

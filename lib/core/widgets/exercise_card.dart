@@ -9,6 +9,7 @@ import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 import 'exercise_visual.dart';
 import 'muscle_group_visuals.dart';
+import '../../features/workouts/presentation/workout_names.dart';
 
 class ExerciseCard extends ConsumerWidget {
   final Exercise exercise;
@@ -43,7 +44,7 @@ class ExerciseCard extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(exercise.name, style: AppTypography.bodyLg),
+                  Text(exerciseName(l10n, exercise.name), style: AppTypography.bodyLg),
                   Text(
                     '${muscleGroupLabel(l10n, exercise.muscleGroup)} · ${l10n.exerciseCardSetsReps(workingSets.length, targetReps)}',
                     style: AppTypography.caption,

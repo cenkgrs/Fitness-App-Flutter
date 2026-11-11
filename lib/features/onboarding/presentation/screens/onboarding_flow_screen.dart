@@ -9,6 +9,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../../../../shared/services/nutrition_calculator.dart';
 import '../controllers/onboarding_controller.dart';
+import '../../../../core/theme/app_icons.dart';
 
 const _totalDataSteps = 13; // steps 1..13 (excludes welcome/calculating/plan-ready)
 
@@ -55,7 +56,7 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back, color: AppColors.textSecondary),
+                      icon: const Icon(AppIcons.arrowLeft, color: AppColors.textSecondary),
                       onPressed: _back,
                     ),
                     if (showProgress)
@@ -219,11 +220,10 @@ class _OnboardingFlowScreenState extends ConsumerState<OnboardingFlowScreen> {
 
 class _StepScaffold extends StatelessWidget {
   final String title;
-  final String? subtitle;
   final Widget child;
   final Widget? footer;
 
-  const _StepScaffold({required this.title, this.subtitle, required this.child, this.footer});
+  const _StepScaffold({required this.title, required this.child, this.footer});
 
   @override
   Widget build(BuildContext context) {
@@ -231,10 +231,6 @@ class _StepScaffold extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: AppTypography.headingLg),
-        if (subtitle != null) ...[
-          const SizedBox(height: AppSpacing.xs),
-          Text(subtitle!, style: AppTypography.bodyMd),
-        ],
         const SizedBox(height: AppSpacing.xl),
         Expanded(child: child),
         if (footer != null) footer!,
@@ -251,19 +247,28 @@ class _WelcomeStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Spacer(),
-        const Icon(Icons.bolt, color: AppColors.primary, size: 64),
-        const SizedBox(height: AppSpacing.xl),
-        Text(l10n.onboardingWelcomeHeadline, style: AppTypography.headingLg, textAlign: TextAlign.center),
-        const SizedBox(height: AppSpacing.sm),
-        Text(
-          l10n.onboardingWelcomeSubtitle,
-          style: AppTypography.bodyMd,
-          textAlign: TextAlign.center,
+        const Spacer(flex: 3),
+        RichText(
+          text: const TextSpan(
+            style: TextStyle(
+              fontFamily: AppTypography.fontFamily,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+            ),
+            children: [
+              TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.textPrimary)),
+              TextSpan(text: '+', style: TextStyle(color: AppColors.primary)),
+            ],
+          ),
         ),
-        const Spacer(),
+        const SizedBox(height: AppSpacing.xl),
+        Text(l10n.onboardingWelcomeHeadline, style: AppTypography.displayMd),
+        const SizedBox(height: AppSpacing.md),
+        Text(l10n.onboardingWelcomeSubtitle, style: AppTypography.bodyLg.copyWith(color: AppColors.textSecondary)),
+        const Spacer(flex: 2),
         PrimaryButton(label: l10n.onboardingGetStarted, onPressed: onNext),
       ],
     );
@@ -281,6 +286,7 @@ class _NameStep extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
       title: l10n.onboardingNameTitle,
+      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: value.trim().isEmpty ? null : onNext),
       child: Align(
         alignment: Alignment.topCenter,
         child: TextField(
@@ -293,7 +299,6 @@ class _NameStep extends StatelessWidget {
           decoration: InputDecoration(hintText: l10n.onboardingNameHint),
         ),
       ),
-      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: value.trim().isEmpty ? null : onNext),
     );
   }
 }
@@ -310,13 +315,13 @@ class _GenderStep extends StatelessWidget {
       title: l10n.onboardingGenderTitle,
       child: Column(
         children: [
-          _ChoiceCard(label: l10n.onboardingGenderMale, icon: Icons.male, selected: value == Gender.male, onTap: () => onSelect(Gender.male)),
+          _ChoiceCard(label: l10n.onboardingGenderMale, icon: AppIcons.genderMale, selected: value == Gender.male, onTap: () => onSelect(Gender.male)),
           const SizedBox(height: AppSpacing.md),
-          _ChoiceCard(label: l10n.onboardingGenderFemale, icon: Icons.female, selected: value == Gender.female, onTap: () => onSelect(Gender.female)),
+          _ChoiceCard(label: l10n.onboardingGenderFemale, icon: AppIcons.genderFemale, selected: value == Gender.female, onTap: () => onSelect(Gender.female)),
           const SizedBox(height: AppSpacing.md),
           _ChoiceCard(
               label: l10n.onboardingGenderUnspecified,
-              icon: Icons.person,
+              icon: AppIcons.user,
               selected: value == Gender.unspecified,
               onTap: () => onSelect(Gender.unspecified)),
         ],
@@ -352,6 +357,7 @@ class _NumberWheelStep extends StatelessWidget {
   Widget build(BuildContext context) {
     return _StepScaffold(
       title: title,
+      footer: PrimaryButton(label: AppLocalizations.of(context)!.onboardingContinue, onPressed: onNext),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -368,15 +374,14 @@ class _NumberWheelStep extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _WheelButton(icon: Icons.remove, onTap: () => onChanged((value - step).clamp(min, max))),
+                _WheelButton(icon: AppIcons.minus, onTap: () => onChanged((value - step).clamp(min, max))),
                 const SizedBox(width: AppSpacing.xl),
-                _WheelButton(icon: Icons.add, onTap: () => onChanged((value + step).clamp(min, max))),
+                _WheelButton(icon: AppIcons.plus, onTap: () => onChanged((value + step).clamp(min, max))),
               ],
             ),
           ],
         ),
       ),
-      footer: PrimaryButton(label: AppLocalizations.of(context)!.onboardingContinue, onPressed: onNext),
     );
   }
 }
@@ -551,6 +556,7 @@ class _LocationEquipmentStep extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return _StepScaffold(
       title: l10n.onboardingLocationTitle,
+      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: onNext),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,7 +602,6 @@ class _LocationEquipmentStep extends StatelessWidget {
           ],
         ),
       ),
-      footer: PrimaryButton(label: l10n.onboardingContinue, onPressed: onNext),
     );
   }
 }
@@ -701,7 +706,7 @@ class _PlanReadyStep extends ConsumerWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.check_circle, color: AppColors.success),
+            const Icon(AppIcons.checkCircleFill, color: AppColors.success),
             const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
@@ -808,7 +813,7 @@ class _ChoiceCard extends StatelessWidget {
               children: [
                 if (icon != null) ...[Icon(icon, color: selected ? AppColors.primary : AppColors.textSecondary), const SizedBox(width: AppSpacing.sm)],
                 Expanded(child: Text(label, style: AppTypography.bodyLg)),
-                if (selected) const Icon(Icons.check_circle, color: AppColors.primary, size: 20),
+                if (selected) const Icon(AppIcons.checkCircleFill, color: AppColors.primary, size: 20),
               ],
             ),
             if (subtitle != null) ...[

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_icons.dart';
 
 /// Full-screen camera barcode scanner. Pops with the scanned barcode string
 /// as soon as one is detected — the caller (food logger) does the product
@@ -42,7 +43,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
         title: Text(l10n.barcodeScannerTitle),
         actions: [
           IconButton(
-            icon: const Icon(Icons.flash_on),
+            icon: const Icon(AppIcons.lightning),
             onPressed: () => _controller.toggleTorch(),
           ),
         ],

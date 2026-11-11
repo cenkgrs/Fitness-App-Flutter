@@ -16,6 +16,7 @@ import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../subscription/presentation/controllers/subscription_gate.dart';
 import '../controllers/nutrition_providers.dart';
 import 'barcode_scanner_screen.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class FoodLoggerScreen extends ConsumerStatefulWidget {
   final String mealType;
@@ -97,7 +98,7 @@ class _FoodLoggerScreenState extends ConsumerState<FoodLoggerScreen> with Single
         title: Text(l10n.foodLoggerTitle(_mealTypeLabel(l10n, _type))),
         actions: [
           IconButton(
-            icon: const Icon(Icons.qr_code_scanner),
+            icon: const Icon(AppIcons.barcode),
             tooltip: l10n.barcodeScannerTitle,
             onPressed: _scanBarcode,
           ),
@@ -192,14 +193,14 @@ class _SearchTab extends StatelessWidget {
             onChanged: onSearch,
             decoration: InputDecoration(
               hintText: l10n.foodLoggerSearchHint,
-              prefixIcon: const Icon(Icons.search, color: AppColors.textTertiary),
+              prefixIcon: const Icon(AppIcons.magnifyingGlass, color: AppColors.textTertiary),
             ),
           ),
         ),
         Expanded(
           child: results.isEmpty
               ? EmptyState(
-                  icon: Icons.search_off,
+                  icon: AppIcons.magnifyingGlass,
                   title: l10n.foodLoggerNoResultsTitle,
                   message: l10n.foodLoggerNoResultsMessage)
               : ListView.separated(
@@ -220,7 +221,7 @@ class _SearchTab extends StatelessWidget {
                         ),
                         style: AppTypography.caption,
                       ),
-                      trailing: const Icon(Icons.chevron_right, color: AppColors.textTertiary),
+                      trailing: const Icon(AppIcons.caretRight, color: AppColors.textTertiary),
                       onTap: () => onSelectFood(food),
                     );
                   },
@@ -373,7 +374,7 @@ class _QuickAddTabState extends ConsumerState<_QuickAddTab> {
             const SizedBox(height: AppSpacing.sm),
             SecondaryButton(
               label: _aiLoading ? l10n.foodLoggerAiParsing : l10n.foodLoggerAiFillButton,
-              icon: Icons.auto_awesome,
+              icon: AppIcons.sparkle,
               onPressed: _aiLoading ? null : _fillWithAI,
             ),
             const SizedBox(height: AppSpacing.lg),

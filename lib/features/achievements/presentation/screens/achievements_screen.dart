@@ -54,8 +54,7 @@ class AchievementsScreen extends ConsumerWidget {
                             width: 56,
                             height: 56,
                             decoration: BoxDecoration(
-                              color: (unlocked ? AppColors.primary : AppColors.surface2)
-                                  .withValues(alpha: unlocked ? 0.2 : 1),
+                              color: unlocked ? AppColors.primarySoft : AppColors.surface2,
                               borderRadius: BorderRadius.circular(AppRadius.md),
                             ),
                             child: Icon(

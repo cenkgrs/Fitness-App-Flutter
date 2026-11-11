@@ -5,7 +5,7 @@ import '../theme/app_typography.dart';
 import 'app_card.dart';
 
 class StatCard extends StatelessWidget {
-  final String icon;
+  final IconData icon;
   final String value;
   final String label;
   final String? delta;
@@ -19,7 +19,7 @@ class StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(icon, style: const TextStyle(fontSize: 20)),
+          Icon(icon, size: 20, color: AppColors.textSecondary),
           const SizedBox(height: AppSpacing.sm),
           Text(value, style: AppTypography.headingMd),
           Text(label, style: AppTypography.caption),

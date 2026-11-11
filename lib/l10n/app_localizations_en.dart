@@ -15,14 +15,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsScreenTitle => 'Settings';
 
   @override
-  String get authSignUpTitle => 'Create Account';
+  String get authSignUpTitle => 'Create account';
 
   @override
-  String get authSignInTitle => 'Welcome Back';
+  String get authSignInTitle => 'Welcome back';
 
   @override
   String get authSignUpSubtitle =>
-      'Create an account first, then we\'ll build your personalized plan together.';
+      'Create an account and we\'ll set up your plan together.';
 
   @override
   String get authSignInSubtitle => 'Sign in and pick up where you left off.';
@@ -43,29 +43,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authPasswordHint => 'Password';
 
   @override
-  String get authSignUpButton => 'Sign Up';
+  String get authSignUpButton => 'Sign up';
 
   @override
-  String get authSignInButton => 'Sign In';
+  String get authSignInButton => 'Sign in';
 
   @override
-  String get authSwitchToSignIn => 'Already have an account? Sign In';
+  String get authSwitchToSignIn => 'Already have an account? Sign in';
 
   @override
-  String get authSwitchToSignUp => 'Don\'t have an account? Sign Up';
+  String get authSwitchToSignUp => 'New here? Create an account';
 
   @override
   String get authForgotPassword => 'Forgot password?';
 
   @override
-  String get authResetPasswordTitle => 'Reset Password';
+  String get authResetPasswordTitle => 'Reset password';
 
   @override
   String get authResetPasswordMessage =>
       'Enter your email and we\'ll send you a reset link.';
 
   @override
-  String get authResetPasswordSend => 'Send Reset Link';
+  String get authResetPasswordSend => 'Send reset link';
 
   @override
   String get authResetPasswordSent =>
@@ -76,34 +76,29 @@ class AppLocalizationsEn extends AppLocalizations {
       'Couldn\'t send the reset link. Please try again.';
 
   @override
-  String get authNewPasswordTitle => 'Set a New Password';
+  String get authNewPasswordTitle => 'Set a new password';
 
   @override
   String get authNewPasswordHint => 'New password';
 
   @override
-  String get authNewPasswordButton => 'Update Password';
+  String get authNewPasswordButton => 'Update password';
 
   @override
-  String get authNewPasswordSuccess => 'Password updated. You\'re all set.';
-
-  @override
-  String authErrorSnackbar(String error) {
-    return 'Something went wrong: $error';
-  }
+  String get authNewPasswordSuccess => 'Password updated.';
 
   @override
   String get onboardingContinue => 'Continue';
 
   @override
-  String get onboardingWelcomeHeadline => 'Reach your peak physique';
+  String get onboardingWelcomeHeadline => 'Training and food, in one plan.';
 
   @override
   String get onboardingWelcomeSubtitle =>
-      'We\'ll ask a few questions to build your personalized workout and nutrition plan.';
+      'A few quick questions, then we\'ll build a program and calorie target that fit you.';
 
   @override
-  String get onboardingGetStarted => 'Get Started';
+  String get onboardingGetStarted => 'Get started';
 
   @override
   String get onboardingNameTitle => 'What should we call you?';
@@ -161,16 +156,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingPrimaryGoalTitle => 'What\'s your main goal?';
 
   @override
-  String get goalLoseWeight => 'Lose Weight';
+  String get goalLoseWeight => 'Lose weight';
 
   @override
-  String get goalBuildMuscle => 'Build Muscle';
+  String get goalBuildMuscle => 'Build muscle';
 
   @override
-  String get goalLoseFat => 'Lose Fat';
+  String get goalLoseFat => 'Lose fat';
 
   @override
-  String get goalMaintainFitness => 'Maintain Fitness';
+  String get goalMaintainFitness => 'Stay fit';
 
   @override
   String get onboardingDaysPerWeekTitle =>
@@ -213,13 +208,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activitySedentarySubtitle => 'Desk job, little movement';
 
   @override
-  String get activityModeratelyActiveLabel => 'Moderately Active';
+  String get activityModeratelyActiveLabel => 'Moderately active';
 
   @override
   String get activityModeratelyActiveSubtitle => '~7,500 steps/day';
 
   @override
-  String get activityVeryActiveLabel => 'Very Active';
+  String get activityVeryActiveLabel => 'Very active';
 
   @override
   String get activityVeryActiveSubtitle => '10,000+ steps/day, physical job';
@@ -232,7 +227,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nutritionStandard => 'Standard';
 
   @override
-  String get nutritionHighProtein => 'High Protein';
+  String get nutritionHighProtein => 'High protein';
 
   @override
   String get nutritionKeto => 'Ketogenic';
@@ -244,22 +239,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nutritionVegan => 'Vegan';
 
   @override
-  String get onboardingCalculatingLine1 => 'Calculating your metabolic rate...';
+  String get onboardingCalculatingLine1 => 'Working out your calorie needs…';
 
   @override
   String get onboardingCalculatingLine2 =>
-      'Optimizing your hypertrophy volume...';
+      'Putting your weekly program together…';
 
   @override
   String onboardingPlanReadyTitle(String name) {
-    return 'Your Plan Is Ready, $name!';
+    return '$name, your plan is ready';
   }
 
   @override
-  String get onboardingDefaultName => 'Champion';
+  String get onboardingDefaultName => 'Athlete';
 
   @override
-  String get onboardingDailyCalories => 'Daily Calories';
+  String get onboardingDailyCalories => 'Daily calories';
 
   @override
   String get macroProtein => 'Protein';
@@ -272,14 +267,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String onboardingDaysPerWeekProgram(int days) {
-    return '$days Days / Week Program';
+    return '$days days a week';
   }
 
   @override
-  String get onboardingPlanTagline => 'Muscle Hypertrophy & Fat Loss';
+  String get onboardingPlanTagline => 'Strength and body composition';
 
   @override
-  String get onboardingStartMyPlan => 'Start My Plan';
+  String get onboardingStartMyPlan => 'Start my plan';
 
   @override
   String get homeGreetingMorning => 'Good morning';
@@ -294,9 +289,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeDefaultAthleteName => 'Athlete';
 
   @override
-  String get homeReadySubtitle => 'Ready to get stronger?';
-
-  @override
   String homeCaloriesLeft(int count) {
     return '$count left';
   }
@@ -305,35 +297,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeTodaysWorkoutLabel => 'TODAY\'S WORKOUT';
 
   @override
-  String get homeRestDayMessage => 'Rest day today. 🧘';
+  String get homeRestDayMessage => 'Rest day. Recovery is part of the plan.';
 
   @override
   String get homeNoWorkoutPlanned => 'No workout planned yet.';
 
   @override
   String homeWorkoutSummary(int minutes, int count) {
-    return '⏱ $minutes min • 🏋️ $count exercises';
+    return '$minutes min · $count exercises';
   }
 
   @override
-  String get homeStartWorkout => 'Start Workout';
+  String get homeStartWorkout => 'Start workout';
 
   @override
   String get homeWeightGoalLabel => 'WEIGHT GOAL';
 
   @override
   String homeWeightRemaining(String kg) {
-    return 'Remaining: $kg kg';
+    return '$kg kg to go';
   }
 
   @override
-  String get homeQuickActionAddMeal => 'Add Meal';
+  String get homeQuickActionAddMeal => 'Add meal';
 
   @override
-  String get homeQuickActionLogWeight => 'Log Weight';
+  String get homeQuickActionLogWeight => 'Log weight';
 
   @override
-  String get homeQuickActionViewProgress => 'View Progress';
+  String get homeQuickActionViewProgress => 'Progress';
 
   @override
   String genericError(String error) {
@@ -365,7 +357,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weekdaySunday => 'Sunday';
 
   @override
-  String get workoutsScreenTitle => 'Weekly Routine';
+  String get workoutsScreenTitle => 'This week';
 
   @override
   String get workoutsAiUpdateTooltip => 'Update with AI';
@@ -382,10 +374,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutsOnboardingCta =>
-      'Complete onboarding to generate your personalized routine.';
+      'Finish setup to generate your weekly program.';
 
   @override
-  String get workoutsCreateMyPlan => 'Create My Plan';
+  String get workoutsCreateMyPlan => 'Create my plan';
 
   @override
   String get activeWorkoutNoExercises => 'No exercises for this day.';
@@ -397,7 +389,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String activeWorkoutSetCounter(int current, int total) {
-    return 'SET $current OF $total';
+    return 'Set $current of $total';
   }
 
   @override
@@ -412,13 +404,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activeWorkoutRepsLabel => 'REPS';
 
   @override
-  String get activeWorkoutSkipExercise => 'Skip Exercise';
+  String get activeWorkoutSkipExercise => 'Skip exercise';
 
   @override
-  String get activeWorkoutAddSet => 'Add Set';
+  String get activeWorkoutAddSet => 'Add set';
 
   @override
-  String get activeWorkoutCompleteSet => 'COMPLETE SET';
+  String get activeWorkoutCompleteSet => 'Complete set';
 
   @override
   String get activeWorkoutEndTitle => 'End workout?';
@@ -428,43 +420,43 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your progress on this session will be lost.';
 
   @override
-  String get activeWorkoutEndConfirm => 'End Workout';
+  String get activeWorkoutEndConfirm => 'End workout';
 
   @override
   String get workoutDetailNotFound => 'Workout not found';
 
   @override
-  String get workoutDetailStartButton => 'START WORKOUT';
+  String get workoutDetailStartButton => 'Start workout';
 
   @override
   String get workoutSummarySessionNotFound => 'Session not found';
 
   @override
-  String get workoutSummaryComplete => 'WORKOUT COMPLETE 🎉';
+  String get workoutSummaryComplete => 'Workout complete';
 
   @override
   String get workoutSummaryDuration => 'Duration';
 
   @override
-  String get workoutSummaryTotalVolume => 'Total Volume';
+  String get workoutSummaryTotalVolume => 'Total volume';
 
   @override
-  String get workoutSummarySetsCompleted => 'Sets Completed';
+  String get workoutSummarySetsCompleted => 'Sets completed';
 
   @override
-  String get workoutSummaryEstCalories => 'Est. Calories';
+  String get workoutSummaryEstCalories => 'Est. calories';
 
   @override
   String workoutSummaryNewPr(String weight, String reps) {
-    return 'NEW PR! $weight kg × $reps reps';
+    return 'New PR: $weight kg × $reps';
   }
 
   @override
   String get workoutSummaryEncouragement =>
-      'Great work! Your muscles are getting stronger and you\'re one step closer to your goal.';
+      'Good session. Every set you log makes next week\'s plan more accurate.';
 
   @override
-  String get workoutSummaryFinish => 'Finish & Return Home';
+  String get workoutSummaryFinish => 'Done';
 
   @override
   String get commonAdd => 'Add';
@@ -498,13 +490,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get foodLoggerSearchTab => 'Search';
 
   @override
-  String get foodLoggerQuickAddTab => 'Quick Add';
+  String get foodLoggerQuickAddTab => 'Quick add';
 
   @override
   String get foodLoggerSearchHint => 'Search for food or brand...';
 
   @override
-  String get barcodeScannerTitle => 'Scan Barcode';
+  String get barcodeScannerTitle => 'Scan barcode';
 
   @override
   String get barcodeScannerHint => 'Point the camera at a product barcode';
@@ -516,7 +508,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiChatTitle => 'AI Coach';
 
   @override
-  String get aiChatInputHint => 'Ask your coach anything...';
+  String get aiChatInputHint => 'Ask about training, food or recovery';
 
   @override
   String get aiChatEmptyState =>
@@ -529,17 +521,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiChatLimitReached =>
-      'You\'ve reached today\'s chat limit — come back tomorrow.';
+      'That\'s today\'s message limit. It resets tomorrow.';
 
   @override
   String get healthConnectPrompt =>
-      'Connect Health Connect to see steps & calories burned';
+      'Connect Apple Health or Health Connect to see steps and calories burned';
 
   @override
   String get healthStepsLabel => 'Steps';
 
   @override
-  String get healthCaloriesBurnedLabel => 'Cal Burned';
+  String get healthCaloriesBurnedLabel => 'Active kcal';
 
   @override
   String get achievementsTitle => 'Achievements';
@@ -665,7 +657,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quickAddFatLabel => 'Fat (g)';
 
   @override
-  String get quickAddEntryDefaultName => 'Quick Add';
+  String get quickAddEntryDefaultName => 'Quick add';
 
   @override
   String get progressScreenTitle => 'Progress';
@@ -690,18 +682,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressStrengthEmptyMessage =>
-      'Complete a workout to start tracking your 1RM progression.';
+      'Finish a workout to start tracking your estimated 1RM.';
 
   @override
   String progressStrengthChartTitle(String exercise) {
-    return '$exercise Progression';
+    return '$exercise';
   }
 
   @override
-  String get progressCurrentStreak => 'Current Streak';
+  String get progressCurrentStreak => 'Current streak';
 
   @override
-  String get progressLongestStreak => 'Longest Streak';
+  String get progressLongestStreak => 'Longest streak';
 
   @override
   String get progressConsistencyLabel => 'Consistency';
@@ -730,11 +722,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String measurementsBodyFatLabel(String category) {
-    return 'Body Fat — $category';
+    return 'Body fat · $category';
   }
 
   @override
-  String get bodyFatCategoryEssential => 'Essential Fat';
+  String get bodyFatCategoryEssential => 'Essential fat';
 
   @override
   String get bodyFatCategoryAthletic => 'Athletic';
@@ -749,7 +741,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bodyFatCategoryHigh => 'High';
 
   @override
-  String get measurementsAddButton => 'Add Measurement';
+  String get measurementsAddButton => 'Add measurement';
 
   @override
   String get measurementsEmptyTitle => 'No measurements yet';
@@ -764,7 +756,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get measurementsSheetTitle => 'Add Measurement';
+  String get measurementsSheetTitle => 'Add measurement';
 
   @override
   String measurementsFieldHint(String measurement) {
@@ -786,8 +778,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileEmptyTitle => 'No profile yet';
 
   @override
-  String get profileEmptyMessage =>
-      'Complete onboarding to build your profile.';
+  String get profileEmptyMessage => 'Finish setup to build your profile.';
 
   @override
   String get bioAge => 'Age';
@@ -805,13 +796,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileGoalsTile => 'Goals';
 
   @override
-  String get profileSignOut => 'Sign Out';
+  String get profileSignOut => 'Sign out';
 
   @override
   String get goalsEmptyTitle => 'No goals set';
 
   @override
-  String get goalsEmptyMessage => 'Complete onboarding to set your goals.';
+  String get goalsEmptyMessage => 'Finish setup to set your goals.';
 
   @override
   String get goalsCurrentLabel => 'Current';
@@ -823,28 +814,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goalsRemainingLabel => 'Remaining';
 
   @override
-  String get goalsWeeklyWorkoutLabel => 'WEEKLY WORKOUT GOAL';
+  String get goalsWeeklyWorkoutLabel => 'WEEKLY WORKOUTS';
 
   @override
-  String get goalsDailyCalorieLabel => 'DAILY CALORIE GOAL';
+  String get goalsDailyCalorieLabel => 'DAILY CALORIES';
 
   @override
-  String get goalsProteinLabel => 'PROTEIN GOAL';
+  String get goalsProteinLabel => 'DAILY PROTEIN';
 
   @override
-  String get settingsWorkoutSection => 'Workout Settings';
+  String get settingsWorkoutSection => 'Workout';
 
   @override
-  String get settingsDefaultRestTime => 'Default Rest Time';
+  String get settingsDefaultRestTime => 'Default rest time';
 
   @override
-  String get settingsAutoStartNextSet => 'Auto-start Next Set';
+  String get settingsAutoStartNextSet => 'Auto-start next set';
 
   @override
-  String get settingsWeightUnit => 'Weight Unit';
+  String get settingsWeightUnit => 'Weight unit';
 
   @override
-  String get settingsDistanceUnit => 'Distance Unit';
+  String get settingsDistanceUnit => 'Distance unit';
 
   @override
   String get settingsSound => 'Sound';
@@ -853,16 +844,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsHaptics => 'Haptics';
 
   @override
-  String get settingsCountdownBeep => 'Countdown Beep (3-2-1)';
+  String get settingsCountdownBeep => 'Countdown beep (3-2-1)';
 
   @override
-  String get settingsNutritionSection => 'Nutrition Settings';
+  String get settingsNutritionSection => 'Nutrition';
 
   @override
   String get settingsAutoCalculateTargets => 'Auto-calculate targets (TDEE)';
 
   @override
-  String get settingsFoodDatabase => 'Food Database';
+  String get settingsFoodDatabase => 'Food database';
 
   @override
   String get settingsFoodDbGlobal => 'Global (All)';
@@ -892,10 +883,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsNotificationsSection => 'Notifications';
 
   @override
-  String get settingsEnableNotifications => 'Enable Notifications';
+  String get settingsEnableNotifications => 'Reminders';
 
   @override
-  String get settingsAppearanceSection => 'Appearance & Language';
+  String get settingsAppearanceSection => 'Language';
 
   @override
   String get settingsLanguage => 'Language';
@@ -904,7 +895,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageSystem => 'System';
 
   @override
-  String get settingsAccountSection => 'Account & Support';
+  String get settingsAccountSection => 'Account & support';
 
   @override
   String get muscleGroupChest => 'Chest';
@@ -934,7 +925,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get muscleGroupCardio => 'Cardio';
 
   @override
-  String get muscleGroupFullBody => 'Full Body';
+  String get muscleGroupFullBody => 'Full body';
 
   @override
   String get settingsSubscription => 'Subscription';
@@ -943,29 +934,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallTitle => 'THRIVE+ Premium';
 
   @override
-  String get paywallSubtitle => 'Remove ads and unlock AI coaching.';
+  String get paywallSubtitle => 'No ads, plus the AI coach.';
 
   @override
   String get paywallFeatureNoAds => 'No ads';
 
   @override
-  String get paywallFeatureAiWorkouts => 'AI-generated workout plans';
+  String get paywallFeatureAiWorkouts => 'AI-built workout programs';
 
   @override
-  String get paywallFeatureAiMeals => 'AI meal-text logging';
+  String get paywallFeatureAiMeals => 'Log meals by typing them out';
 
   @override
   String get paywallSubscribeButton => 'Subscribe';
 
   @override
-  String get paywallRestoreButton => 'Restore Purchases';
+  String get paywallRestoreButton => 'Restore purchases';
 
   @override
-  String get paywallUnavailable =>
-      'Subscriptions aren\'t available yet — check back soon.';
+  String get paywallUnavailable => 'Subscriptions aren\'t available yet.';
 
   @override
-  String get paywallAlreadySubscribed => 'You\'re already Premium. Thank you!';
+  String get paywallAlreadySubscribed =>
+      'You\'re on Premium. Thanks for the support.';
 
   @override
   String get paywallPurchaseFailed =>
@@ -979,13 +970,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'No previous purchases found for this account.';
 
   @override
-  String get settingsSendFeedback => 'Send Feedback';
+  String get settingsSendFeedback => 'Send feedback';
 
   @override
-  String get settingsPrivacyPolicy => 'Privacy Policy';
+  String get settingsPrivacyPolicy => 'Privacy policy';
 
   @override
-  String get settingsDeleteAccount => 'Delete Account';
+  String get settingsDeleteAccount => 'Delete account';
 
   @override
   String get settingsDeleteAccountConfirmTitle => 'Delete your account?';
@@ -995,7 +986,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'This permanently deletes your account and all your data — workouts, nutrition logs, progress, everything. This cannot be undone.';
 
   @override
-  String get settingsDeleteAccountConfirmButton => 'Delete Permanently';
+  String get settingsDeleteAccountConfirmButton => 'Delete permanently';
 
   @override
   String get settingsDeleteAccountFailed =>
@@ -1007,19 +998,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get mealCardNoItems => 'No items logged yet';
+  String get mealCardNoItems => 'Nothing logged yet';
 
   @override
-  String get mealCardAddFood => 'Add Food';
+  String get mealCardAddFood => 'Add food';
 
   @override
   String workoutCardSummary(int minutes, int count) {
-    return '$minutes min • $count exercises';
+    return '$minutes min · $count exercises';
   }
 
   @override
   String exerciseCardSetsReps(int sets, int reps) {
-    return '$sets Sets × $reps Reps';
+    return '$sets × $reps';
   }
 
   @override
@@ -1028,25 +1019,25 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get restTimerLabel => 'REST';
+  String get restTimerLabel => 'Rest';
 
   @override
   String get restTimerSubtract => '-15s';
 
   @override
-  String get restTimerSkip => 'Skip Rest';
+  String get restTimerSkip => 'Skip rest';
 
   @override
   String get restTimerAdd => '+30s';
 
   @override
-  String get splashTagline => 'Train smarter. Get stronger.';
+  String get splashTagline => 'Training, food and progress in one place.';
 
   @override
   String get lineChartNoData => 'No data yet';
 
   @override
-  String get weightLogButton => 'Log Weight';
+  String get weightLogButton => 'Log weight';
 
   @override
   String get weightFieldHint => 'Weight';
@@ -1065,4 +1056,165 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navProfile => 'Profile';
+
+  @override
+  String get weekdayInitials => 'M,T,W,T,F,S,S';
+
+  @override
+  String get streakLabel => 'day streak';
+
+  @override
+  String get authErrorInvalidCredentials => 'Email or password is incorrect.';
+
+  @override
+  String get authErrorEmailNotConfirmed =>
+      'Confirm your email first. Check your inbox.';
+
+  @override
+  String get authErrorUserExists =>
+      'There\'s already an account with this email. Try signing in.';
+
+  @override
+  String get authErrorWeakPassword =>
+      'That password is too weak. Use at least 6 characters.';
+
+  @override
+  String get authErrorInvalidEmail => 'That email address doesn\'t look right.';
+
+  @override
+  String get authErrorRateLimited =>
+      'Too many attempts. Wait a minute and try again.';
+
+  @override
+  String get authErrorNetwork =>
+      'No connection. Check your internet and try again.';
+
+  @override
+  String get authErrorGeneric => 'Couldn\'t sign you in. Please try again.';
+
+  @override
+  String get authErrorMissingFields => 'Enter your email and password.';
+
+  @override
+  String get authConfirmEmailSent =>
+      'We sent a confirmation link to your email. Open it to finish signing up.';
+
+  @override
+  String get notifWorkoutTitle => 'Today\'s workout is waiting';
+
+  @override
+  String get notifWorkoutBody => 'No workout logged yet today. Got 20 minutes?';
+
+  @override
+  String get notifMealTitle => 'Log your meal';
+
+  @override
+  String get notifLunchBody =>
+      'Lunch time. Add what you ate while you remember it.';
+
+  @override
+  String get notifDinnerBody =>
+      'Dinner time. Add what you ate while you remember it.';
+
+  @override
+  String get dayFullBodyA => 'Full Body A';
+
+  @override
+  String get dayFullBodyB => 'Full Body B';
+
+  @override
+  String get dayFullBodyC => 'Full Body C';
+
+  @override
+  String get dayFullBody => 'Full Body';
+
+  @override
+  String get dayUpperBodyPower => 'Upper Body · Strength';
+
+  @override
+  String get dayUpperBodyHypertrophy => 'Upper Body · Volume';
+
+  @override
+  String get dayUpperBody => 'Upper Body';
+
+  @override
+  String get dayLowerBodyFocus => 'Lower Body · Strength';
+
+  @override
+  String get dayLowerBody => 'Lower Body';
+
+  @override
+  String get dayPush => 'Push';
+
+  @override
+  String get dayPull => 'Pull';
+
+  @override
+  String get dayLegsCore => 'Legs & Core';
+
+  @override
+  String get dayActiveRecovery => 'Active recovery';
+
+  @override
+  String get dayRest => 'Rest';
+
+  @override
+  String get programFullBody => 'Full Body Program';
+
+  @override
+  String get programUpperLower => 'Upper/Lower Split';
+
+  @override
+  String get exBenchPress => 'Bench Press';
+
+  @override
+  String get exInclineDumbbellPress => 'Incline Dumbbell Press';
+
+  @override
+  String get exOverheadPress => 'Overhead Press';
+
+  @override
+  String get exTricepsPushdown => 'Triceps Pushdown';
+
+  @override
+  String get exLateralRaise => 'Lateral Raise';
+
+  @override
+  String get exDeadlift => 'Deadlift';
+
+  @override
+  String get exPullUp => 'Pull-Up';
+
+  @override
+  String get exBarbellRow => 'Barbell Row';
+
+  @override
+  String get exFacePull => 'Face Pull';
+
+  @override
+  String get exBicepCurl => 'Biceps Curl';
+
+  @override
+  String get exBackSquat => 'Back Squat';
+
+  @override
+  String get exRomanianDeadlift => 'Romanian Deadlift';
+
+  @override
+  String get exLegPress => 'Leg Press';
+
+  @override
+  String get exWalkingLunge => 'Walking Lunge';
+
+  @override
+  String get exPlank => 'Plank';
+
+  @override
+  String get exGobletSquat => 'Goblet Squat';
+
+  @override
+  String get exPushUp => 'Push-Up';
+
+  @override
+  String get exDumbbellRow => 'Dumbbell Row';
 }

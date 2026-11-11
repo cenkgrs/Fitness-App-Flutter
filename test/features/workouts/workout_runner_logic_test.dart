@@ -5,20 +5,20 @@ import 'package:repwise/shared/models/models.dart';
 
 void main() {
   WorkoutDay buildDay() {
-    return WorkoutDay(
+    return const WorkoutDay(
       id: 'day1',
       name: 'Push Day',
       dayOfWeek: 1,
-      estimatedDuration: const Duration(minutes: 45),
+      estimatedDuration: Duration(minutes: 45),
       exercises: [
         Exercise(
           id: 'ex1',
           name: 'Bench Press',
           muscleGroup: MuscleGroup.chest,
-          equipment: const [Equipment.barbell],
+          equipment: [Equipment.barbell],
           instructions: '',
-          restDuration: const Duration(seconds: 90),
-          sets: const [
+          restDuration: Duration(seconds: 90),
+          sets: [
             ExerciseSet(setNumber: 1, targetReps: 8, targetWeightKg: 60),
             ExerciseSet(setNumber: 2, targetReps: 8, targetWeightKg: 60),
           ],
@@ -27,10 +27,10 @@ void main() {
           id: 'ex2',
           name: 'Incline Dumbbell Press',
           muscleGroup: MuscleGroup.chest,
-          equipment: const [Equipment.dumbbell],
+          equipment: [Equipment.dumbbell],
           instructions: '',
-          restDuration: const Duration(seconds: 60),
-          sets: const [
+          restDuration: Duration(seconds: 60),
+          sets: [
             ExerciseSet(setNumber: 1, targetReps: 10, targetWeightKg: 22),
           ],
         ),

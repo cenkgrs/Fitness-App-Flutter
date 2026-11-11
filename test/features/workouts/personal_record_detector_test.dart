@@ -98,7 +98,7 @@ void main() {
   });
 
   test('incomplete sets are never counted as PRs', () {
-    final incomplete = WorkoutSet(
+    const incomplete = WorkoutSet(
       id: 'a',
       exerciseId: 'ex1',
       setNumber: 1,

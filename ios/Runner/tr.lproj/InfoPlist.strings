@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "THRIVE+, yiyecek barkodlarını taramak için kamerayı kullanır.";
+"NSHealthShareUsageDescription" = "THRIVE+, günlük özetinde göstermek için Sağlık'tan adımlarını ve aktif kalorini okur.";
+"NSHealthUpdateUsageDescription" = "THRIVE+ Sağlık'a veri yazmaz. iOS, sağlık verisi okuyan uygulamalardan bu izni ister.";
+"NSUserTrackingUsageDescription" = "Sana daha ilgili reklamlar göstermek için kullanılır.";

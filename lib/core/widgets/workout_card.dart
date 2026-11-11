@@ -5,6 +5,8 @@ import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 import 'app_card.dart';
+import '../../features/workouts/presentation/workout_names.dart';
+import '../theme/app_icons.dart';
 
 class WorkoutCard extends StatelessWidget {
   final WorkoutDay day;
@@ -27,10 +29,11 @@ class WorkoutCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
         child: Row(
           children: [
-            const Icon(Icons.self_improvement, color: AppColors.textTertiary),
+            const Icon(AppIcons.moon, color: AppColors.textTertiary),
             const SizedBox(width: AppSpacing.md),
             Expanded(
-              child: Text(day.name, style: AppTypography.bodyMd.copyWith(color: AppColors.textSecondary)),
+              child: Text(workoutDayName(AppLocalizations.of(context)!, day.name),
+                  style: AppTypography.bodyMd.copyWith(color: AppColors.textSecondary)),
             ),
           ],
         ),
@@ -44,7 +47,7 @@ class WorkoutCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(day.name, style: AppTypography.headingSm),
+                Text(workoutDayName(AppLocalizations.of(context)!, day.name), style: AppTypography.headingSm),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   AppLocalizations.of(context)!
@@ -55,11 +58,11 @@ class WorkoutCard extends StatelessWidget {
             ),
           ),
           if (isCompleted)
-            const Icon(Icons.check_circle, color: AppColors.success)
+            const Icon(AppIcons.checkCircleFill, color: AppColors.success)
           else if (isToday)
-            const Icon(Icons.play_circle_fill, color: AppColors.primary, size: 32)
+            const Icon(AppIcons.playCircleFill, color: AppColors.primary, size: 32)
           else
-            const Icon(Icons.chevron_right, color: AppColors.textTertiary),
+            const Icon(AppIcons.caretRight, color: AppColors.textTertiary),
         ],
       ),
     );

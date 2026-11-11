@@ -9,6 +9,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../controllers/profile_providers.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -31,7 +32,7 @@ class ProfileScreen extends ConsumerWidget {
         data: (profile) {
           if (profile == null) {
             return EmptyState(
-              icon: Icons.person_outline,
+              icon: AppIcons.user,
               title: l10n.profileEmptyTitle,
               message: l10n.profileEmptyMessage,
             );
@@ -41,7 +42,7 @@ class ProfileScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const CircleAvatar(radius: 32, backgroundColor: AppColors.surface2, child: Icon(Icons.person, size: 32)),
+                  const CircleAvatar(radius: 32, backgroundColor: AppColors.surface2, child: Icon(AppIcons.user, size: 32)),
                   const SizedBox(width: AppSpacing.lg),
                   Expanded(
                     child: Column(
@@ -70,34 +71,34 @@ class ProfileScreen extends ConsumerWidget {
               ListTile(
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(Icons.settings_outlined),
+                leading: const Icon(AppIcons.gear),
                 title: Text(l10n.settingsScreenTitle),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: const Icon(AppIcons.caretRight),
                 onTap: () => context.push('/profile/settings'),
               ),
               const SizedBox(height: AppSpacing.md),
               ListTile(
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(Icons.flag_outlined),
+                leading: const Icon(AppIcons.flag),
                 title: Text(l10n.profileGoalsTile),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: const Icon(AppIcons.caretRight),
                 onTap: () => context.push('/goals'),
               ),
               const SizedBox(height: AppSpacing.md),
               ListTile(
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(Icons.emoji_events_outlined),
+                leading: const Icon(AppIcons.trophy),
                 title: Text(l10n.achievementsTitle),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: const Icon(AppIcons.caretRight),
                 onTap: () => context.push('/achievements'),
               ),
               const SizedBox(height: AppSpacing.md),
               ListTile(
                 tileColor: AppColors.surface1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                leading: const Icon(Icons.logout, color: AppColors.error),
+                leading: const Icon(AppIcons.signOut, color: AppColors.error),
                 title: Text(l10n.profileSignOut, style: const TextStyle(color: AppColors.error)),
                 onTap: () => ref.read(authControllerProvider.notifier).signOut(),
               ),

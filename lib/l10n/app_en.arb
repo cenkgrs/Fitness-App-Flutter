@@ -2,39 +2,33 @@
   "@@locale": "en",
   "appTitle": "THRIVE+",
   "settingsScreenTitle": "Settings",
-
-  "authSignUpTitle": "Create Account",
-  "authSignInTitle": "Welcome Back",
-  "authSignUpSubtitle": "Create an account first, then we'll build your personalized plan together.",
+  "authSignUpTitle": "Create account",
+  "authSignInTitle": "Welcome back",
+  "authSignUpSubtitle": "Create an account and we'll set up your plan together.",
   "authSignInSubtitle": "Sign in and pick up where you left off.",
   "authContinueWithApple": "Continue with Apple",
   "authContinueWithGoogle": "Continue with Google",
   "authOrWithEmail": "or with email",
   "authEmailHint": "Email",
   "authPasswordHint": "Password",
-  "authSignUpButton": "Sign Up",
-  "authSignInButton": "Sign In",
-  "authSwitchToSignIn": "Already have an account? Sign In",
-  "authSwitchToSignUp": "Don't have an account? Sign Up",
+  "authSignUpButton": "Sign up",
+  "authSignInButton": "Sign in",
+  "authSwitchToSignIn": "Already have an account? Sign in",
+  "authSwitchToSignUp": "New here? Create an account",
   "authForgotPassword": "Forgot password?",
-  "authResetPasswordTitle": "Reset Password",
+  "authResetPasswordTitle": "Reset password",
   "authResetPasswordMessage": "Enter your email and we'll send you a reset link.",
-  "authResetPasswordSend": "Send Reset Link",
+  "authResetPasswordSend": "Send reset link",
   "authResetPasswordSent": "If that email exists, a reset link has been sent.",
   "authResetPasswordFailed": "Couldn't send the reset link. Please try again.",
-  "authNewPasswordTitle": "Set a New Password",
+  "authNewPasswordTitle": "Set a new password",
   "authNewPasswordHint": "New password",
-  "authNewPasswordButton": "Update Password",
-  "authNewPasswordSuccess": "Password updated. You're all set.",
-  "authErrorSnackbar": "Something went wrong: {error}",
-  "@authErrorSnackbar": {
-    "placeholders": { "error": { "type": "String" } }
-  },
-
+  "authNewPasswordButton": "Update password",
+  "authNewPasswordSuccess": "Password updated.",
   "onboardingContinue": "Continue",
-  "onboardingWelcomeHeadline": "Reach your peak physique",
-  "onboardingWelcomeSubtitle": "We'll ask a few questions to build your personalized workout and nutrition plan.",
-  "onboardingGetStarted": "Get Started",
+  "onboardingWelcomeHeadline": "Training and food, in one plan.",
+  "onboardingWelcomeSubtitle": "A few quick questions, then we'll build a program and calorie target that fit you.",
+  "onboardingGetStarted": "Get started",
   "onboardingNameTitle": "What should we call you?",
   "onboardingNameHint": "Your name",
   "onboardingGenderTitle": "What's your gender?",
@@ -53,16 +47,20 @@
   "fitnessAdvancedLabel": "Advanced",
   "fitnessAdvancedSubtitle": "Heavy training & periodization (3+ years)",
   "onboardingPrimaryGoalTitle": "What's your main goal?",
-  "goalLoseWeight": "Lose Weight",
-  "goalBuildMuscle": "Build Muscle",
-  "goalLoseFat": "Lose Fat",
-  "goalMaintainFitness": "Maintain Fitness",
+  "goalLoseWeight": "Lose weight",
+  "goalBuildMuscle": "Build muscle",
+  "goalLoseFat": "Lose fat",
+  "goalMaintainFitness": "Stay fit",
   "onboardingDaysPerWeekTitle": "How many days a week do you want to train?",
   "onboardingMostPopular": "Most popular",
   "onboardingDurationTitle": "How long should your workouts be?",
   "onboardingDurationMinutes": "{minutes} min",
   "@onboardingDurationMinutes": {
-    "placeholders": { "minutes": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   },
   "onboardingLocationTitle": "Where do you train?",
   "locationGym": "Gym",
@@ -72,66 +70,89 @@
   "onboardingActivityLevelTitle": "What's your daily activity level?",
   "activitySedentaryLabel": "Sedentary",
   "activitySedentarySubtitle": "Desk job, little movement",
-  "activityModeratelyActiveLabel": "Moderately Active",
+  "activityModeratelyActiveLabel": "Moderately active",
   "activityModeratelyActiveSubtitle": "~7,500 steps/day",
-  "activityVeryActiveLabel": "Very Active",
+  "activityVeryActiveLabel": "Very active",
   "activityVeryActiveSubtitle": "10,000+ steps/day, physical job",
   "onboardingNutritionPrefTitle": "What's your nutrition preference?",
   "nutritionStandard": "Standard",
-  "nutritionHighProtein": "High Protein",
+  "nutritionHighProtein": "High protein",
   "nutritionKeto": "Ketogenic",
   "nutritionVegetarian": "Vegetarian",
   "nutritionVegan": "Vegan",
-  "onboardingCalculatingLine1": "Calculating your metabolic rate...",
-  "onboardingCalculatingLine2": "Optimizing your hypertrophy volume...",
-  "onboardingPlanReadyTitle": "Your Plan Is Ready, {name}!",
+  "onboardingCalculatingLine1": "Working out your calorie needs…",
+  "onboardingCalculatingLine2": "Putting your weekly program together…",
+  "onboardingPlanReadyTitle": "{name}, your plan is ready",
   "@onboardingPlanReadyTitle": {
-    "placeholders": { "name": { "type": "String" } }
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   },
-  "onboardingDefaultName": "Champion",
-  "onboardingDailyCalories": "Daily Calories",
+  "onboardingDefaultName": "Athlete",
+  "onboardingDailyCalories": "Daily calories",
   "macroProtein": "Protein",
   "macroCarbs": "Carbs",
   "macroFat": "Fat",
-  "onboardingDaysPerWeekProgram": "{days} Days / Week Program",
+  "onboardingDaysPerWeekProgram": "{days} days a week",
   "@onboardingDaysPerWeekProgram": {
-    "placeholders": { "days": { "type": "int" } }
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   },
-  "onboardingPlanTagline": "Muscle Hypertrophy & Fat Loss",
-  "onboardingStartMyPlan": "Start My Plan",
-
+  "onboardingPlanTagline": "Strength and body composition",
+  "onboardingStartMyPlan": "Start my plan",
   "homeGreetingMorning": "Good morning",
   "homeGreetingAfternoon": "Good afternoon",
   "homeGreetingEvening": "Good evening",
   "homeDefaultAthleteName": "Athlete",
-  "homeReadySubtitle": "Ready to get stronger?",
   "homeCaloriesLeft": "{count} left",
   "@homeCaloriesLeft": {
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "homeTodaysWorkoutLabel": "TODAY'S WORKOUT",
-  "homeRestDayMessage": "Rest day today. 🧘",
+  "homeRestDayMessage": "Rest day. Recovery is part of the plan.",
   "homeNoWorkoutPlanned": "No workout planned yet.",
-  "homeWorkoutSummary": "⏱ {minutes} min • 🏋️ {count} exercises",
+  "homeWorkoutSummary": "{minutes} min · {count} exercises",
   "@homeWorkoutSummary": {
-    "placeholders": { "minutes": { "type": "int" }, "count": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
   },
-  "homeStartWorkout": "Start Workout",
+  "homeStartWorkout": "Start workout",
   "homeWeightGoalLabel": "WEIGHT GOAL",
-  "homeWeightRemaining": "Remaining: {kg} kg",
+  "homeWeightRemaining": "{kg} kg to go",
   "@homeWeightRemaining": {
-    "placeholders": { "kg": { "type": "String" } }
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
   },
-  "homeQuickActionAddMeal": "Add Meal",
-  "homeQuickActionLogWeight": "Log Weight",
-  "homeQuickActionViewProgress": "View Progress",
-
+  "homeQuickActionAddMeal": "Add meal",
+  "homeQuickActionLogWeight": "Log weight",
+  "homeQuickActionViewProgress": "Progress",
   "genericError": "Error: {error}",
   "@genericError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "commonCancel": "Cancel",
-
   "weekdayMonday": "Monday",
   "weekdayTuesday": "Tuesday",
   "weekdayWednesday": "Wednesday",
@@ -139,95 +160,146 @@
   "weekdayFriday": "Friday",
   "weekdaySaturday": "Saturday",
   "weekdaySunday": "Sunday",
-
-  "workoutsScreenTitle": "Weekly Routine",
+  "workoutsScreenTitle": "This week",
   "workoutsAiUpdateTooltip": "Update with AI",
   "workoutsAiUpdateFailedSnackbar": "AI couldn't update the program: {error}",
   "@workoutsAiUpdateFailedSnackbar": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "workoutsFailedToLoad": "Failed to load program: {error}",
   "@workoutsFailedToLoad": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
-  "workoutsOnboardingCta": "Complete onboarding to generate your personalized routine.",
-  "workoutsCreateMyPlan": "Create My Plan",
-
+  "workoutsOnboardingCta": "Finish setup to generate your weekly program.",
+  "workoutsCreateMyPlan": "Create my plan",
   "activeWorkoutNoExercises": "No exercises for this day.",
   "activeWorkoutExerciseCounter": "Exercise {current} of {total}",
   "@activeWorkoutExerciseCounter": {
-    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   },
-  "activeWorkoutSetCounter": "SET {current} OF {total}",
+  "activeWorkoutSetCounter": "Set {current} of {total}",
   "@activeWorkoutSetCounter": {
-    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   },
   "activeWorkoutTarget": "Target: {weight} kg × {reps} reps",
   "@activeWorkoutTarget": {
-    "placeholders": { "weight": { "type": "String" }, "reps": { "type": "String" } }
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "reps": {
+        "type": "String"
+      }
+    }
   },
   "activeWorkoutWeightLabel": "WEIGHT (KG)",
   "activeWorkoutRepsLabel": "REPS",
-  "activeWorkoutSkipExercise": "Skip Exercise",
-  "activeWorkoutAddSet": "Add Set",
-  "activeWorkoutCompleteSet": "COMPLETE SET",
+  "activeWorkoutSkipExercise": "Skip exercise",
+  "activeWorkoutAddSet": "Add set",
+  "activeWorkoutCompleteSet": "Complete set",
   "activeWorkoutEndTitle": "End workout?",
   "activeWorkoutEndContent": "Your progress on this session will be lost.",
-  "activeWorkoutEndConfirm": "End Workout",
-
+  "activeWorkoutEndConfirm": "End workout",
   "workoutDetailNotFound": "Workout not found",
-  "workoutDetailStartButton": "START WORKOUT",
-
+  "workoutDetailStartButton": "Start workout",
   "workoutSummarySessionNotFound": "Session not found",
-  "workoutSummaryComplete": "WORKOUT COMPLETE 🎉",
+  "workoutSummaryComplete": "Workout complete",
   "workoutSummaryDuration": "Duration",
-  "workoutSummaryTotalVolume": "Total Volume",
-  "workoutSummarySetsCompleted": "Sets Completed",
-  "workoutSummaryEstCalories": "Est. Calories",
-  "workoutSummaryNewPr": "NEW PR! {weight} kg × {reps} reps",
+  "workoutSummaryTotalVolume": "Total volume",
+  "workoutSummarySetsCompleted": "Sets completed",
+  "workoutSummaryEstCalories": "Est. calories",
+  "workoutSummaryNewPr": "New PR: {weight} kg × {reps}",
   "@workoutSummaryNewPr": {
-    "placeholders": { "weight": { "type": "String" }, "reps": { "type": "String" } }
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "reps": {
+        "type": "String"
+      }
+    }
   },
-  "workoutSummaryEncouragement": "Great work! Your muscles are getting stronger and you're one step closer to your goal.",
-  "workoutSummaryFinish": "Finish & Return Home",
-
+  "workoutSummaryEncouragement": "Good session. Every set you log makes next week's plan more accurate.",
+  "workoutSummaryFinish": "Done",
   "commonAdd": "Add",
   "nutritionToday": "Today",
   "nutritionCaloriesProgress": "{consumed} / {goal} kcal",
   "@nutritionCaloriesProgress": {
-    "placeholders": { "consumed": { "type": "int" }, "goal": { "type": "int" } }
+    "placeholders": {
+      "consumed": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
   },
-
   "mealTypeBreakfast": "Breakfast",
   "mealTypeLunch": "Lunch",
   "mealTypeDinner": "Dinner",
   "mealTypeSnack": "Snack",
-
   "foodLoggerTitle": "Add to {mealType}",
   "@foodLoggerTitle": {
-    "placeholders": { "mealType": { "type": "String" } }
+    "placeholders": {
+      "mealType": {
+        "type": "String"
+      }
+    }
   },
   "foodLoggerSearchTab": "Search",
-  "foodLoggerQuickAddTab": "Quick Add",
+  "foodLoggerQuickAddTab": "Quick add",
   "foodLoggerSearchHint": "Search for food or brand...",
-  "barcodeScannerTitle": "Scan Barcode",
+  "barcodeScannerTitle": "Scan barcode",
   "barcodeScannerHint": "Point the camera at a product barcode",
   "barcodeScannerNotFound": "No product found for that barcode.",
   "aiChatTitle": "AI Coach",
-  "aiChatInputHint": "Ask your coach anything...",
+  "aiChatInputHint": "Ask about training, food or recovery",
   "aiChatEmptyState": "Ask me anything about training, nutrition, or recovery.",
   "aiChatRemainingToday": "{count} messages left today",
   "@aiChatRemainingToday": {
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-  "aiChatLimitReached": "You've reached today's chat limit — come back tomorrow.",
-  "healthConnectPrompt": "Connect Health Connect to see steps & calories burned",
+  "aiChatLimitReached": "That's today's message limit. It resets tomorrow.",
+  "healthConnectPrompt": "Connect Apple Health or Health Connect to see steps and calories burned",
   "healthStepsLabel": "Steps",
-  "healthCaloriesBurnedLabel": "Cal Burned",
+  "healthCaloriesBurnedLabel": "Active kcal",
   "achievementsTitle": "Achievements",
   "achievementsUnlockedCount": "{unlocked}/{total} unlocked",
   "@achievementsUnlockedCount": {
-    "placeholders": {"unlocked": {"type": "int"}, "total": {"type": "int"}}
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   },
   "achievementFirstWorkoutTitle": "First Step",
   "achievementFirstWorkoutDesc": "Complete your first workout",
@@ -253,8 +325,12 @@
   "waterCardAmount": "{consumed}/{goal} ml",
   "@waterCardAmount": {
     "placeholders": {
-      "consumed": {"type": "int"},
-      "goal": {"type": "int"}
+      "consumed": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
     }
   },
   "foodLoggerNoResultsTitle": "No results",
@@ -262,19 +338,35 @@
   "foodLoggerNutritionSummary": "{kcal} kcal / 100g • P:{protein}g C:{carbs}g F:{fat}g",
   "@foodLoggerNutritionSummary": {
     "placeholders": {
-      "kcal": { "type": "String" },
-      "protein": { "type": "String" },
-      "carbs": { "type": "String" },
-      "fat": { "type": "String" }
+      "kcal": {
+        "type": "String"
+      },
+      "protein": {
+        "type": "String"
+      },
+      "carbs": {
+        "type": "String"
+      },
+      "fat": {
+        "type": "String"
+      }
     }
   },
   "foodLoggerQuantitySummary": "{kcal} kcal — P: {protein}g, C: {carbs}g, F: {fat}g",
   "@foodLoggerQuantitySummary": {
     "placeholders": {
-      "kcal": { "type": "String" },
-      "protein": { "type": "String" },
-      "carbs": { "type": "String" },
-      "fat": { "type": "String" }
+      "kcal": {
+        "type": "String"
+      },
+      "protein": {
+        "type": "String"
+      },
+      "carbs": {
+        "type": "String"
+      },
+      "fat": {
+        "type": "String"
+      }
     }
   },
   "foodLoggerAiHint": "e.g. 3 eggs, 100g rice, a handful of almonds",
@@ -283,14 +375,17 @@
   "foodLoggerOrManualEntry": "or enter manually",
   "foodLoggerAiParseFailedSnackbar": "AI couldn't parse the meal: {error}",
   "@foodLoggerAiParseFailedSnackbar": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "quickAddCaloriesLabel": "Calories",
   "quickAddProteinLabel": "Protein (g)",
   "quickAddCarbsLabel": "Carbs (g)",
   "quickAddFatLabel": "Fat (g)",
-  "quickAddEntryDefaultName": "Quick Add",
-
+  "quickAddEntryDefaultName": "Quick add",
   "progressScreenTitle": "Progress",
   "progressTabWeight": "Weight",
   "progressTabStrength": "Strength",
@@ -298,15 +393,18 @@
   "progressTabMeasurements": "Measurements",
   "progressWeightChartTitle": "Weight (kg)",
   "progressStrengthEmptyTitle": "No strength data yet",
-  "progressStrengthEmptyMessage": "Complete a workout to start tracking your 1RM progression.",
-  "progressStrengthChartTitle": "{exercise} Progression",
+  "progressStrengthEmptyMessage": "Finish a workout to start tracking your estimated 1RM.",
+  "progressStrengthChartTitle": "{exercise}",
   "@progressStrengthChartTitle": {
-    "placeholders": { "exercise": { "type": "String" } }
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
   },
-  "progressCurrentStreak": "Current Streak",
-  "progressLongestStreak": "Longest Streak",
+  "progressCurrentStreak": "Current streak",
+  "progressLongestStreak": "Longest streak",
   "progressConsistencyLabel": "Consistency",
-
   "measurementWaist": "Waist",
   "measurementNeck": "Neck",
   "measurementHip": "Hip",
@@ -314,63 +412,76 @@
   "measurementBiceps": "Biceps",
   "measurementThigh": "Thigh",
   "measurementsBodyFatHint": "Add your waist and neck measurements to see your body fat percentage.",
-  "measurementsBodyFatLabel": "Body Fat — {category}",
+  "measurementsBodyFatLabel": "Body fat · {category}",
   "@measurementsBodyFatLabel": {
-    "placeholders": { "category": { "type": "String" } }
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
   },
-  "bodyFatCategoryEssential": "Essential Fat",
+  "bodyFatCategoryEssential": "Essential fat",
   "bodyFatCategoryAthletic": "Athletic",
   "bodyFatCategoryFitness": "Fitness",
   "bodyFatCategoryAverage": "Average",
   "bodyFatCategoryHigh": "High",
-  "measurementsAddButton": "Add Measurement",
+  "measurementsAddButton": "Add measurement",
   "measurementsEmptyTitle": "No measurements yet",
   "measurementsEmptyMessage": "Add your first measurement to start tracking.",
   "measurementsChartTitle": "{measurement} (cm)",
   "@measurementsChartTitle": {
-    "placeholders": { "measurement": { "type": "String" } }
+    "placeholders": {
+      "measurement": {
+        "type": "String"
+      }
+    }
   },
-  "measurementsSheetTitle": "Add Measurement",
+  "measurementsSheetTitle": "Add measurement",
   "measurementsFieldHint": "{measurement} (cm)",
   "@measurementsFieldHint": {
-    "placeholders": { "measurement": { "type": "String" } }
+    "placeholders": {
+      "measurement": {
+        "type": "String"
+      }
+    }
   },
   "commonSave": "Save",
-
   "profileScreenTitle": "Profile",
   "profileLoadError": "Couldn't load profile: {error}",
   "@profileLoadError": {
-    "placeholders": { "error": { "type": "String" } }
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   },
   "profileEmptyTitle": "No profile yet",
-  "profileEmptyMessage": "Complete onboarding to build your profile.",
+  "profileEmptyMessage": "Finish setup to build your profile.",
   "bioAge": "Age",
   "bioHeight": "Height",
   "bioWeight": "Weight",
   "bioLevel": "Level",
   "profileGoalsTile": "Goals",
-  "profileSignOut": "Sign Out",
-
+  "profileSignOut": "Sign out",
   "goalsEmptyTitle": "No goals set",
-  "goalsEmptyMessage": "Complete onboarding to set your goals.",
+  "goalsEmptyMessage": "Finish setup to set your goals.",
   "goalsCurrentLabel": "Current",
   "goalsTargetLabel": "Target",
   "goalsRemainingLabel": "Remaining",
-  "goalsWeeklyWorkoutLabel": "WEEKLY WORKOUT GOAL",
-  "goalsDailyCalorieLabel": "DAILY CALORIE GOAL",
-  "goalsProteinLabel": "PROTEIN GOAL",
-
-  "settingsWorkoutSection": "Workout Settings",
-  "settingsDefaultRestTime": "Default Rest Time",
-  "settingsAutoStartNextSet": "Auto-start Next Set",
-  "settingsWeightUnit": "Weight Unit",
-  "settingsDistanceUnit": "Distance Unit",
+  "goalsWeeklyWorkoutLabel": "WEEKLY WORKOUTS",
+  "goalsDailyCalorieLabel": "DAILY CALORIES",
+  "goalsProteinLabel": "DAILY PROTEIN",
+  "settingsWorkoutSection": "Workout",
+  "settingsDefaultRestTime": "Default rest time",
+  "settingsAutoStartNextSet": "Auto-start next set",
+  "settingsWeightUnit": "Weight unit",
+  "settingsDistanceUnit": "Distance unit",
   "settingsSound": "Sound",
   "settingsHaptics": "Haptics",
-  "settingsCountdownBeep": "Countdown Beep (3-2-1)",
-  "settingsNutritionSection": "Nutrition Settings",
+  "settingsCountdownBeep": "Countdown beep (3-2-1)",
+  "settingsNutritionSection": "Nutrition",
   "settingsAutoCalculateTargets": "Auto-calculate targets (TDEE)",
-  "settingsFoodDatabase": "Food Database",
+  "settingsFoodDatabase": "Food database",
   "settingsFoodDbGlobal": "Global (All)",
   "settingsFoodDbTurkey": "Turkey",
   "settingsFoodDbGermany": "Germany",
@@ -380,18 +491,26 @@
   "settingsManualMacroEditing": "Manual macro editing: Calories {calories} · Protein {protein}g · Carbs {carbs}g · Fat {fat}g",
   "@settingsManualMacroEditing": {
     "placeholders": {
-      "calories": { "type": "String" },
-      "protein": { "type": "String" },
-      "carbs": { "type": "String" },
-      "fat": { "type": "String" }
+      "calories": {
+        "type": "String"
+      },
+      "protein": {
+        "type": "String"
+      },
+      "carbs": {
+        "type": "String"
+      },
+      "fat": {
+        "type": "String"
+      }
     }
   },
   "settingsNotificationsSection": "Notifications",
-  "settingsEnableNotifications": "Enable Notifications",
-  "settingsAppearanceSection": "Appearance & Language",
+  "settingsEnableNotifications": "Reminders",
+  "settingsAppearanceSection": "Language",
   "settingsLanguage": "Language",
   "settingsLanguageSystem": "System",
-  "settingsAccountSection": "Account & Support",
+  "settingsAccountSection": "Account & support",
   "muscleGroupChest": "Chest",
   "muscleGroupBack": "Back",
   "muscleGroupShoulders": "Shoulders",
@@ -401,59 +520,129 @@
   "muscleGroupGlutes": "Glutes",
   "muscleGroupCore": "Core",
   "muscleGroupCardio": "Cardio",
-  "muscleGroupFullBody": "Full Body",
+  "muscleGroupFullBody": "Full body",
   "settingsSubscription": "Subscription",
   "paywallTitle": "THRIVE+ Premium",
-  "paywallSubtitle": "Remove ads and unlock AI coaching.",
+  "paywallSubtitle": "No ads, plus the AI coach.",
   "paywallFeatureNoAds": "No ads",
-  "paywallFeatureAiWorkouts": "AI-generated workout plans",
-  "paywallFeatureAiMeals": "AI meal-text logging",
+  "paywallFeatureAiWorkouts": "AI-built workout programs",
+  "paywallFeatureAiMeals": "Log meals by typing them out",
   "paywallSubscribeButton": "Subscribe",
-  "paywallRestoreButton": "Restore Purchases",
-  "paywallUnavailable": "Subscriptions aren't available yet — check back soon.",
-  "paywallAlreadySubscribed": "You're already Premium. Thank you!",
+  "paywallRestoreButton": "Restore purchases",
+  "paywallUnavailable": "Subscriptions aren't available yet.",
+  "paywallAlreadySubscribed": "You're on Premium. Thanks for the support.",
   "paywallPurchaseFailed": "Purchase couldn't be completed. Please try again.",
   "paywallRestoreSuccess": "Purchases restored.",
   "paywallRestoreNone": "No previous purchases found for this account.",
-  "settingsSendFeedback": "Send Feedback",
-  "settingsPrivacyPolicy": "Privacy Policy",
-  "settingsDeleteAccount": "Delete Account",
+  "settingsSendFeedback": "Send feedback",
+  "settingsPrivacyPolicy": "Privacy policy",
+  "settingsDeleteAccount": "Delete account",
   "settingsDeleteAccountConfirmTitle": "Delete your account?",
   "settingsDeleteAccountConfirmMessage": "This permanently deletes your account and all your data — workouts, nutrition logs, progress, everything. This cannot be undone.",
-  "settingsDeleteAccountConfirmButton": "Delete Permanently",
+  "settingsDeleteAccountConfirmButton": "Delete permanently",
   "settingsDeleteAccountFailed": "Couldn't delete your account. Please try again.",
   "settingsSecondsFormat": "{seconds}s",
   "@settingsSecondsFormat": {
-    "placeholders": { "seconds": { "type": "int" } }
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   },
-
-  "mealCardNoItems": "No items logged yet",
-  "mealCardAddFood": "Add Food",
-  "workoutCardSummary": "{minutes} min • {count} exercises",
+  "mealCardNoItems": "Nothing logged yet",
+  "mealCardAddFood": "Add food",
+  "workoutCardSummary": "{minutes} min · {count} exercises",
   "@workoutCardSummary": {
-    "placeholders": { "minutes": { "type": "int" }, "count": { "type": "int" } }
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
   },
-  "exerciseCardSetsReps": "{sets} Sets × {reps} Reps",
+  "exerciseCardSetsReps": "{sets} × {reps}",
   "@exerciseCardSetsReps": {
-    "placeholders": { "sets": { "type": "int" }, "reps": { "type": "int" } }
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
   },
   "exerciseCardLastBest": "Last: {value}",
   "@exerciseCardLastBest": {
-    "placeholders": { "value": { "type": "String" } }
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   },
-  "restTimerLabel": "REST",
+  "restTimerLabel": "Rest",
   "restTimerSubtract": "-15s",
-  "restTimerSkip": "Skip Rest",
+  "restTimerSkip": "Skip rest",
   "restTimerAdd": "+30s",
-  "splashTagline": "Train smarter. Get stronger.",
+  "splashTagline": "Training, food and progress in one place.",
   "lineChartNoData": "No data yet",
-
-  "weightLogButton": "Log Weight",
+  "weightLogButton": "Log weight",
   "weightFieldHint": "Weight",
-
   "navHome": "Home",
   "navWorkouts": "Workouts",
   "navNutrition": "Nutrition",
   "navProgress": "Progress",
-  "navProfile": "Profile"
+  "navProfile": "Profile",
+  "weekdayInitials": "M,T,W,T,F,S,S",
+  "streakLabel": "day streak",
+  "authErrorInvalidCredentials": "Email or password is incorrect.",
+  "authErrorEmailNotConfirmed": "Confirm your email first. Check your inbox.",
+  "authErrorUserExists": "There's already an account with this email. Try signing in.",
+  "authErrorWeakPassword": "That password is too weak. Use at least 6 characters.",
+  "authErrorInvalidEmail": "That email address doesn't look right.",
+  "authErrorRateLimited": "Too many attempts. Wait a minute and try again.",
+  "authErrorNetwork": "No connection. Check your internet and try again.",
+  "authErrorGeneric": "Couldn't sign you in. Please try again.",
+  "authErrorMissingFields": "Enter your email and password.",
+  "authConfirmEmailSent": "We sent a confirmation link to your email. Open it to finish signing up.",
+  "notifWorkoutTitle": "Today's workout is waiting",
+  "notifWorkoutBody": "No workout logged yet today. Got 20 minutes?",
+  "notifMealTitle": "Log your meal",
+  "notifLunchBody": "Lunch time. Add what you ate while you remember it.",
+  "notifDinnerBody": "Dinner time. Add what you ate while you remember it.",
+  "dayFullBodyA": "Full Body A",
+  "dayFullBodyB": "Full Body B",
+  "dayFullBodyC": "Full Body C",
+  "dayFullBody": "Full Body",
+  "dayUpperBodyPower": "Upper Body · Strength",
+  "dayUpperBodyHypertrophy": "Upper Body · Volume",
+  "dayUpperBody": "Upper Body",
+  "dayLowerBodyFocus": "Lower Body · Strength",
+  "dayLowerBody": "Lower Body",
+  "dayPush": "Push",
+  "dayPull": "Pull",
+  "dayLegsCore": "Legs & Core",
+  "dayActiveRecovery": "Active recovery",
+  "dayRest": "Rest",
+  "programFullBody": "Full Body Program",
+  "programUpperLower": "Upper/Lower Split",
+  "exBenchPress": "Bench Press",
+  "exInclineDumbbellPress": "Incline Dumbbell Press",
+  "exOverheadPress": "Overhead Press",
+  "exTricepsPushdown": "Triceps Pushdown",
+  "exLateralRaise": "Lateral Raise",
+  "exDeadlift": "Deadlift",
+  "exPullUp": "Pull-Up",
+  "exBarbellRow": "Barbell Row",
+  "exFacePull": "Face Pull",
+  "exBicepCurl": "Biceps Curl",
+  "exBackSquat": "Back Squat",
+  "exRomanianDeadlift": "Romanian Deadlift",
+  "exLegPress": "Leg Press",
+  "exWalkingLunge": "Walking Lunge",
+  "exPlank": "Plank",
+  "exGobletSquat": "Goblet Squat",
+  "exPushUp": "Push-Up",
+  "exDumbbellRow": "Dumbbell Row"
 }

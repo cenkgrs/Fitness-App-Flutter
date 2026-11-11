@@ -14,8 +14,16 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>tr</string>
+		<string>de</string>
+		<string>es</string>
+		<string>fr</string>
+	</array>
 	<key>CFBundleName</key>
-	<string>repwise</string>
+	<string>THRIVE+</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -40,13 +48,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>THRIVE+ needs camera access to scan food barcodes.</string>
+	<string>THRIVE+ uses the camera to scan food barcodes.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>THRIVE+ reads your steps and active calories burned from Health to show them in your daily summary.</string>
+	<string>THRIVE+ reads your steps and active calories from Health to show them in your daily summary.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>THRIVE+ does not write to Health. This permission is required by the health data framework.</string>
+	<string>THRIVE+ does not write to Health. iOS requires this permission for apps that read health data.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<string>Used to show you ads that are more relevant to you.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

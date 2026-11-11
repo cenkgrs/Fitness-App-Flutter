@@ -10,6 +10,7 @@ import '../../../../shared/ai/ai_providers.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class AiChatScreen extends ConsumerStatefulWidget {
   const AiChatScreen({super.key});
@@ -184,7 +185,7 @@ class _AiChatScreenState extends ConsumerState<AiChatScreen> {
                     icon: _sending
                         ? const SizedBox(
                             width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                        : const Icon(Icons.send),
+                        : const Icon(AppIcons.paperPlaneRightFill),
                   ),
                 ],
               ),

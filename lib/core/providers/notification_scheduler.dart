@@ -6,6 +6,7 @@ import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../features/settings/presentation/controllers/settings_controller.dart';
 import '../../features/workouts/presentation/controllers/workout_providers.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/models/models.dart';
 import '../services/notification_service.dart';
 
@@ -13,26 +14,6 @@ const _workoutReminderHour = 18;
 const _lunchReminderHour = 12;
 const _lunchReminderMinute = 30;
 const _dinnerReminderHour = 19;
-
-// Kept as plain string tables (not routed through .arb/AppLocalizations)
-// because this runs from a Riverpod provider with no BuildContext to read
-// localizations from — same reasoning as the static privacy policy screen.
-const _strings = {
-  'en': (
-    workoutTitle: "Don't skip today",
-    workoutBody: "You haven't logged a workout today — got 20 minutes?",
-    mealTitle: 'Log your meal',
-    lunchBody: 'Lunch time — add what you ate to stay on track.',
-    dinnerBody: 'Dinner time — add what you ate to stay on track.',
-  ),
-  'tr': (
-    workoutTitle: 'Bugünü atlama',
-    workoutBody: 'Bugün antrenman kaydın yok — 20 dakikan var mı?',
-    mealTitle: 'Öğününü kaydet',
-    lunchBody: 'Öğle yemeği vakti — ne yediğini eklemeyi unutma.',
-    dinnerBody: 'Akşam yemeği vakti — ne yediğini eklemeyi unutma.',
-  ),
-};
 
 bool _isToday(DateTime date) {
   final now = DateTime.now();
@@ -45,10 +26,13 @@ bool _isToday(DateTime date) {
 /// scheduling the same id again simply replaces the pending one.
 Future<void> refreshDailyReminders(Ref ref) async {
   final settings = ref.read(settingsControllerProvider);
-  final lang = settings.languageCode == 'system'
-      ? (PlatformDispatcher.instance.locale.languageCode == 'tr' ? 'tr' : 'en')
-      : (settings.languageCode == 'tr' ? 'tr' : 'en');
-  final t = _strings[lang]!;
+  // No BuildContext here, so resolve the same locale MaterialApp would and
+  // look the strings up directly.
+  final requested = settings.languageCode == 'system'
+      ? PlatformDispatcher.instance.locale.languageCode
+      : settings.languageCode;
+  final supported = AppLocalizations.supportedLocales.map((l) => l.languageCode);
+  final t = lookupAppLocalizations(Locale(supported.contains(requested) ? requested : 'en'));
   if (!settings.notificationsEnabled) {
     await NotificationService.cancelAll();
     return;
@@ -65,8 +49,8 @@ Future<void> refreshDailyReminders(Ref ref) async {
   } else {
     await NotificationService.scheduleDaily(
       id: NotificationIds.workoutReminder,
-      title: t.workoutTitle,
-      body: t.workoutBody,
+      title: t.notifWorkoutTitle,
+      body: t.notifWorkoutBody,
       hour: _workoutReminderHour,
       minute: 0,
     );
@@ -85,8 +69,8 @@ Future<void> refreshDailyReminders(Ref ref) async {
   } else {
     await NotificationService.scheduleDaily(
       id: NotificationIds.lunchReminder,
-      title: t.mealTitle,
-      body: t.lunchBody,
+      title: t.notifMealTitle,
+      body: t.notifLunchBody,
       hour: _lunchReminderHour,
       minute: _lunchReminderMinute,
     );
@@ -97,8 +81,8 @@ Future<void> refreshDailyReminders(Ref ref) async {
   } else {
     await NotificationService.scheduleDaily(
       id: NotificationIds.dinnerReminder,
-      title: t.mealTitle,
-      body: t.dinnerBody,
+      title: t.notifMealTitle,
+      body: t.notifDinnerBody,
       hour: _dinnerReminderHour,
       minute: 0,
     );

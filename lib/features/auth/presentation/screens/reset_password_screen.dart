@@ -5,6 +5,8 @@ import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../controllers/auth_controller.dart';
+import '../auth_error_message.dart';
+import '../../../../core/theme/app_icons.dart';
 
 /// Reached only via a password-recovery deep link (see [passwordRecoveryProvider]
 /// and the router redirect in app_router.dart) — lets the user set a new
@@ -45,7 +47,7 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
     ref.listen(authControllerProvider, (prev, next) {
       if (next.hasError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.authErrorSnackbar(next.error.toString()))),
+          SnackBar(content: Text(authErrorMessage(l10n, next.error!))),
         );
       }
     });
@@ -67,7 +69,7 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
                 decoration: InputDecoration(
                   hintText: l10n.authNewPasswordHint,
                   suffixIcon: IconButton(
-                    icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
+                    icon: Icon(_obscure ? AppIcons.eyeSlash : AppIcons.eye),
                     onPressed: () => setState(() => _obscure = !_obscure),
                   ),
                 ),

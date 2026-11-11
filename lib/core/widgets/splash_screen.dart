@@ -32,28 +32,20 @@ class _SplashScreenState extends State<SplashScreen> {
             RichText(
               text: const TextSpan(
                 style: TextStyle(
-                  fontSize: 36,
+                  fontFamily: AppTypography.fontFamily,
+                  fontSize: 34,
                   fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
+                  letterSpacing: -1,
                 ),
                 children: [
-                  TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.primary)),
-                  TextSpan(text: '+', style: TextStyle(color: AppColors.textPrimary)),
+                  TextSpan(text: 'THRIVE', style: TextStyle(color: AppColors.textPrimary)),
+                  TextSpan(text: '+', style: TextStyle(color: AppColors.primary)),
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Text(AppLocalizations.of(context)!.splashTagline,
                 style: AppTypography.bodyMd.copyWith(color: AppColors.textTertiary)),
-            const SizedBox(height: 48),
-            const SizedBox(
-              width: 120,
-              child: LinearProgressIndicator(
-                minHeight: 2,
-                backgroundColor: AppColors.surface2,
-                valueColor: AlwaysStoppedAnimation(AppColors.primary),
-              ),
-            ),
           ],
         ),
       ),

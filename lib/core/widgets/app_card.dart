@@ -24,9 +24,6 @@ class AppCard extends StatelessWidget {
         color: AppColors.surface1,
         borderRadius: BorderRadius.circular(AppRadius.lg),
         border: Border.all(color: AppColors.surfaceBorder),
-        boxShadow: const [
-          BoxShadow(color: Color(0x66000000), blurRadius: 20, offset: Offset(0, 4)),
-        ],
       ),
       child: accentColor == null
           ? Padding(padding: padding, child: child)
@@ -34,7 +31,7 @@ class AppCard extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    width: 4,
+                    width: 3,
                     decoration: BoxDecoration(
                       color: accentColor,
                       borderRadius: const BorderRadius.horizontal(left: Radius.circular(AppRadius.lg)),

@@ -10,6 +10,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../controllers/nutrition_providers.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class NutritionScreen extends ConsumerWidget {
   const NutritionScreen({super.key});
@@ -27,13 +28,13 @@ class NutritionScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: const Icon(Icons.chevron_left),
+              icon: const Icon(AppIcons.caretLeft),
               onPressed: () => ref.read(selectedNutritionDateProvider.notifier).state =
                   date.subtract(const Duration(days: 1)),
             ),
             Text(isToday ? l10n.nutritionToday : DateFormat('d MMM').format(date)),
             IconButton(
-              icon: const Icon(Icons.chevron_right),
+              icon: const Icon(AppIcons.caretRight),
               onPressed: isToday
                   ? null
                   : () => ref.read(selectedNutritionDateProvider.notifier).state =
@@ -46,7 +47,7 @@ class NutritionScreen extends ConsumerWidget {
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.onPrimary,
         onPressed: () => context.push('/nutrition/log/${MealType.snack.name}'),
-        child: const Icon(Icons.add),
+        child: const Icon(AppIcons.plus),
       ),
       body: nutritionAsync.when(
         loading: () => ListView(
@@ -187,7 +188,7 @@ class _WaterCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.water_drop, color: AppColors.protein, size: 18),
+                  const Icon(AppIcons.drop, color: AppColors.protein, size: 18),
                   const SizedBox(width: AppSpacing.xs),
                   Text(l10n.waterCardTitle, style: AppTypography.bodyLg),
                 ],

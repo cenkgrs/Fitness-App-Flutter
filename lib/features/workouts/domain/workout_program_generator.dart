@@ -84,6 +84,7 @@ class WorkoutProgramGenerator {
 
     switch (dayName) {
       case 'Push Day':
+      case 'Upper Body':
       case 'Upper Body Power':
       case 'Upper Body Hypertrophy':
         return [
@@ -102,6 +103,7 @@ class WorkoutProgramGenerator {
           ex('Bicep Curl', MuscleGroup.biceps, 12, eq: const [Equipment.dumbbell]),
         ];
       case 'Legs & Core':
+      case 'Lower Body':
       case 'Lower Body Focus':
         return [
           ex('Back Squat', MuscleGroup.legs, 70),

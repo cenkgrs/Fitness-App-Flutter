@@ -4,6 +4,7 @@ import '../theme/app_radius.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 import '../utils/haptics_helper.dart';
+import '../theme/app_icons.dart';
 
 /// Large stepper control for Gym Mode — value plus [-]/[+] buttons sized to
 /// a minimum 56x56dp touch target for sweaty-hands ergonomics.
@@ -39,7 +40,7 @@ class SetInput extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _StepButton(icon: Icons.remove, onTap: onDecrement),
+              _StepButton(icon: AppIcons.minus, onTap: onDecrement),
               const SizedBox(width: AppSpacing.xs),
               SizedBox(
                 width: 90,
@@ -50,7 +51,7 @@ class SetInput extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AppSpacing.xs),
-              _StepButton(icon: Icons.add, onTap: onIncrement),
+              _StepButton(icon: AppIcons.plus, onTap: onIncrement),
             ],
           ),
         ),

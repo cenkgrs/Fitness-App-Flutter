@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/models/enums.dart';
 import '../providers/exercise_image_provider.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_typography.dart';
 import 'muscle_group_visuals.dart';
 
 /// Shows a real exercise photo (looked up from wger.de by name) when one is
@@ -40,7 +42,6 @@ class ExerciseVisual extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final imageUrlAsync = ref.watch(exerciseImageProvider(exerciseName));
-    final color = muscleGroupColor(muscleGroup);
 
     final imageUrl = imageUrlAsync.valueOrNull;
     if (imageUrl != null) {
@@ -51,30 +52,30 @@ class ExerciseVisual extends ConsumerWidget {
           width: width,
           height: height,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stack) => _iconFallback(l10n, color),
+          errorBuilder: (context, error, stack) => _iconFallback(l10n),
           loadingBuilder: (context, child, progress) =>
-              progress == null ? child : _iconFallback(l10n, color),
+              progress == null ? child : _iconFallback(l10n),
         ),
       );
     }
 
-    return ClipRRect(borderRadius: borderRadius, child: _iconFallback(l10n, color));
+    return ClipRRect(borderRadius: borderRadius, child: _iconFallback(l10n));
   }
 
-  Widget _iconFallback(AppLocalizations l10n, Color color) {
+  Widget _iconFallback(AppLocalizations l10n) {
     return Container(
       width: width,
       height: height,
-      color: color.withValues(alpha: 0.16),
+      color: AppColors.surface2,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(muscleGroupIcon(muscleGroup), color: color, size: height * 0.36),
+            Icon(muscleGroupIcon(muscleGroup), color: AppColors.textSecondary, size: height * 0.34),
             if (showLabel) ...[
               const SizedBox(height: 4),
               Text(muscleGroupLabel(l10n, muscleGroup),
-                  style: TextStyle(color: color, fontSize: 11)),
+                  style: AppTypography.caption.copyWith(fontSize: 11)),
             ],
           ],
         ),

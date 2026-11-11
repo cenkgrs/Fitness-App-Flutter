@@ -1,5 +1,11 @@
 import '../../../shared/models/models.dart';
 
+/// Thrown by [AuthRepository.signUpWithEmail] when the account was created
+/// but the backend wants the email address confirmed before signing in.
+class EmailConfirmationRequired implements Exception {
+  const EmailConfirmationRequired();
+}
+
 /// Abstraction over authentication. The local/mock implementation lets the
 /// app run fully offline; swap in a Firebase/Supabase implementation later
 /// without touching call sites (AuthController, screens).

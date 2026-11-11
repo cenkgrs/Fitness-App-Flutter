@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import '../../../../core/providers/health_providers.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/models/models.dart';
 import '../../../../shared/services/health_service.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../goals/presentation/controllers/goal_providers.dart';
@@ -14,7 +17,10 @@ import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../profile/presentation/controllers/profile_providers.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
+import '../../../workouts/presentation/workout_names.dart';
 import '../widgets/streak_tracker_card.dart';
+import '../../../../shared/utils/text_case.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -22,13 +28,13 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final localeObj = Localizations.localeOf(context);
+    final locale = localeObj.toLanguageTag();
     final profileAsync = ref.watch(userProfileProvider);
     final user = ref.watch(authStateProvider).valueOrNull;
     final nutritionAsync = ref.watch(dailyNutritionProvider);
     final todayWorkoutAsync = ref.watch(todaysWorkoutDayProvider);
     final consistencyAsync = ref.watch(consistencyProvider);
-    final goalAsync = ref.watch(activeGoalProvider);
-    final formatter = ref.watch(weightFormatterProvider);
 
     final hour = DateTime.now().hour;
     final greeting = hour < 12
@@ -37,94 +43,57 @@ class HomeScreen extends ConsumerWidget {
     final name = profileAsync.valueOrNull?.name.isNotEmpty == true
         ? profileAsync.valueOrNull!.name
         : (user?.displayName ?? l10n.homeDefaultAthleteName);
+    final today = DateFormat.MMMMEEEEd(locale).format(DateTime.now());
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
+        toolbarHeight: 76,
+        titleSpacing: AppSpacing.screenMargin,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('$greeting, $name', style: AppTypography.headingMd),
-                  Text(l10n.homeReadySubtitle, style: AppTypography.caption),
-                ],
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.chat_bubble_outline),
-              tooltip: l10n.aiChatTitle,
-              onPressed: () => context.push('/coach'),
-            ),
-            const CircleAvatar(radius: 22, backgroundColor: AppColors.surface2, child: Icon(Icons.person)),
+            Text(upperForLocale(today, localeObj.languageCode), style: AppTypography.overline),
+            const SizedBox(height: 2),
+            Text('$greeting, $name', style: AppTypography.headingMd, overflow: TextOverflow.ellipsis),
           ],
         ),
-        toolbarHeight: 72,
+        actions: [
+          IconButton(
+            icon: const Icon(AppIcons.chatCircleText),
+            tooltip: l10n.aiChatTitle,
+            onPressed: () => context.push('/coach'),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.screenMargin, left: AppSpacing.xs),
+            child: _Avatar(name: name),
+          ),
+        ],
       ),
       body: RefreshIndicator(
         color: AppColors.primary,
+        backgroundColor: AppColors.surface1,
         onRefresh: () async {
           ref.invalidate(dailyNutritionProvider);
           ref.invalidate(consistencyProvider);
           ref.invalidate(todaysWorkoutDayProvider);
+          ref.invalidate(weightEntriesProvider);
         },
         child: ListView(
-          padding: const EdgeInsets.all(AppSpacing.screenMargin),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.screenMargin,
+            AppSpacing.sm,
+            AppSpacing.screenMargin,
+            AppSpacing.xxl,
+          ),
           children: [
             consistencyAsync.when(
-              loading: () => const LoadingShimmer(height: 88),
+              loading: () => const LoadingShimmer(height: 76),
               error: (e, st) => const SizedBox.shrink(),
               data: (c) => StreakTrackerCard(consistency: c),
             ),
             const SizedBox(height: AppSpacing.xl),
-            const _HealthStatsCard(),
-            const SizedBox(height: AppSpacing.xl),
-            nutritionAsync.when(
-              loading: () => const LoadingShimmer(height: 160),
-              error: (e, st) => const SizedBox.shrink(),
-              data: (nutrition) => AppCard(
-                child: Row(
-                  children: [
-                    ProgressRing(
-                      size: 100,
-                      strokeWidth: 10,
-                      centerValue: nutrition.consumedCalories.round().toString(),
-                      centerLabel: l10n.homeCaloriesLeft(nutrition.remainingCalories.round()),
-                      rings: [
-                        RingData(progress: nutrition.calorieProgress, color: AppColors.calories),
-                      ],
-                    ),
-                    const SizedBox(width: AppSpacing.lg),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          MacroProgress(
-                              label: l10n.macroProtein,
-                              consumed: nutrition.consumedProteinG,
-                              goal: nutrition.proteinGoal.toDouble(),
-                              color: AppColors.protein),
-                          const SizedBox(height: AppSpacing.sm),
-                          MacroProgress(
-                              label: l10n.macroCarbs,
-                              consumed: nutrition.consumedCarbsG,
-                              goal: nutrition.carbsGoal.toDouble(),
-                              color: AppColors.carbs),
-                          const SizedBox(height: AppSpacing.sm),
-                          MacroProgress(
-                              label: l10n.macroFat,
-                              consumed: nutrition.consumedFatG,
-                              goal: nutrition.fatGoal.toDouble(),
-                              color: AppColors.fat),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.xl),
-            Text(l10n.homeTodaysWorkoutLabel, style: AppTypography.caption),
+            Text(l10n.homeTodaysWorkoutLabel, style: AppTypography.overline),
             const SizedBox(height: AppSpacing.sm),
             todayWorkoutAsync.when(
               loading: () => const LoadingShimmer(height: 140),
@@ -132,27 +101,34 @@ class HomeScreen extends ConsumerWidget {
               data: (day) {
                 if (day == null || day.isRestDay) {
                   return AppCard(
-                    child: Text(
-                      day?.isRestDay == true ? l10n.homeRestDayMessage : l10n.homeNoWorkoutPlanned,
-                      style: AppTypography.bodyMd,
+                    child: Row(
+                      children: [
+                        const Icon(AppIcons.moon, color: AppColors.textSecondary),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: Text(
+                            day?.isRestDay == true ? l10n.homeRestDayMessage : l10n.homeNoWorkoutPlanned,
+                            style: AppTypography.bodyMd,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 }
                 return AppCard(
-                  accentColor: AppColors.primary,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(day.name, style: AppTypography.headingMd),
+                      Text(workoutDayName(l10n, day.name), style: AppTypography.headingLg),
                       const SizedBox(height: AppSpacing.xs),
                       Text(
                         l10n.homeWorkoutSummary(day.estimatedDuration.inMinutes, day.exercises.length),
-                        style: AppTypography.caption,
+                        style: AppTypography.bodyMd,
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       PrimaryButton(
                         label: l10n.homeStartWorkout,
-                        icon: Icons.play_arrow,
+                        icon: AppIcons.playFill,
                         onPressed: () => context.push('/workout/active/${day.id}'),
                       ),
                     ],
@@ -161,83 +137,41 @@ class HomeScreen extends ConsumerWidget {
               },
             ),
             const SizedBox(height: AppSpacing.xl),
-            goalAsync.when(
-              loading: () => const LoadingShimmer(height: 90),
+            Text(upperForLocale(l10n.nutritionToday, localeObj.languageCode), style: AppTypography.overline),
+            const SizedBox(height: AppSpacing.sm),
+            nutritionAsync.when(
+              loading: () => const LoadingShimmer(height: 150),
               error: (e, st) => const SizedBox.shrink(),
-              data: (goal) {
-                if (goal == null || goal.targetWeightKg == null || goal.currentWeightKg == null) {
-                  return const SizedBox.shrink();
-                }
-                final remaining = (goal.currentWeightKg! - goal.targetWeightKg!).abs();
-                final progress = ((goal.currentWeightKg! - goal.targetWeightKg!).abs() < 0.01)
-                    ? 1.0
-                    : 0.3; // placeholder until multiple weight entries exist
-                return AppCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(l10n.homeWeightGoalLabel, style: AppTypography.caption),
-                          Text(
-                            '${formatter.format(goal.currentWeightKg!)} → ${formatter.format(goal.targetWeightKg!)}',
-                            style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(99),
-                        child: LinearProgressIndicator(
-                          value: progress.clamp(0, 1),
-                          minHeight: 6,
-                          backgroundColor: AppColors.surface2,
-                          valueColor: const AlwaysStoppedAnimation(AppColors.primary),
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(l10n.homeWeightRemaining(remaining.toStringAsFixed(1)), style: AppTypography.caption),
-                    ],
-                  ),
-                );
-              },
+              data: (nutrition) => _NutritionSummary(nutrition: nutrition),
             ),
+            const SizedBox(height: AppSpacing.md),
+            const _HealthStatsCard(),
+            const _WeightGoalCard(),
             const SizedBox(height: AppSpacing.xl),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              mainAxisSpacing: AppSpacing.md,
-              crossAxisSpacing: AppSpacing.md,
-              childAspectRatio: 1.5,
+            Row(
               children: [
-                _QuickAction(
-                  icon: Icons.play_circle_fill,
-                  label: l10n.homeStartWorkout,
-                  onTap: () {
-                    final day = todayWorkoutAsync.valueOrNull;
-                    if (day != null && !day.isRestDay) {
-                      context.push('/workout/active/${day.id}');
-                    } else {
-                      context.go('/workouts');
-                    }
-                  },
+                Expanded(
+                  child: _QuickAction(
+                    icon: AppIcons.forkKnife,
+                    label: l10n.homeQuickActionAddMeal,
+                    onTap: () => context.go('/nutrition'),
+                  ),
                 ),
-                _QuickAction(
-                  icon: Icons.add_circle,
-                  label: l10n.homeQuickActionAddMeal,
-                  onTap: () => context.go('/nutrition'),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: _QuickAction(
+                    icon: AppIcons.scales,
+                    label: l10n.homeQuickActionLogWeight,
+                    onTap: () => context.go('/progress'),
+                  ),
                 ),
-                _QuickAction(
-                  icon: Icons.monitor_weight,
-                  label: l10n.homeQuickActionLogWeight,
-                  onTap: () => context.go('/progress'),
-                ),
-                _QuickAction(
-                  icon: Icons.insights,
-                  label: l10n.homeQuickActionViewProgress,
-                  onTap: () => context.go('/progress'),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: _QuickAction(
+                    icon: AppIcons.chartLineUp,
+                    label: l10n.homeQuickActionViewProgress,
+                    onTap: () => context.go('/progress'),
+                  ),
                 ),
               ],
             ),
@@ -245,7 +179,173 @@ class HomeScreen extends ConsumerWidget {
             // Real gating (hide for subscribers) lands once RevenueCat is
             // wired in — see subscriptionStatusProvider.
             const Center(child: AdBanner()),
-            const SizedBox(height: AppSpacing.xl),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Avatar extends StatelessWidget {
+  final String name;
+  const _Avatar({required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    final initial = name.trim().isEmpty ? '' : name.trim().characters.first.toUpperCase();
+    return GestureDetector(
+      onTap: () => context.go('/profile'),
+      child: Container(
+        width: 40,
+        height: 40,
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(color: AppColors.surface2, shape: BoxShape.circle),
+        child: initial.isEmpty
+            ? const Icon(AppIcons.user, size: 20, color: AppColors.textSecondary)
+            : Text(initial, style: AppTypography.headingSm),
+      ),
+    );
+  }
+}
+
+class _NutritionSummary extends StatelessWidget {
+  final DailyNutrition nutrition;
+  const _NutritionSummary({required this.nutrition});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final consumed = nutrition.consumedCalories.round();
+    final remaining = nutrition.remainingCalories.round();
+    return AppCard(
+      onTap: () => context.go('/nutrition'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(NumberFormat.decimalPattern().format(consumed), style: AppTypography.displayMd),
+              const SizedBox(width: AppSpacing.xs),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text('/ ${NumberFormat.decimalPattern().format(nutrition.calorieGoal)} kcal',
+                    style: AppTypography.bodyMd),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  l10n.homeCaloriesLeft(remaining < 0 ? 0 : remaining),
+                  style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _Bar(progress: nutrition.calorieProgress.toDouble(), color: AppColors.calories, height: 8),
+          const SizedBox(height: AppSpacing.lg),
+          Row(
+            children: [
+              Expanded(
+                child: MacroProgress(
+                  label: l10n.macroProtein,
+                  consumed: nutrition.consumedProteinG,
+                  goal: nutrition.proteinGoal.toDouble(),
+                  color: AppColors.protein,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.lg),
+              Expanded(
+                child: MacroProgress(
+                  label: l10n.macroCarbs,
+                  consumed: nutrition.consumedCarbsG,
+                  goal: nutrition.carbsGoal.toDouble(),
+                  color: AppColors.carbs,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.lg),
+              Expanded(
+                child: MacroProgress(
+                  label: l10n.macroFat,
+                  consumed: nutrition.consumedFatG,
+                  goal: nutrition.fatGoal.toDouble(),
+                  color: AppColors.fat,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Bar extends StatelessWidget {
+  final double progress;
+  final Color color;
+  final double height;
+  const _Bar({required this.progress, required this.color, this.height = 6});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppRadius.full),
+      child: LinearProgressIndicator(
+        value: progress.clamp(0.0, 1.0),
+        minHeight: height,
+        backgroundColor: AppColors.surface2,
+        valueColor: AlwaysStoppedAnimation(color),
+      ),
+    );
+  }
+}
+
+/// Start weight (captured in the goal at onboarding) → latest logged weight
+/// → target. Hidden until a target exists.
+class _WeightGoalCard extends ConsumerWidget {
+  const _WeightGoalCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final goal = ref.watch(activeGoalProvider).valueOrNull;
+    final entries = ref.watch(weightEntriesProvider).valueOrNull ?? const <WeightEntry>[];
+    final formatter = ref.watch(weightFormatterProvider);
+    final start = goal?.currentWeightKg;
+    final target = goal?.targetWeightKg;
+    if (start == null || target == null) return const SizedBox.shrink();
+
+    final latest = entries.isEmpty
+        ? start
+        : entries.reduce((a, b) => a.date.isAfter(b.date) ? a : b).weightKg;
+    final totalChange = (start - target).abs();
+    final progress = totalChange < 0.01
+        ? 1.0
+        : ((start - latest) / (start - target)).clamp(0.0, 1.0);
+    final remaining = (latest - target).abs();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.md),
+      child: AppCard(
+        onTap: () => context.push('/goals'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(l10n.homeWeightGoalLabel, style: AppTypography.overline),
+                const Spacer(),
+                Text(
+                  '${formatter.format(latest)} → ${formatter.format(target)}',
+                  style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.md),
+            _Bar(progress: progress, color: AppColors.primary),
+            const SizedBox(height: AppSpacing.sm),
+            Text(l10n.homeWeightRemaining(remaining.toStringAsFixed(1)), style: AppTypography.caption),
           ],
         ),
       ),
@@ -278,10 +378,10 @@ class _HealthStatsCard extends ConsumerWidget {
             },
             child: Row(
               children: [
-                const Icon(Icons.favorite_border, color: AppColors.primary, size: 20),
-                const SizedBox(width: AppSpacing.sm),
+                const Icon(AppIcons.heartbeat, color: AppColors.textSecondary, size: 20),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(child: Text(l10n.healthConnectPrompt, style: AppTypography.bodyMd)),
-                const Icon(Icons.chevron_right, color: AppColors.textTertiary),
+                const Icon(AppIcons.caretRight, color: AppColors.textTertiary, size: 18),
               ],
             ),
           );
@@ -291,15 +391,16 @@ class _HealthStatsCard extends ConsumerWidget {
             children: [
               Expanded(
                 child: _HealthStat(
-                  icon: Icons.directions_walk,
-                  value: '${stats.steps}',
+                  icon: AppIcons.footprints,
+                  value: NumberFormat.decimalPattern().format(stats.steps),
                   label: l10n.healthStepsLabel,
                 ),
               ),
-              Container(width: 1, height: 32, color: AppColors.surfaceBorder),
+              Container(width: 1, height: 36, color: AppColors.surfaceBorder),
+              const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: _HealthStat(
-                  icon: Icons.local_fire_department,
+                  icon: AppIcons.fire,
                   value: stats.activeCaloriesBurned.round().toString(),
                   label: l10n.healthCaloriesBurnedLabel,
                 ),
@@ -320,12 +421,17 @@ class _HealthStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Icon(icon, color: AppColors.primary, size: 20),
-        const SizedBox(height: AppSpacing.xs),
-        Text(value, style: AppTypography.headingSm),
-        Text(label, style: AppTypography.caption),
+        Icon(icon, color: AppColors.textSecondary, size: 20),
+        const SizedBox(width: AppSpacing.md),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(value, style: AppTypography.headingSm),
+            Text(label, style: AppTypography.caption),
+          ],
+        ),
       ],
     );
   }
@@ -341,12 +447,17 @@ class _QuickAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCard(
       onTap: onTap,
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.md),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: AppColors.primary, size: 28),
+          Icon(icon, color: AppColors.textPrimary, size: 22),
           const SizedBox(height: AppSpacing.sm),
-          Text(label, style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary), textAlign: TextAlign.center),
+          Text(
+            label,
+            style: AppTypography.caption.copyWith(color: AppColors.textPrimary),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
         ],
       ),
     );

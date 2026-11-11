@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../subscription/presentation/controllers/subscription_gate.dart';
 import '../controllers/workout_providers.dart';
+import '../../../../shared/utils/text_case.dart';
+import '../workout_names.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class WorkoutsScreen extends ConsumerWidget {
   const WorkoutsScreen({super.key});
@@ -46,7 +50,7 @@ class WorkoutsScreen extends ConsumerWidget {
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Icon(Icons.auto_awesome),
+                : const Icon(AppIcons.sparkle),
             tooltip: l10n.workoutsAiUpdateTooltip,
             onPressed: aiRegenState.isLoading
                 ? null
@@ -69,7 +73,7 @@ class WorkoutsScreen extends ConsumerWidget {
         data: (program) {
           if (program == null) {
             return EmptyState(
-              icon: Icons.fitness_center,
+              icon: AppIcons.barbell,
               title: l10n.homeNoWorkoutPlanned,
               message: l10n.workoutsOnboardingCta,
               ctaLabel: l10n.workoutsCreateMyPlan,
@@ -83,23 +87,39 @@ class WorkoutsScreen extends ConsumerWidget {
               {};
           final todayWeekday = DateTime.now().weekday;
 
+          final lang = Localizations.localeOf(context).languageCode;
           return ListView.separated(
-            padding: const EdgeInsets.all(AppSpacing.screenMargin),
-            itemCount: program.days.length,
-            separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
-            itemBuilder: (context, index) {
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.screenMargin,
+              0,
+              AppSpacing.screenMargin,
+              AppSpacing.xxl,
+            ),
+            itemCount: program.days.length + 1,
+            separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.lg),
+            itemBuilder: (context, i) {
+              if (i == 0) {
+                return Text(workoutProgramName(l10n, program.name), style: AppTypography.bodyMd);
+              }
+              final index = i - 1;
               final day = program.days[index];
+              final isToday = day.dayOfWeek == todayWeekday;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-                    child: Text(dayNames[index], style: AppTypography.caption),
+                    padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                    child: Text(
+                      upperForLocale(dayNames[index], lang),
+                      style: AppTypography.overline.copyWith(
+                        color: isToday ? AppColors.primary : AppColors.textTertiary,
+                      ),
+                    ),
                   ),
                   WorkoutCard(
                     day: day,
                     isCompleted: completedDayIds.contains(day.id),
-                    isToday: day.dayOfWeek == todayWeekday && !day.isRestDay,
+                    isToday: isToday && !day.isRestDay,
                     onTap: day.isRestDay ? null : () => context.push('/workouts/day/${day.id}'),
                   ),
                 ],

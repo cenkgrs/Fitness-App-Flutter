@@ -106,7 +106,7 @@ class LineChartCard extends StatelessWidget {
                     // A single point has no line to draw, so it'd otherwise
                     // render as an empty-looking card — show the dot then.
                     dotData: FlDotData(show: points.length == 1),
-                    belowBarData: BarAreaData(show: true, color: lineColor.withOpacity(0.12)),
+                    belowBarData: BarAreaData(show: true, color: lineColor.withValues(alpha: 0.12)),
                   ),
                 ],
               ),

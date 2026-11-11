@@ -9,6 +9,7 @@ import '../../../nutrition/presentation/controllers/nutrition_providers.dart';
 import '../../../settings/presentation/controllers/settings_controller.dart';
 import '../../../workouts/presentation/controllers/workout_providers.dart';
 import '../controllers/goal_providers.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class GoalsScreen extends ConsumerWidget {
   const GoalsScreen({super.key});
@@ -32,7 +33,7 @@ class GoalsScreen extends ConsumerWidget {
         data: (goal) {
           if (goal == null) {
             return EmptyState(
-                icon: Icons.flag_outlined, title: l10n.goalsEmptyTitle, message: l10n.goalsEmptyMessage);
+                icon: AppIcons.flag, title: l10n.goalsEmptyTitle, message: l10n.goalsEmptyMessage);
           }
           final weeklyCompleted = consistencyAsync.valueOrNull?.completedByDay.where((d) => d).length ?? 0;
 

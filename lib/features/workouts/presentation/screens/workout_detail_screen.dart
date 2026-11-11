@@ -8,6 +8,8 @@ import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/models.dart';
 import '../controllers/workout_providers.dart';
+import '../workout_names.dart';
+import '../../../../core/theme/app_icons.dart';
 
 class WorkoutDetailScreen extends ConsumerWidget {
   final String dayId;
@@ -33,21 +35,11 @@ class WorkoutDetailScreen extends ConsumerWidget {
             slivers: [
               SliverAppBar(
                 pinned: true,
-                expandedHeight: 160,
+                expandedHeight: 120,
                 backgroundColor: AppColors.background,
                 flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsets.only(left: AppSpacing.lg, bottom: AppSpacing.md),
-                  title: Text(day.name, style: AppTypography.headingMd),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [AppColors.surface2, AppColors.background],
-                      ),
-                    ),
-                    child: const Center(child: Icon(Icons.accessibility_new, size: 72, color: AppColors.surfaceBorder)),
-                  ),
+                  titlePadding: const EdgeInsets.only(left: AppSpacing.screenMargin, bottom: AppSpacing.md),
+                  title: Text(workoutDayName(l10n, day.name), style: AppTypography.headingMd),
                 ),
               ),
               SliverPadding(
@@ -75,7 +67,7 @@ class WorkoutDetailScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 child: PrimaryButton(
                   label: l10n.workoutDetailStartButton,
-                  icon: Icons.play_arrow,
+                  icon: AppIcons.playFill,
                   onPressed: () => context.push('/workout/active/$dayId'),
                 ),
               ),

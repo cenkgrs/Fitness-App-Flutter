@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 
-/// Repwise dark, high-contrast "gym mode" color tokens.
+/// THRIVE+ color tokens: warm charcoal surfaces, cream text and a single
+/// terracotta accent. Everything else stays neutral so the accent only
+/// marks what's actionable or in progress.
 class AppColors {
   AppColors._();
 
   // Backgrounds & Surfaces
-  static const Color background = Color(0xFF0D0E11);
-  static const Color surface1 = Color(0xFF16181D);
-  static const Color surface2 = Color(0xFF20232B);
-  static const Color surfaceBorder = Color(0xFF2A2E39);
+  static const Color background = Color(0xFF141210);
+  static const Color surface1 = Color(0xFF1C1916);
+  static const Color surface2 = Color(0xFF26221E);
+  static const Color surfaceBorder = Color(0xFF332E29);
 
   // Accent & Brand
-  static const Color primary = Color(0xFFCCFF00);
-  static const Color primaryDark = Color(0xFFA6D600);
-  static const Color primarySoft = Color(0x1ACCFF00);
+  static const Color primary = Color(0xFFE8572A);
+  static const Color primaryDark = Color(0xFFC4441D);
+  static const Color primarySoft = Color(0x24E8572A);
 
   // Text
-  static const Color textPrimary = Color(0xFFFFFFFF);
-  static const Color textSecondary = Color(0xFFA0A5B5);
-  static const Color textTertiary = Color(0xFF656B7D);
+  static const Color textPrimary = Color(0xFFF3EEE7);
+  static const Color textSecondary = Color(0xFFA39A8F);
+  static const Color textTertiary = Color(0xFF6E665D);
 
-  // Nutrition semantics
-  static const Color protein = Color(0xFF38B6FF);
-  static const Color carbs = Color(0xFFFF9F1C);
-  static const Color fat = Color(0xFFFF4081);
-  static const Color calories = Color(0xFFCCFF00);
+  // Nutrition semantics — one accent plus two earthy neutrals, so the three
+  // macros stay distinguishable without turning into a rainbow.
+  static const Color protein = primary;
+  static const Color carbs = Color(0xFFD6A65C);
+  static const Color fat = Color(0xFF8C9F8A);
+  static const Color calories = primary;
 
   // Status
-  static const Color success = Color(0xFF00E676);
-  static const Color warning = Color(0xFFFFB300);
-  static const Color error = Color(0xFFFF3B30);
+  static const Color success = Color(0xFF7FA77A);
+  static const Color warning = Color(0xFFD9A441);
+  static const Color error = Color(0xFFD9483B);
 
   // On-color text (used on top of primary/success buttons)
-  static const Color onPrimary = background;
+  static const Color onPrimary = Color(0xFF17100C);
 }

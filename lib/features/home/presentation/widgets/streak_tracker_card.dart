@@ -3,18 +3,23 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/widgets.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/services/consistency_service.dart';
+import '../../../../core/theme/app_icons.dart';
 
+/// This week, Monday first: a filled dot for each day trained, a ring on
+/// today, plus the running streak.
 class StreakTrackerCard extends StatelessWidget {
   final WeeklyConsistency consistency;
   const StreakTrackerCard({super.key, required this.consistency});
 
-  static const _labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final labels = l10n.weekdayInitials.split(',');
     final todayIndex = DateTime.now().weekday - 1;
     return AppCard(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
       child: Row(
         children: [
           Expanded(
@@ -25,37 +30,54 @@ class StreakTrackerCard extends StatelessWidget {
                 final isToday = i == todayIndex;
                 return Column(
                   children: [
+                    Text(
+                      labels.length == 7 ? labels[i] : '',
+                      style: AppTypography.caption.copyWith(
+                        color: isToday ? AppColors.textPrimary : AppColors.textTertiary,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
                     Container(
-                      width: 32,
-                      height: 32,
+                      width: 26,
+                      height: 26,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: done ? AppColors.primary : Colors.transparent,
-                        border: Border.all(
-                          color: isToday
-                              ? AppColors.primary
-                              : (done ? AppColors.primary : AppColors.surfaceBorder),
-                          width: isToday ? 1.5 : 1,
-                          style: isToday ? BorderStyle.solid : BorderStyle.solid,
-                        ),
+                        color: done ? AppColors.primary : AppColors.surface2,
+                        border: isToday && !done
+                            ? Border.all(color: AppColors.textPrimary, width: 1.5)
+                            : null,
                       ),
                       child: done
-                          ? const Icon(Icons.check, size: 16, color: AppColors.onPrimary)
-                          : Text('—', style: AppTypography.caption),
+                          ? const Icon(AppIcons.checkBold, size: 13, color: AppColors.onPrimary)
+                          : null,
                     ),
-                    const SizedBox(height: 4),
-                    Text(_labels[i], style: AppTypography.caption),
                   ],
                 );
               }),
             ),
           ),
-          const SizedBox(width: AppSpacing.md),
+          Container(
+            width: 1,
+            height: 44,
+            margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            color: AppColors.surfaceBorder,
+          ),
           Column(
             children: [
-              const Text('🔥', style: TextStyle(fontSize: 18)),
-              Text('${consistency.currentStreak}d', style: AppTypography.bodyMd.copyWith(color: AppColors.textPrimary)),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    AppIcons.fireFill,
+                    size: 18,
+                    color: consistency.currentStreak > 0 ? AppColors.primary : AppColors.textTertiary,
+                  ),
+                  const SizedBox(width: 2),
+                  Text('${consistency.currentStreak}', style: AppTypography.headingMd),
+                ],
+              ),
+              Text(l10n.streakLabel, style: AppTypography.caption),
             ],
           ),
         ],

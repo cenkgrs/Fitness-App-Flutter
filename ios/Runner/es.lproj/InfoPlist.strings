@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "THRIVE+ usa la cámara para escanear códigos de barras de alimentos.";
+"NSHealthShareUsageDescription" = "THRIVE+ lee tus pasos y calorías activas de Salud para mostrarlos en tu resumen diario.";
+"NSHealthUpdateUsageDescription" = "THRIVE+ no escribe en Salud. iOS exige este permiso a las apps que leen datos de salud.";
+"NSUserTrackingUsageDescription" = "Se usa para mostrarte anuncios más relevantes.";
