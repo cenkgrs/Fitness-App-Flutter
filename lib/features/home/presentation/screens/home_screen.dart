@@ -21,6 +21,7 @@ import '../../../workouts/presentation/workout_names.dart';
 import '../widgets/streak_tracker_card.dart';
 import '../../../../shared/utils/text_case.dart';
 import '../../../../core/theme/app_icons.dart';
+import '../../../subscription/presentation/controllers/subscription_providers.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -180,9 +181,9 @@ class HomeScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: AppSpacing.xl),
-            // Real gating (hide for subscribers) lands once RevenueCat is
-            // wired in — see subscriptionStatusProvider.
-            const Center(child: AdBanner()),
+            // Premium removes ads; while the status is loading, hold off
+            // rather than flash a banner at a subscriber.
+            if (ref.watch(subscriptionStatusProvider).valueOrNull == false) const Center(child: AdBanner()),
           ],
         ),
       ),

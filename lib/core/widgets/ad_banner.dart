@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/ad_config.dart';
+import '../services/ads_consent.dart';
 
 /// A standard-size AdMob banner. Renders nothing until the ad actually
 /// loads, so it never reserves blank space or shifts layout while loading
@@ -18,12 +19,32 @@ class _AdBannerState extends State<AdBanner> {
   @override
   void initState() {
     super.initState();
+    if (AdsConsent.ready.value) {
+      _load();
+    } else {
+      AdsConsent.ready.addListener(_onConsentReady);
+    }
+  }
+
+  void _onConsentReady() {
+    if (!AdsConsent.ready.value) return;
+    AdsConsent.ready.removeListener(_onConsentReady);
+    if (mounted) _load();
+  }
+
+  void _load() {
     final ad = BannerAd(
       size: AdSize.banner,
       adUnitId: AdConfig.bannerAdUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() => _bannerAd = ad as BannerAd),
+        onAdLoaded: (ad) {
+          if (!mounted) {
+            ad.dispose();
+            return;
+          }
+          setState(() => _bannerAd = ad as BannerAd);
+        },
         onAdFailedToLoad: (ad, error) => ad.dispose(),
       ),
     );
@@ -32,6 +53,7 @@ class _AdBannerState extends State<AdBanner> {
 
   @override
   void dispose() {
+    AdsConsent.ready.removeListener(_onConsentReady);
     _bannerAd?.dispose();
     super.dispose();
   }

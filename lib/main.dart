@@ -5,7 +5,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -21,6 +20,7 @@ import 'features/settings/presentation/controllers/settings_controller.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/services/local_storage_service.dart';
 import 'core/utils/haptics_helper.dart';
+import 'core/services/ads_consent.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +43,6 @@ Future<void> main() async {
     };
   }
 
-  unawaited(MobileAds.instance.initialize());
   await NotificationService.init();
   unawaited(NotificationService.requestPermission());
   if (RevenueCatConfig.isConfigured) {
@@ -70,6 +69,11 @@ Future<void> main() async {
     }
   }
   runApp(const ProviderScope(child: RepwiseApp()));
+  // Consent prompts need a visible, active app, so they run once the first
+  // frame is up rather than during startup.
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Future.delayed(const Duration(milliseconds: 600), AdsConsent.gatherAndStartAds);
+  });
 }
 
 class RepwiseApp extends ConsumerWidget {
